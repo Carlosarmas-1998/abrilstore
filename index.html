@@ -25,24 +25,16 @@
             --bg-card: #141414;
         }
 
-        /* Animaciones Generales */
+        /* Animaciones */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* NUEVA ANIMACIÓN DINÁMICA PARA SHEIN */
+        /* ANIMACIÓN DINÁMICA PARA SHEIN */
         @keyframes sheinPulse {
-            0% {
-                transform: scale(1);
-                text-shadow: 0 0 5px rgba(232, 195, 176, 0.4);
-                color: #ffffff;
-            }
-            100% {
-                transform: scale(1.15);
-                text-shadow: 0 0 15px var(--acento), 0 0 25px var(--acento);
-                color: var(--acento);
-            }
+            0% { transform: scale(1); text-shadow: 0 0 5px rgba(232, 195, 176, 0.4); color: #ffffff; }
+            100% { transform: scale(1.1); text-shadow: 0 0 15px var(--acento); color: var(--acento); }
         }
 
         .shein-dynamic {
@@ -50,10 +42,9 @@
             display: inline-block;
             animation: sheinPulse 1.5s infinite alternate ease-in-out;
             letter-spacing: 2px;
-            margin: 0 5px;
         }
 
-        /* Barra Superior (Top Bar) */
+        /* Barra Superior */
         .top-bar {
             background-color: #000;
             color: var(--gris);
@@ -63,10 +54,6 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             border-bottom: 1px solid #222;
-        }
-        .top-bar a {
-            color: var(--acento);
-            font-weight: 500;
         }
 
         /* Encabezado */
@@ -85,344 +72,125 @@
         }
         .logo {
             font-family: 'Cinzel', serif;
-            font-size: 32px;
-            font-weight: 500;
+            font-size: 28px;
             letter-spacing: 6px;
             color: var(--acento);
         }
-        .location {
-            font-size: 11px;
-            color: var(--gris);
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
 
-        /* Hero Section */
+        /* Hero Section - IMAGEN PRO QUE NO SE RECORTE */
         .hero {
             min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=2000') center/contain no-repeat;
-            background-color: #0a0a0a;
-            padding: 60px 20px;
+            /* Imagen de mujer de alta costura */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1600') center/contain no-repeat;
+            background-color: #000;
+            padding: 40px 20px;
         }
-        .hero-content { animation: fadeUp 1s ease-out; max-width: 900px; width: 100%; }
-        .badge-spain {
-            display: inline-block;
-            background: transparent;
-            color: var(--acento);
-            padding: 6px 18px;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 3px;
-            margin-bottom: 25px;
-            border: 1px solid var(--acento);
-            text-transform: uppercase;
-        }
-        .hero h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 48px;
-            font-weight: 400;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            letter-spacing: 2px;
-        }
-        .hero h1 span { color: var(--acento); font-style: italic; }
-        .hero p {
-            font-size: 15px;
-            color: #ccc;
-            margin-bottom: 40px;
-            font-weight: 300;
-            line-height: 1.8;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        .hero-content { animation: fadeUp 1s ease-out; max-width: 800px; padding: 25px; border-radius: 12px; }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: 46px; margin-bottom: 20px; letter-spacing: 2px; color: #fff; }
+        .hero h1 span { color: var(--acento); }
+        .hero p { font-size: 16px; color: #eee; margin-bottom: 40px; line-height: 1.8; font-weight: 300; }
 
-        /* Botonera PRO en el Hero */
-        .action-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .btn-group-main {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn-group-cats {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
+        /* Botonera Principal */
+        .action-buttons { display: flex; flex-direction: column; gap: 20px; }
+        .btn-group-main { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
         
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 28px;
+            padding: 16px 30px;
             font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            transition: 0.3s;
             cursor: pointer;
-            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
-        .btn-primary {
-            background: var(--acento);
-            color: #000;
-            flex: 1;
-            min-width: 200px;
-        }
-        .btn-primary:hover {
-            background: #fff;
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: transparent;
-            color: var(--acento);
-            border: 1px solid var(--acento);
-            flex: 1;
-            min-width: 200px;
-        }
-        .btn-secondary:hover {
-            background: rgba(232, 195, 176, 0.1);
-        }
+        .btn-primary { background: var(--acento); color: #000; }
+        .btn-primary:hover { background: #fff; transform: translateY(-3px); }
+        .btn-secondary { border: 1px solid var(--acento); color: var(--acento); background: rgba(0,0,0,0.5); }
+        .btn-secondary:hover { background: rgba(232, 195, 176, 0.2); }
+
+        /* Botones Categorías */
+        .btn-group-cats { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
         .btn-cat {
-            background: rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.7);
             color: #fff;
-            border: 1px solid #333;
             padding: 10px 20px;
             font-size: 11px;
             border-radius: 30px;
+            border: 1px solid #444;
         }
-        .btn-cat:hover {
-            border-color: var(--acento);
-            color: var(--acento);
-        }
+        .btn-cat:hover { border-color: var(--acento); color: var(--acento); background: rgba(255,255,255,0.1); }
 
-        /* SECCIÓN ACORDEÓN (Instrucciones Interactivas) */
-        .info-section {
-            padding: 80px 20px;
-            background: #121212;
-            border-top: 1px solid #222;
-        }
-        .accordion-container {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+        /* Acordeón de Información */
+        .info-section { padding: 60px 20px; background: #121212; }
+        .accordion-container { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
         
-        /* Estilos del Acordeón */
-        details {
-            background: var(--bg-card);
-            border: 1px solid #333;
-            border-radius: 5px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        details[open] {
-            border-color: var(--acento);
-            box-shadow: 0 5px 15px rgba(232, 195, 176, 0.05);
-        }
+        details { background: var(--bg-card); border: 1px solid #222; border-radius: 4px; }
         summary {
-            padding: 20px 25px;
+            padding: 20px;
             font-family: 'Cinzel', serif;
-            font-size: 18px;
-            color: #fff;
+            font-size: 16px;
             cursor: pointer;
             list-style: none;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            letter-spacing: 1px;
-            transition: background 0.3s;
-        }
-        summary::-webkit-details-marker {
-            display: none;
-        }
-        summary:hover {
-            background: rgba(255, 255, 255, 0.03);
             color: var(--acento);
         }
-        summary::after {
-            content: '+';
-            font-size: 24px;
-            color: var(--acento);
-            transition: transform 0.3s ease;
-        }
-        details[open] summary::after {
-            content: '−';
-            transform: rotate(180deg);
-        }
-        .details-content {
-            padding: 0 25px 25px 25px;
-            border-top: 1px solid #222;
-            margin-top: 15px;
-            padding-top: 15px;
-        }
-        .details-content p {
-            font-size: 14px;
-            color: var(--gris);
-            line-height: 1.7;
-            margin-bottom: 15px;
-        }
-        .details-content strong {
-            color: #fff;
-        }
-        .details-content ul {
-            list-style-type: none;
-            padding-left: 10px;
-        }
-        .details-content ul li {
-            font-size: 14px;
-            color: var(--gris);
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 20px;
-        }
-        .details-content ul li::before {
-            content: '▸';
-            color: var(--acento);
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
+        summary::after { content: '+'; color: var(--acento); font-size: 18px; }
+        details[open] summary::after { content: '-'; }
+        .details-content { padding: 0 20px 20px; font-size: 14px; color: var(--gris); line-height: 1.6; border-top: 1px solid #222; padding-top: 15px; }
+        .details-content strong { color: #fff; }
 
-        /* Contacto / Footer */
-        footer {
-            background: #000;
-            padding: 80px 20px 40px;
-            text-align: center;
-            border-top: 1px solid #222;
-        }
-        .footer-logo {
-            font-family: 'Cinzel', serif;
-            font-size: 30px;
-            letter-spacing: 5px;
-            color: var(--acento);
-            margin-bottom: 25px;
-        }
-        .contact-info {
-            margin-bottom: 40px;
-        }
-        .contact-info p {
-            color: var(--gris);
-            font-size: 13px;
-            margin: 10px 0;
-            letter-spacing: 1px;
-        }
-        .contact-info a {
-            color: var(--acento);
-            transition: color 0.3s;
-        }
-        .contact-info a:hover { color: #fff; }
-        .director {
-            color: #fff !important;
-            font-weight: 500;
-            text-transform: uppercase;
-            font-size: 11px !important;
-            letter-spacing: 2px;
-        }
-        .copyright {
-            font-size: 11px;
-            color: #555;
-            margin-top: 40px;
-        }
+        /* Footer */
+        footer { padding: 80px 20px 40px; text-align: center; background: #000; border-top: 1px solid #222; }
+        .footer-logo { font-family: 'Cinzel', serif; font-size: 24px; color: var(--acento); margin-bottom: 20px; letter-spacing: 4px; }
+        .contact-info p { font-size: 13px; color: var(--gris); margin: 8px 0; letter-spacing: 1px; }
+        .contact-info a { color: var(--acento); }
 
-        /* Botones Flotantes */
+        /* WhatsApp Flotante */
         .whatsapp-float {
-            position: fixed;
-            width: 55px;
-            height: 55px;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--wsap);
-            color: #FFF;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            transition: transform 0.3s;
+            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
+            background: var(--wsap); border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transition: 0.3s;
         }
         .whatsapp-float:hover { transform: scale(1.1); }
-        .email-float {
-            position: fixed;
-            left: 30px;
-            bottom: 30px;
-            background-color: var(--bg-card);
-            color: var(--acento);
-            border: 1px solid var(--acento);
-            padding: 15px 25px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
-        }
-        .email-float:hover {
-            background-color: var(--acento);
-            color: #000;
-            transform: translateY(-5px);
-        }
 
-        /* Responsivo */
+        /* Media Queries para móviles */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 36px; }
-            header { flex-direction: column; gap: 15px; padding: 20px; }
-            .btn-group-main { flex-direction: column; }
-            .email-float { left: 15px; bottom: 15px; padding: 12px 15px; }
-            .whatsapp-float { right: 15px; bottom: 15px; }
-            summary { font-size: 16px; padding: 15px 20px; }
+            header { padding: 15px 20px; }
+            .hero h1 { font-size: 34px; }
+            .hero p { font-size: 14px; }
+            .btn { padding: 12px 20px; font-size: 11px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        Atención al cliente: <a href="mailto:soporte@abrilstore.com">soporte@abrilstore.com</a> | Envíos directos desde España
-    </div>
+    <div class="top-bar">Atención al cliente: pedidos@storeabril.com | WhatsApp: +34 633182079</div>
 
     <header>
         <div class="logo">ABRIL</div>
-        <div class="location">📍 Honduras</div>
+        <div style="font-size: 11px; letter-spacing: 2px; color: var(--gris);">📍 CHOLUTECA</div>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-            <div class="badge-spain">Logística Internacional</div>
-            <h1>La moda que deseas, <br><span>ahora a tu alcance</span></h1>
-            <p>Especialistas en importación exclusiva de colecciones de <span class="shein-dynamic">SHEIN</span> Selecciona tu categoría, envíanos tu prenda y nosotros la llevamos hasta nuestro punto de encuentro local.</p>
+            <div class="badge-spain">Logística Europea</div>
+            <h1>Moda <span class="shein-dynamic">SHEIN</span> <br><span>En Choluteca</span></h1>
+            <p>Importación exclusiva desde España. Tú eliges en el catálogo, nosotros gestionamos todo y te entregamos en nuestro punto de encuentro local.</p>
             
             <div class="action-buttons">
                 <div class="btn-group-main">
-                    <a href="https://wa.me/TU_NUEVO_NUMERO?text=Hola%20Abril,%20tengo%20la%20foto%20de%20una%20prenda%20de%20SHEIN%20que%20quiero%20pedir.%20¿Me%20ayudas%20a%20cotizarla?" class="btn btn-primary" target="_blank">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                        Hacer mi pedido
-                    </a>
-                    <a href="#info-botones" class="btn btn-secondary">
-                        Ver Info de Compra
-                    </a>
+                    <a href="https://wa.me/34633182079?text=Hola%20Abril,%20quiero%20cotizar%20una%20prenda%20de%20SHEIN." class="btn btn-primary" target="_blank">Hacer mi pedido</a>
+                    <a href="#info-botones" class="btn btn-secondary">¿Cómo funciona?</a>
                 </div>
                 
                 <div class="btn-group-cats">
@@ -438,62 +206,48 @@
         <div class="accordion-container">
             
             <details>
-                <summary>📋 Instrucciones para Pedir</summary>
+                <summary>📋 Pasos para comprar</summary>
                 <div class="details-content">
-                    <ul>
-                        <li><strong>1. Elige tu Prenda:</strong> Utiliza los botones de categoría (Mujer, Niña, Niño) para explorar el catálogo de <span class="shein-dynamic">SHEIN</span></li>
-                        <li><strong>2. Toma Captura:</strong> Cuando encuentres la prenda que te gusta, tómale una foto o captura de pantalla.</li>
-                        <li><strong>3. Envíanos un Mensaje:</strong> Toca el botón "Hacer mi pedido" y mándanos la imagen por WhatsApp para cotizarte al instante.</li>
-                        <li><strong>4. Gestión de Importación:</strong> Nosotros nos encargamos de todo el proceso de compra internacional desde España hacia Honduras.</li>
-                    </ul>
+                    <p>1. Explora el catálogo de <span class="shein-dynamic">SHEIN</span> usando los botones de arriba.</p>
+                    <p>2. Envíanos una captura de pantalla por WhatsApp (+34 633182079).</p>
+                    <p>3. Te damos el precio final y gestionamos la compra directamente en España.</p>
                 </div>
             </details>
 
             <details>
                 <summary>💳 Formas de Pago</summary>
                 <div class="details-content">
-                    <p>Para tu tranquilidad y seguridad, manejamos el pago en dos fases muy transparentes:</p>
-                    <ul>
-                        <li><strong>Pago del Artículo:</strong> Al confirmar tu pedido, recibirás un enlace seguro de <strong>Stripe</strong> para cancelar con tarjeta. Este valor incluye el costo de la prenda en Europa y nuestra gestión de compra.</li>
-                        <li><strong>Pago de Logística:</strong> El valor del envío internacional se calcula por el peso de la prenda y lo cancelarás en efectivo o transferencia <strong>al momento de recoger tu paquete.</strong></li>
-                    </ul>
+                    <p><strong>Fase 1:</strong> El valor de la prenda se paga mediante un enlace seguro de <strong>Stripe</strong> (Tarjeta crédito/débito).</p>
+                    <p><strong>Fase 2:</strong> El costo del envío por peso se paga <strong>al recoger</strong> tu paquete en Choluteca.</p>
                 </div>
             </details>
 
             <details open>
-                <summary>📍 Entregas y Punto de Encuentro</summary>
+                <summary>📍 Punto de Entrega</summary>
                 <div class="details-content">
-                    <p><strong>Atención: No realizamos entregas a domicilio (puerta a puerta).</strong></p>
-                    <p>Para agilizar la logística y mantener los costos de envío accesibles, todas las entregas de los paquetes se realizan exclusivamente en un <strong>punto de encuentro seguro y céntrico</strong>.</p>
-                    <p>Nuestra cobertura operativa aplica únicamente para <strong>Choluteca</strong>. Al momento de que tu pedido llegue a Honduras, te contactaremos para coordinar el día y la hora de recogida en el punto acordado.</p>
+                    <p>Operamos exclusivamente en <strong>Choluteca</strong>.</p>
+                    <p><strong>Importante:</strong> No realizamos entregas a domicilio. Los pedidos se retiran en un <strong>punto de encuentro céntrico</strong> coordinado previamente por WhatsApp.</p>
                 </div>
             </details>
 
         </div>
     </section>
 
-    <a href="mailto:soporte@abrilstore.com" class="email-float" aria-label="Consúltanos por correo">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-        </svg>
-        Consúltame
-    </a>
-
-    <a href="https://wa.me/TU_NUEVO_NUMERO?text=Hola%20Abril,%20tengo%20la%20foto%20de%20una%20prenda%20de%20SHEIN%20que%20quiero%20pedir.%20¿Me%20ayudas%20a%20cotizarla?" class="whatsapp-float" target="_blank" aria-label="Escríbenos por WhatsApp">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-        </svg>
+    <a href="https://wa.me/34633182079" class="whatsapp-float" target="_blank">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
     </a>
 
     <footer>
-        <div class="footer-logo">ABRIL</div>
+        <div class="footer-logo">ABRIL STORE</div>
         <div class="contact-info">
-            <p>✉️ <a href="mailto:soporte@abrilstore.com">soporte@abrilstore.com</a></p>
+            <p>✈️ Despachos desde España</p>
+            <p>✉️ <a href="mailto:pedidos@storeabril.com">pedidos@storeabril.com</a></p>
+            <p>📱 WhatsApp: +34 633182079</p>
             <p>📍 Choluteca, Honduras</p>
-            <p>✈️ Despachos y Logística desde España</p>
+            <br>
+            <p class="director">Director General: Carlos Armas</p>
         </div>
-        <p class="copyright">&copy; 2026 ABRIL STORE. Todos los derechos reservados.</p>
+        <p class="copyright">&copy; 2026 ABRIL STORE.</p>
     </footer>
 
 </body>
