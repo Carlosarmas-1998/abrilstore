@@ -5,212 +5,243 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colección Dama | ABRIL VIP</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@100;200;300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* ==========================================================================
-           ESTÉTICA DIOR LUXE - VARIABLES GLOBALES
+           VARIABLES GLOBALES - MINIMALISMO DE LUJO
            ========================================================================== */
         :root {
-            --dior-black: #0a0a0a;
-            --dior-gold: #e8c3b0;
-            --dior-gray: #757575;
-            --white: #ffffff;
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-dark: #070707;
+            --bg-card: #0a0a0a;
+            --accent-gold: #c5a059; 
+            --text-main: #f0f0f0;
+            --text-muted: #666666;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         /* ==========================================================================
-           RESET Y ESTILOS BASE
+           RESET Y BASE
            ========================================================================== */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        
         body { 
             font-family: 'Montserrat', sans-serif; 
-            background-color: var(--dior-black); 
-            color: var(--white); 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
             overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4, .serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
         }
 
         /* ==========================================================================
-           NAVEGACIÓN SUPERIOR (NAVBAR)
+           HEADER INTELIGENTE
            ========================================================================== */
-        .nav-header {
-            position: fixed; top: 0; width: 100%; padding: 25px 50px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(15px); z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        header {
+            position: fixed; top: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: flex-start;
+            padding: 0 50px; background: rgba(7, 7, 7, 0.95); 
+            backdrop-filter: blur(10px); z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            transition: transform 0.4s ease;
         }
-        
-        .btn-back { 
-            color: var(--dior-gray); font-size: 10px; text-transform: uppercase; 
-            letter-spacing: 3px; font-weight: 500; transition: 0.3s; text-decoration: none; 
+        .header-hidden { transform: translateY(-100%); }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-muted); transition: var(--transition); text-decoration: none;
         }
-        
-        .btn-back:hover { color: var(--dior-gold); }
-        
-        .logo-mini { 
-            font-family: 'Cinzel', serif; font-size: 24px; letter-spacing: 10px; 
-            color: var(--white); position: absolute; left: 50%; transform: translateX(-50%); 
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+
+        /* ==========================================================================
+           ICONOS FIJOS
+           ========================================================================== */
+        .nav-actions-fixed {
+            position: fixed; top: 30px; right: 50px; display: flex; gap: 25px; 
+            z-index: 1100; align-items: center;
         }
-        
-        .nav-actions { display: flex; gap: 30px; align-items: center; }
-        
         .icon-wrapper { 
-            position: relative; cursor: pointer; color: #fff; font-size: 18px; transition: 0.3s; 
+            position: relative; cursor: pointer; color: var(--text-main); 
+            font-size: 16px; transition: var(--transition); 
         }
-        
-        .icon-wrapper:hover { color: var(--dior-gold); transform: scale(1.1); }
-        
+        .icon-wrapper:hover { color: var(--accent-gold); }
         .badge-count {
-            position: absolute; top: -8px; right: -10px; background: var(--dior-gold); color: #000;
-            font-size: 9px; font-weight: 800; width: 16px; height: 16px; border-radius: 50%;
+            position: absolute; top: -6px; right: -8px; background: var(--text-main); 
+            color: var(--bg-dark); font-size: 8px; font-weight: 500; 
+            width: 14px; height: 14px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
         }
 
         /* ==========================================================================
-           SECCIÓN HERO (TÍTULO Y PROMO)
+           INTRODUCCIÓN DIRECTA
            ========================================================================== */
-        .collection-hero { 
-            padding: 180px 20px 80px; text-align: center; max-width: 900px; margin: 0 auto; 
+        .intro-section { 
+            padding: 160px 40px 60px; 
+            text-align: center; 
+            max-width: 900px;
+            margin: 0 auto;
         }
         
-        .promo-banner {
-            display: inline-block; padding: 10px 25px; border: 1px solid var(--dior-gold);
-            color: var(--dior-gold); font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
-            margin-bottom: 30px; background: rgba(232, 195, 176, 0.05);
+        .special-label {
+            display: inline-block; 
+            color: var(--accent-gold); 
+            font-size: 11px; 
+            letter-spacing: 6px; 
+            text-transform: uppercase;
+            margin-bottom: 25px; 
+            border: 1px solid var(--accent-gold);
+            padding: 8px 20px;
+            background: rgba(197, 160, 89, 0.05);
+            font-weight: 500;
         }
-        
+
         .title-main { 
-            font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); 
-            font-weight: 400; line-height: 1.1; margin-bottom: 25px; 
+            font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 15px; 
+            letter-spacing: 2px; font-style: italic; color: var(--text-main);
+        }
+        .intro-desc {
+            font-size: 13px; color: var(--text-muted); line-height: 1.8; 
+            font-weight: 300; margin-bottom: 25px; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .promo-text {
+            color: var(--text-main); font-size: 9px; letter-spacing: 3px; 
+            text-transform: uppercase; border-bottom: 1px solid var(--accent-gold); 
+            display: inline-block; padding-bottom: 5px;
         }
 
         /* ==========================================================================
-           GALERÍA DE PRODUCTOS (GRID)
+           GALERÍA DE PRODUCTOS
            ========================================================================== */
         .gallery-wrapper { 
-            padding: 0 50px 100px; max-width: 1600px; margin: 0 auto; 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px; 
+            padding: 20px 50px 120px; max-width: 1400px; margin: 0 auto; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; 
         }
-        
-        .model-card { 
-            background: #000; border: 1px solid #111; transition: var(--transition); position: relative; 
-        }
-        
-        .model-card:hover { border-color: var(--dior-gold); transform: translateY(-10px); }
+        .model-card { background: var(--bg-card); transition: var(--transition); position: relative; }
         
         .img-container { 
-            width: 100%; height: 500px; overflow: hidden; position: relative; background: #000; 
+            width: 100%; height: 500px; overflow: hidden; position: relative; 
+            display: flex; align-items: center; justify-content: center; background: transparent; 
         }
-        
-        .img-container img { width: 100%; height: 100%; object-fit: contain; transition: 1.2s ease; }
-        .model-card:hover .img-container img { transform: scale(1.05); }
+        .img-container img { 
+            width: 100%; height: 100%; object-fit: contain; 
+            transition: transform 1.2s ease; opacity: 0.95;
+        }
+        .model-card:hover .img-container img { transform: scale(1.05); opacity: 1; }
 
-        /* ==========================================================================
-           BOTÓN FAVORITOS (CORAZÓN EN LA IMAGEN)
-           ========================================================================== */
-        .btn-heart {
-            position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.5); 
-            border: 1px solid rgba(255,255,255,0.1); color: #fff; width: 40px; height: 40px; 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.3s; z-index: 10;
+        .btn-heart { 
+            position: absolute; top: 20px; right: 20px; background: transparent; 
+            border: none; color: rgba(255,255,255,0.4); font-size: 18px;
+            cursor: pointer; transition: var(--transition); z-index: 10; 
         }
-        .btn-heart:hover { transform: scale(1.1); background: rgba(0,0,0,0.8); }
-        .btn-heart.active { color: #ff4b4b; border-color: #ff4b4b; background: rgba(255,75,75,0.1); }
+        .btn-heart:hover { color: var(--text-main); transform: scale(1.1); }
+        .btn-heart.active { color: var(--accent-gold); }
         
-        /* ==========================================================================
-           DETALLES DEL PRODUCTO
-           ========================================================================== */
-        .card-details { padding: 40px 30px; text-align: center; }
+        .card-details { padding: 30px 20px 40px; text-align: center; }
+        .model-name { font-size: 22px; color: var(--text-main); margin-bottom: 5px; font-style: italic; }
+        .model-ref { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 15px; }
         
-        .model-name { font-family: 'Cinzel', serif; font-size: 20px; color: var(--white); margin-bottom: 8px; letter-spacing: 2px; }
-        .model-ref { font-family: monospace; font-size: 11px; color: var(--dior-gray); letter-spacing: 3px; margin-bottom: 20px; }
-        .model-price { font-family: 'Cinzel', serif; font-size: 24px; color: var(--dior-gold); margin-bottom: 25px; }
+        /* ESTILO PARA LA DESCRIPCIÓN DEL VESTIDO */
+        .model-desc {
+            font-size: 10px; color: var(--text-muted); line-height: 1.6;
+            margin-bottom: 20px; font-weight: 300; padding: 0 10px;
+        }
+
+        .model-price { font-size: 16px; color: var(--text-main); margin-bottom: 25px; letter-spacing: 1px; }
 
         /* ==========================================================================
            SELECTORES DE TALLA Y CANTIDAD
            ========================================================================== */
         .luxury-selectors { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
-        .selector-label { font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: var(--dior-gray); margin-bottom: 8px; display: block; }
-        
-        .sizes-container { display: flex; justify-content: center; gap: 8px; }
+        .selector-label { 
+            font-size: 8px; text-transform: uppercase; letter-spacing: 2px; 
+            color: var(--text-muted); margin-bottom: 8px; display: block; 
+        }
+        .sizes-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .size-box {
-            width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
-            border: 1px solid #222; color: var(--dior-gray); font-size: 10px; cursor: pointer; transition: 0.3s;
+            padding: 8px 0; width: 45px; border-bottom: 1px solid var(--border-light); 
+            color: var(--text-muted); font-size: 10px; cursor: pointer; transition: var(--transition);
         }
-        .size-box:hover { border-color: var(--white); color: var(--white); }
-        .size-box.active { background: var(--white); color: #000; border-color: var(--white); font-weight: 700; }
+        .size-box:hover { color: var(--text-main); border-bottom-color: var(--text-main); }
+        .size-box.active { color: var(--accent-gold); border-bottom-color: var(--accent-gold); }
 
-        .qty-container {
-            display: flex; align-items: center; justify-content: center; gap: 15px;
-            border: 1px solid #222; width: fit-content; margin: 0 auto; padding: 5px 15px;
-        }
-        .qty-btn { background: none; border: none; color: var(--white); cursor: pointer; font-size: 16px; padding: 5px; }
-        .qty-val { font-size: 14px; font-family: 'Cinzel', serif; min-width: 25px; }
+        .qty-container { display: flex; align-items: center; justify-content: center; gap: 20px; }
+        .qty-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; transition: var(--transition); }
+        .qty-btn:hover { color: var(--text-main); }
+        .qty-val { font-size: 13px; min-width: 15px; font-family: 'Cormorant Garamond', serif; }
 
-        /* ==========================================================================
-           BOTÓN AÑADIR A LA BOLSA
-           ========================================================================== */
-        .btn-buy {
-            display: block; width: 100%; padding: 20px; background: transparent; border: 1px solid var(--white);
-            color: var(--white); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; font-weight: 500;
-            transition: 0.4s; cursor: pointer;
+        .btn-buy { 
+            display: block; width: 100%; padding: 16px; background: transparent; 
+            border: 1px solid var(--border-light); color: var(--text-main); font-size: 9px; 
+            letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: var(--transition); 
         }
-        .btn-buy:hover { background: var(--white); color: #000; }
+        .btn-buy:hover { background: var(--text-main); color: var(--bg-dark); }
 
         /* ==========================================================================
            NOTIFICACIÓN TOAST
            ========================================================================== */
         .toast { 
             position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%); 
-            background: var(--dior-gold); color: #000; padding: 15px 40px; border-radius: 2px; 
-            font-size: 12px; font-weight: 600; letter-spacing: 1px; z-index: 4000; transition: 0.4s; text-align: center; 
+            background: var(--text-main); color: var(--bg-dark); padding: 15px 40px; 
+            font-size: 9px; font-weight: 500; z-index: 4000; 
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+            letter-spacing: 2px; text-transform: uppercase;
         }
         .toast.show { bottom: 40px; }
 
         /* ==========================================================================
-           RESPONSIVE DESIGN (MÓVILES)
+           FOOTER
            ========================================================================== */
-        @media (max-width: 768px) {
-            .nav-header { padding: 20px; }
-            .logo-mini { position: static; transform: none; font-size: 20px; }
-            .gallery-wrapper { padding: 0 20px 60px; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-            .img-container { height: 350px; }
+        footer { padding: 60px 40px; text-align: center; border-top: 1px solid var(--border-light); }
+        .contact-info { 
+            font-size: 9px; color: var(--text-muted); letter-spacing: 2px; 
+            text-transform: uppercase; line-height: 2.5; 
         }
-        @media (max-width: 480px) {
-            .gallery-wrapper { grid-template-columns: 1fr; }
+        .contact-info strong { color: var(--text-main); font-weight: 400; }
+
+        @media (max-width: 768px) {
+            header { padding: 0 20px; height: 70px; }
+            .nav-links { display: none; }
+            .nav-actions-fixed { right: 20px; top: 25px; }
+            .intro-section { padding-top: 120px; }
+            .gallery-wrapper { padding: 20px 20px 80px; grid-template-columns: 1fr; }
+            .img-container { height: 400px; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="nav-header">
-        <a href="index.html" class="btn-back"><i class="fas fa-chevron-left"></i> Regresar</a>
-        <div class="logo-mini">ABRIL</div>
-        <div class="nav-actions">
-            <div class="icon-wrapper" onclick="window.location.href='favoritos.html'">
-                <i class="fa-regular fa-heart"></i><span class="badge-count" id="wish-count">0</span>
-            </div>
-            <div class="icon-wrapper" onclick="window.location.href='carrito.html'">
-                <i class="fa-solid fa-bag-shopping"></i><span class="badge-count" id="cart-count">0</span>
-            </div>
+    <div class="nav-actions-fixed">
+        <div class="icon-wrapper" onclick="window.location.href='favoritos.html'">
+            <i class="fa-regular fa-heart"></i>
+            <span class="badge-count" id="wish-count">0</span>
         </div>
-    </nav>
+        <div class="icon-wrapper" onclick="window.location.href='carrito.html'">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="badge-count" id="cart-count">0</span>
+        </div>
+    </div>
 
-    <header class="collection-hero">
-        <div class="promo-banner">Por compra de 5 piezas del mismo modelo obtienen el 10% de descuento</div>
-        <h1 class="title-main">Colección Dama</h1>
-        <p style="font-size: 13px; color: var(--dior-gray); letter-spacing: 2px; font-weight: 200;">
-            Curaduría Exclusiva SHEIN VIP. Seleccione cantidad (máx. 10 por modelo).
-        </p>
+    <header id="smart-header">
+        <nav class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="dama.html" class="active">Dama</a>
+            <a href="niña.html">Niña</a>
+            <a href="joyeria.html">Joyería</a>
+            <a href="acero.html">Acero VIP</a>
+        </nav>
     </header>
+
+    <section class="intro-section">
+        <div class="special-label">SHEIN VIP EXCLUSIVE</div>
+        <h1 class="title-main">Colección Dama</h1>
+        <p class="intro-desc">Alta Costura | Curaduría Exclusiva</p>
+        <span class="promo-text">10% de cortesía al adquirir 5 piezas del mismo modelo</span>
+    </section>
 
     <section class="gallery-wrapper">
 
@@ -224,6 +255,7 @@
             <div class="card-details">
                 <h3 class="model-name">Vestido Aura</h3>
                 <p class="model-ref">REF-10452</p>
+                <p class="model-desc">Un diseño fluido que abraza la silueta con delicadeza. Su caída etérea y cortes precisos lo convierten en la elección perfecta para eventos de etiqueta.</p>
                 <p class="model-price">L. 599</p>
                 
                 <div class="luxury-selectors">
@@ -240,7 +272,7 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('v1', -1)">-</button>
-                            <span class="qty-val" id="qty-v1">1</span>
+                            <span class="qty-val serif" id="qty-v1">1</span>
                             <button class="qty-btn" onclick="updateQty('v1', 1)">+</button>
                         </div>
                     </div>
@@ -260,6 +292,7 @@
             <div class="card-details">
                 <h3 class="model-name">Vestido Enigma</h3>
                 <p class="model-ref">REF-10893</p>
+                <p class="model-desc">Sofisticación en estado puro. Una pieza estructurada con sutiles asimetrías que proyecta misterio y elegancia atemporal en cada movimiento.</p>
                 <p class="model-price">L. 599</p>
                 
                 <div class="luxury-selectors">
@@ -276,7 +309,7 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('v2', -1)">-</button>
-                            <span class="qty-val" id="qty-v2">1</span>
+                            <span class="qty-val serif" id="qty-v2">1</span>
                             <button class="qty-btn" onclick="updateQty('v2', 1)">+</button>
                         </div>
                     </div>
@@ -296,6 +329,7 @@
             <div class="card-details">
                 <h3 class="model-name">Vestido Éter</h3>
                 <p class="model-ref">REF-20119</p>
+                <p class="model-desc">La perfecta fusión entre comodidad y alta costura. Tejidos de primera calidad que esculpen la figura con un aire de ligereza celestial.</p>
                 <p class="model-price">L. 699</p>
                 
                 <div class="luxury-selectors">
@@ -312,7 +346,7 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('v3', -1)">-</button>
-                            <span class="qty-val" id="qty-v3">1</span>
+                            <span class="qty-val serif" id="qty-v3">1</span>
                             <button class="qty-btn" onclick="updateQty('v3', 1)">+</button>
                         </div>
                     </div>
@@ -332,6 +366,7 @@
             <div class="card-details">
                 <h3 class="model-name">Vestido Oasis</h3>
                 <p class="model-ref">REF-20554</p>
+                <p class="model-desc">Inspirado en la elegancia de un verano eterno. Sus líneas limpias y diseño minimalista capturan la esencia del lujo moderno y relajado.</p>
                 <p class="model-price">L. 699</p>
                 
                 <div class="luxury-selectors">
@@ -348,7 +383,7 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('v4', -1)">-</button>
-                            <span class="qty-val" id="qty-v4">1</span>
+                            <span class="qty-val serif" id="qty-v4">1</span>
                             <button class="qty-btn" onclick="updateQty('v4', 1)">+</button>
                         </div>
                     </div>
@@ -368,6 +403,7 @@
             <div class="card-details">
                 <h3 class="model-name">Vestido Esencia</h3>
                 <p class="model-ref">REF-30771</p>
+                <p class="model-desc">Minimalismo elevado a su máxima expresión. Un corte clásico reinventado con detalles sutiles que celebran la feminidad contemporánea.</p>
                 <p class="model-price">L. 799</p>
                 
                 <div class="luxury-selectors">
@@ -384,7 +420,7 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('v5', -1)">-</button>
-                            <span class="qty-val" id="qty-v5">1</span>
+                            <span class="qty-val serif" id="qty-v5">1</span>
                             <button class="qty-btn" onclick="updateQty('v5', 1)">+</button>
                         </div>
                     </div>
@@ -404,6 +440,7 @@
             <div class="card-details">
                 <h3 class="model-name">Vestido Sublime</h3>
                 <p class="model-ref">REF-30998</p>
+                <p class="model-desc">Imponente y majestuoso. Una obra de arte textil diseñada para deslumbrar y dejar una huella imborrable en las noches más exclusivas.</p>
                 <p class="model-price">L. 799</p>
                 
                 <div class="luxury-selectors">
@@ -420,7 +457,7 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('v6', -1)">-</button>
-                            <span class="qty-val" id="qty-v6">1</span>
+                            <span class="qty-val serif" id="qty-v6">1</span>
                             <button class="qty-btn" onclick="updateQty('v6', 1)">+</button>
                         </div>
                     </div>
@@ -440,6 +477,7 @@
             <div class="card-details">
                 <h3 class="model-name">Vestido Eclipse</h3>
                 <p class="model-ref">REF-40333</p>
+                <p class="model-desc">Contraste perfecto entre luz y sombra. Su silueta envolvente y acabados de lujo ofrecen un magnetismo irresistible para cenas de gala.</p>
                 <p class="model-price">L. 899</p>
                 
                 <div class="luxury-selectors">
@@ -456,7 +494,7 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('v7', -1)">-</button>
-                            <span class="qty-val" id="qty-v7">1</span>
+                            <span class="qty-val serif" id="qty-v7">1</span>
                             <button class="qty-btn" onclick="updateQty('v7', 1)">+</button>
                         </div>
                     </div>
@@ -476,6 +514,7 @@
             <div class="card-details">
                 <h3 class="model-name">Vestido Ícono</h3>
                 <p class="model-ref">REF-40876</p>
+                <p class="model-desc">La pieza definitiva para la mujer segura de sí misma. Un diseño vanguardista que redefine las reglas de la sofisticación absoluta.</p>
                 <p class="model-price">L. 899</p>
                 
                 <div class="luxury-selectors">
@@ -492,7 +531,7 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('v8', -1)">-</button>
-                            <span class="qty-val" id="qty-v8">1</span>
+                            <span class="qty-val serif" id="qty-v8">1</span>
                             <button class="qty-btn" onclick="updateQty('v8', 1)">+</button>
                         </div>
                     </div>
@@ -512,6 +551,7 @@
             <div class="card-details">
                 <h3 class="model-name">Vestido Gala</h3>
                 <p class="model-ref">REF-50212</p>
+                <p class="model-desc">Un homenaje al glamour clásico. Volumen controlado y tejidos suntuosos que garantizan una presencia majestuosa en cada paso.</p>
                 <p class="model-price">L. 599</p>
                 
                 <div class="luxury-selectors">
@@ -528,7 +568,7 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('v9', -1)">-</button>
-                            <span class="qty-val" id="qty-v9">1</span>
+                            <span class="qty-val serif" id="qty-v9">1</span>
                             <button class="qty-btn" onclick="updateQty('v9', 1)">+</button>
                         </div>
                     </div>
@@ -548,6 +588,7 @@
             <div class="card-details">
                 <h3 class="model-name">Vestido Mito</h3>
                 <p class="model-ref">REF-50988</p>
+                <p class="model-desc">Una creación legendaria. Sus drapeados estratégicos y caída espectacular lo convierten en un sueño hecho realidad para ocasiones memorables.</p>
                 <p class="model-price">L. 699</p>
                 
                 <div class="luxury-selectors">
@@ -564,7 +605,7 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('v10', -1)">-</button>
-                            <span class="qty-val" id="qty-v10">1</span>
+                            <span class="qty-val serif" id="qty-v10">1</span>
                             <button class="qty-btn" onclick="updateQty('v10', 1)">+</button>
                         </div>
                     </div>
@@ -578,28 +619,47 @@
 
     <div class="toast" id="toastAlert">Mensaje</div>
 
+    <footer>
+        <div class="contact-info">
+            <p>Colección Dama VIP</p>
+            <p>Directora Creativa: <strong>Abril Armas</strong></p>
+            <p>Disponibilidad en los departamentos de Choluteca y Valle, junto con sus respectivos municipios.</p>
+            <p style="margin-top: 30px; opacity: 0.3;">© 2026 ABRIL STORE | SHEIN VIP EXCLUSIVITÉ</p>
+        </div>
+    </footer>
+
     <script>
-        // Bases de datos locales
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const header = document.getElementById('smart-header');
+            
+            if (currentScroll <= 10) {
+                header.classList.remove('header-hidden');
+                return;
+            }
+            if (currentScroll > lastScroll && !header.classList.contains('header-hidden')) {
+                header.classList.add('header-hidden');
+            } else if (currentScroll < lastScroll && header.classList.contains('header-hidden')) {
+                header.classList.remove('header-hidden');
+            }
+            lastScroll = currentScroll;
+        });
+
         let cart = JSON.parse(localStorage.getItem('abrilCart')) || [];
         let wishlist = JSON.parse(localStorage.getItem('abrilWishlist')) || [];
-        
-        // Memoria temporal de la página
         let currentSizes = {};
         let quantities = { v1:1, v2:1, v3:1, v4:1, v5:1, v6:1, v7:1, v8:1, v9:1, v10:1 };
 
-        // 1. INICIALIZAR LA PÁGINA (Pintar Corazones y Contadores)
         function initPage() {
             document.getElementById('wish-count').textContent = wishlist.length;
             document.getElementById('cart-count').textContent = cart.length;
 
-            // Recorrer los corazones y si están en wishlist, ponerlos activos (rojos)
             const allHearts = document.querySelectorAll('.btn-heart');
             allHearts.forEach(btn => {
                 const idAttr = btn.getAttribute('id'); 
                 if(!idAttr) return;
-                const pId = idAttr.replace('fav-', ''); // obtiene 'v1', 'v2', etc.
-                
-                // Busca si el id está guardado en el array wishlist
+                const pId = idAttr.replace('fav-', ''); 
                 const isSaved = wishlist.some(item => item.id === pId);
                 if(isSaved) {
                     btn.classList.add('active');
@@ -607,7 +667,6 @@
             });
         }
 
-        // 2. ACTUALIZAR CANTIDAD (+ / -)
         function updateQty(id, delta) {
             let next = quantities[id] + delta;
             if (next >= 1 && next <= 10) {
@@ -616,7 +675,6 @@
             }
         }
 
-        // 3. SELECCIONAR TALLA
         function selectSize(id, size, el) {
             currentSizes[id] = size;
             const boxes = document.getElementById('sizes-' + id).querySelectorAll('.size-box');
@@ -624,7 +682,6 @@
             el.classList.add('active');
         }
 
-        // 4. AÑADIR AL CARRITO
         function addToCart(productId, name, ref, price, img) {
             const size = currentSizes[productId];
             const qty = quantities[productId];
@@ -634,13 +691,11 @@
                 return;
             }
 
-            // Lógica de Descuento (10% si lleva 5 o más)
             let finalPrice = price;
             if(qty >= 5) { 
                 finalPrice = price * 0.9; 
             }
 
-            // Guardar en memoria global
             cart.push({ 
                 id: productId + Date.now(), 
                 name: name, 
@@ -653,35 +708,25 @@
             });
             
             localStorage.setItem('abrilCart', JSON.stringify(cart));
-            
-            // Actualizar número en la bolsita
             document.getElementById('cart-count').textContent = cart.length;
-            showToast('Prenda añadida a su Bolsa Exclusiva');
+            showToast('Añadido a su bolsa exclusiva');
         }
 
-        // 5. GUARDAR/ELIMINAR DE FAVORITOS
         function toggleHeart(id, name, ref, price, img, btn) {
-            // Verifica si ya existe en la lista
             const idx = wishlist.findIndex(x => x.id === id);
-            
             if(idx > -1) { 
-                // Si existe, lo borra y quita la clase roja
                 wishlist.splice(idx, 1); 
                 btn.classList.remove('active'); 
-                showToast('Eliminado de Favoritos');
+                showToast('Retirado de favoritos');
             } else { 
-                // Si no existe, lo agrega y pone la clase roja
                 wishlist.push({id: id, name: name, ref: ref, price: price, img: img}); 
                 btn.classList.add('active'); 
-                showToast('Guardado en Favoritos');
+                showToast('Guardado en favoritos');
             }
-            
-            // Guarda en memoria y actualiza número
             localStorage.setItem('abrilWishlist', JSON.stringify(wishlist));
             document.getElementById('wish-count').textContent = wishlist.length;
         }
 
-        // 6. MOSTRAR MENSAJE (TOAST)
         function showToast(msg) { 
             const t = document.getElementById('toastAlert'); 
             t.textContent = msg; 
@@ -689,7 +734,6 @@
             setTimeout(() => t.classList.remove('show'), 3000); 
         }
 
-        // Ejecutar funciones de inicio al cargar la página
         window.onload = initPage;
 
     </script>
