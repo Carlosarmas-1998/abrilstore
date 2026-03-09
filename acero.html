@@ -88,16 +88,10 @@
         }
         
         .special-label {
-            display: inline-block; 
-            color: var(--accent-gold); 
-            font-size: 11px; 
-            letter-spacing: 6px; 
-            text-transform: uppercase;
-            margin-bottom: 25px; 
-            border: 1px solid var(--accent-gold);
-            padding: 8px 20px;
-            background: rgba(197, 160, 89, 0.05);
-            font-weight: 500;
+            display: inline-block; color: var(--accent-gold); font-size: 11px; 
+            letter-spacing: 6px; text-transform: uppercase; margin-bottom: 25px; 
+            border: 1px solid var(--accent-gold); padding: 8px 20px;
+            background: rgba(197, 160, 89, 0.05); font-weight: 500;
         }
 
         .title-main { 
@@ -116,11 +110,15 @@
             padding: 20px 50px 100px; max-width: 1400px; margin: 0 auto; 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; 
         }
-        .model-card { background: var(--bg-card); transition: var(--transition); position: relative; }
+        .model-card { 
+            background: var(--bg-card); transition: var(--transition); position: relative; 
+            border: 1px solid transparent; 
+        }
         
         .img-container { 
             width: 100%; height: 500px; overflow: hidden; position: relative; 
             display: flex; align-items: center; justify-content: center; background: transparent; 
+            cursor: default;
         }
         .img-container img { 
             width: 100%; height: 100%; object-fit: contain; 
@@ -140,7 +138,6 @@
         .model-name { font-size: 22px; color: var(--text-main); margin-bottom: 5px; font-style: italic; }
         .model-ref { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 15px; }
         
-        /* ESTILO PARA LA DESCRIPCIÓN DEL PRODUCTO */
         .model-desc {
             font-size: 10px; color: var(--text-muted); line-height: 1.6;
             margin-bottom: 20px; font-weight: 300; padding: 0 10px;
@@ -178,10 +175,70 @@
         .btn-buy:hover { background: var(--text-main); color: var(--bg-dark); }
 
         /* ==========================================================================
+           MODO SELECCIÓN RÁPIDA (ELEGIR MÚLTIPLES)
+           ========================================================================== */
+        body.selection-mode .img-container { cursor: pointer; }
+        
+        body.selection-mode .img-container img {
+            animation: slowFloat 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowFloat {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(-8px) scale(1.02); }
+        }
+
+        /* Ocultamos los botones normales, PERO dejamos visibles los inputs de grabado */
+        body.selection-mode .btn-buy { display: none; }
+        body.selection-mode .btn-heart { display: none; }
+
+        /* Indicador de seleccionado */
+        .select-indicator {
+            position: absolute; top: 20px; left: 20px; width: 25px; height: 25px;
+            border-radius: 50%; border: 1px solid var(--text-muted); background: rgba(0,0,0,0.5);
+            display: none; align-items: center; justify-content: center; z-index: 10;
+            color: transparent; transition: var(--transition); font-size: 12px;
+        }
+        body.selection-mode .select-indicator { display: flex; }
+
+        /* Tarjeta seleccionada */
+        .model-card.selected { border-color: var(--accent-gold); box-shadow: 0 0 20px rgba(197, 160, 89, 0.1); }
+        .model-card.selected .select-indicator { background: var(--accent-gold); border-color: var(--accent-gold); color: var(--bg-dark); }
+        .model-card.selected .img-container img { animation-play-state: paused; transform: scale(1.05); opacity: 1;}
+
+        /* BOTÓN INFERIOR GIGANTE (MÁGICO) */
+        .magic-action-container {
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: rgba(7,7,7,0.95); backdrop-filter: blur(10px);
+            padding: 20px; text-align: center; z-index: 3000;
+            border-top: 1px solid var(--border-light);
+            transition: transform 0.5s ease;
+        }
+
+        .btn-magic {
+            background: var(--text-main); color: var(--bg-dark); border: none;
+            padding: 20px 60px; font-size: 11px; font-weight: 600; letter-spacing: 5px;
+            text-transform: uppercase; cursor: pointer; transition: var(--transition);
+            width: 100%; max-width: 600px;
+        }
+
+        /* Cuando está en modo pagar, se pone dorado */
+        .btn-magic.pay-mode {
+            background: var(--accent-gold); color: var(--bg-dark);
+            animation: pulseGold 2s infinite;
+        }
+
+        @keyframes pulseGold {
+            0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+        }
+
+        /* ==========================================================================
            EL ARTE DEL ACERO (INFO VIP - MOVIDA AL FINAL)
            ========================================================================== */
         .craftsmanship-section {
-            padding: 80px 40px;
+            padding: 80px 40px 150px; /* Padding extra abajo para que no lo tape el botón mágico */
             background: transparent;
             border-top: 1px solid var(--border-light);
         }
@@ -200,18 +257,19 @@
            NOTIFICACIÓN TOAST
            ========================================================================== */
         .toast { 
-            position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%); 
+            position: fixed; top: 100px; left: 50%; transform: translateX(-50%); 
             background: var(--text-main); color: var(--bg-dark); padding: 15px 40px; 
             font-size: 9px; font-weight: 500; z-index: 4000; 
             transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
             letter-spacing: 2px; text-transform: uppercase;
+            opacity: 0; visibility: hidden;
         }
-        .toast.show { bottom: 40px; }
+        .toast.show { opacity: 1; visibility: visible; }
 
         /* ==========================================================================
            FOOTER
            ========================================================================== */
-        footer { padding: 60px 40px; text-align: center; border-top: 1px solid var(--border-light); }
+        footer { padding: 60px 40px 120px; text-align: center; border-top: 1px solid var(--border-light); }
         .contact-info { 
             font-size: 9px; color: var(--text-muted); letter-spacing: 2px; 
             text-transform: uppercase; line-height: 2.5; 
@@ -226,6 +284,7 @@
             .gallery-wrapper { padding: 40px 20px 60px; gap: 40px; grid-template-columns: 1fr; }
             .img-container { height: 400px; }
             .craft-grid { grid-template-columns: 1fr; gap: 40px; }
+            .btn-magic { padding: 15px 20px; }
         }
     </style>
 </head>
@@ -260,9 +319,10 @@
 
     <section class="gallery-wrapper" id="product-grid">
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-a1" onclick="toggleHeart('a1', 'Herencia Dualidad', 'VIP-STEEL-01', 399, 'a1.png', this)">
+        <article class="model-card" id="card-a1" data-id="a1" data-name="Herencia Dualidad" data-ref="VIP-STEEL-01" data-price="399" data-img="a1.png">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-a1')">
+                <button class="btn-heart" id="fav-a1" onclick="toggleHeart(event, 'a1', 'Herencia Dualidad', 'VIP-STEEL-01', 399, 'a1.png', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="a1.png" alt="Herencia Dualidad">
@@ -276,9 +336,10 @@
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-a2" onclick="toggleHeart('a2', 'Legado Eterno 14K', 'VIP-STEEL-02', 399, 'a2.jpg', this)">
+        <article class="model-card" id="card-a2" data-id="a2" data-name="Legado Eterno 14K" data-ref="VIP-STEEL-02" data-price="399" data-img="a2.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-a2')">
+                <button class="btn-heart" id="fav-a2" onclick="toggleHeart(event, 'a2', 'Legado Eterno 14K', 'VIP-STEEL-02', 399, 'a2.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="a2.jpg" alt="Legado Eterno 14K">
@@ -292,9 +353,10 @@
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-a3" onclick="toggleHeart('a3', 'Collar Lazo', 'VIP-STEEL-03', 399, 'a3.jpg', this)">
+        <article class="model-card" id="card-a3" data-id="a3" data-name="Collar Lazo" data-ref="VIP-STEEL-03" data-price="399" data-img="a3.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-a3')">
+                <button class="btn-heart" id="fav-a3" onclick="toggleHeart(event, 'a3', 'Collar Lazo', 'VIP-STEEL-03', 399, 'a3.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="a3.jpg" alt="Collar Lazo">
@@ -308,9 +370,10 @@
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-a4" onclick="toggleHeart('a4', 'Collar Ilusión', 'VIP-STEEL-04', 449, 'a4.jpg', this)">
+        <article class="model-card" id="card-a4" data-id="a4" data-name="Collar Ilusión" data-ref="VIP-STEEL-04" data-price="449" data-img="a4.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-a4')">
+                <button class="btn-heart" id="fav-a4" onclick="toggleHeart(event, 'a4', 'Collar Ilusión', 'VIP-STEEL-04', 449, 'a4.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="a4.jpg" alt="Collar Ilusión">
@@ -330,9 +393,10 @@
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-a5" onclick="toggleHeart('a5', 'Promesa Eterna', 'VIP-STEEL-05', 499, 'a5.jpg', this)">
+        <article class="model-card" id="card-a5" data-id="a5" data-name="Promesa Eterna" data-ref="VIP-STEEL-05" data-price="499" data-img="a5.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-a5')">
+                <button class="btn-heart" id="fav-a5" onclick="toggleHeart(event, 'a5', 'Promesa Eterna', 'VIP-STEEL-05', 499, 'a5.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="a5.jpg" alt="Promesa Eterna">
@@ -377,6 +441,10 @@
         </div>
     </section>
 
+    <div class="magic-action-container">
+        <button class="btn-magic" id="btn-master-action" onclick="handleMasterAction()">ELEGIR MÚLTIPLES PIEZAS</button>
+    </div>
+
     <div class="toast" id="toastAlert">Pieza añadida</div>
 
     <footer>
@@ -411,6 +479,10 @@
         let cart = JSON.parse(localStorage.getItem('abrilCart')) || [];
         let wishlist = JSON.parse(localStorage.getItem('abrilWishlist')) || [];
 
+        // VARIABLES MODO SELECCIÓN
+        let isSelectionMode = false;
+        let selectedCards = new Set(); 
+
         function initPage() {
             document.getElementById('wish-count').textContent = wishlist.length;
             document.getElementById('cart-count').textContent = cart.length;
@@ -425,6 +497,7 @@
             });
         }
 
+        // ADD TO CART INDIVIDUAL NORMAL
         function addToCart(id, name, ref, price, img) {
             let customText = "";
             
@@ -450,6 +523,7 @@
                 name: name, 
                 ref: ref, 
                 price: price, 
+                qty: 1,
                 img: img, 
                 customText: customText 
             });
@@ -459,7 +533,9 @@
             showToast('Añadido a su bolsa exclusiva');
         }
 
-        function toggleHeart(id, name, ref, price, img, btn) {
+        // FAVORITOS
+        function toggleHeart(event, id, name, ref, price, img, btn) {
+            event.stopPropagation(); // Evitar que seleccione la tarjeta si hace click en el corazon en modo seleccion
             const idx = wishlist.findIndex(x => x.id === id);
             if(idx > -1) { 
                 wishlist.splice(idx, 1); 
@@ -474,11 +550,111 @@
             document.getElementById('wish-count').textContent = wishlist.length;
         }
 
+        // ==========================================================
+        // LÓGICA DEL MODO SELECCIÓN RÁPIDA (ACERO)
+        // ==========================================================
+
+        function handleMasterAction() {
+            const btn = document.getElementById('btn-master-action');
+
+            if (!isSelectionMode) {
+                isSelectionMode = true;
+                document.body.classList.add('selection-mode');
+                btn.textContent = "SELECCIONE LAS PIEZAS Y SUS GRABADOS";
+                showToast('Modo de selección rápida activado');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } 
+            else if (isSelectionMode && selectedCards.size > 0) {
+                procesarMultiplesAlCarrito();
+            }
+        }
+
+        function toggleSelection(cardId) {
+            if (!isSelectionMode) return; 
+
+            const card = document.getElementById(cardId);
+            
+            if (selectedCards.has(cardId)) {
+                selectedCards.delete(cardId);
+                card.classList.remove('selected');
+            } else {
+                selectedCards.add(cardId);
+                card.classList.add('selected');
+            }
+
+            actualizarBotonMaster();
+        }
+
+        function actualizarBotonMaster() {
+            const btn = document.getElementById('btn-master-action');
+            if (selectedCards.size > 0) {
+                btn.innerHTML = `<i class="fa-solid fa-bag-shopping"></i> Mover ${selectedCards.size} piezas a la Bolsa y Pagar`;
+                btn.classList.add('pay-mode');
+            } else {
+                btn.textContent = "SELECCIONE LAS PIEZAS Y SUS GRABADOS";
+                btn.classList.remove('pay-mode');
+            }
+        }
+
+        function procesarMultiplesAlCarrito() {
+            let validacionExitosa = true;
+
+            // Primero validamos que las piezas seleccionadas que llevan grabado, tengan texto.
+            selectedCards.forEach(cardId => {
+                const card = document.getElementById(cardId);
+                const id = card.getAttribute('data-id');
+                
+                if (id === 'a4') {
+                    const inputName = document.getElementById(`custom1-${id}`).value.trim();
+                    if (!inputName) validacionExitosa = false;
+                } else if (id === 'a5') {
+                    const name1 = document.getElementById(`custom1-${id}`).value.trim();
+                    const name2 = document.getElementById(`custom2-${id}`).value.trim();
+                    if (!name1 || !name2) validacionExitosa = false;
+                }
+            });
+
+            if(!validacionExitosa) {
+                showToast('Por favor, complete los nombres a grabar en las piezas seleccionadas');
+                return; // Frena si falta un grabado
+            }
+
+            // Si todo está bien, lo pasamos al carrito
+            selectedCards.forEach(cardId => {
+                const card = document.getElementById(cardId);
+                const id = card.getAttribute('data-id');
+                const name = card.getAttribute('data-name');
+                const ref = card.getAttribute('data-ref');
+                const price = parseFloat(card.getAttribute('data-price'));
+                const img = card.getAttribute('data-img');
+                
+                let customText = "";
+                if (id === 'a4') {
+                    customText = "Grabado: " + document.getElementById(`custom1-${id}`).value.trim();
+                } else if (id === 'a5') {
+                    customText = "Grabados: " + document.getElementById(`custom1-${id}`).value.trim() + " y " + document.getElementById(`custom2-${id}`).value.trim();
+                }
+
+                cart.push({ 
+                    id: id + Date.now() + Math.random(), 
+                    name: name, ref: ref, basePrice: price, 
+                    price: price, qty: 1, img: img, customText: customText 
+                });
+            });
+
+            localStorage.setItem('abrilCart', JSON.stringify(cart));
+            
+            showToast('Piezas transferidas. Redirigiendo a pago...');
+            setTimeout(() => {
+                window.location.href = 'carrito.html';
+            }, 1200);
+        }
+
         function showToast(msg) { 
             const t = document.getElementById('toastAlert'); 
             t.textContent = msg; 
             t.classList.add('show'); 
-            setTimeout(() => t.classList.remove('show'), 3500); 
+            setTimeout(() => t.classList.remove('show'), 3000); 
         }
 
         window.onload = initPage;
