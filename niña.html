@@ -3,491 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colección Niña VIP | ABRIL STORE</title>
+    <title>Colección Niña | SHEIN VIP</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* ==========================================================================
-           VARIABLES GLOBALES - ESTÉTICA DIOR LUXE
+           VARIABLES GLOBALES - MINIMALISMO DE LUJO
            ========================================================================== */
         :root {
-            --dior-black: #050505;
-            --dior-gold: #e8c3b0;
-            --dior-gray: #757575;
-            --white: #ffffff;
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            --glass: rgba(5, 5, 5, 0.95);
+            --bg-dark: #070707;
+            --bg-card: #0a0a0a;
+            --accent-gold: #c5a059; 
+            --text-main: #f0f0f0;
+            --text-muted: #666666;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         /* ==========================================================================
-           RESET
+           RESET Y BASE
            ========================================================================== */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-        }
-        
-        html { 
-            scroll-behavior: smooth; 
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body { 
             font-family: 'Montserrat', sans-serif; 
-            background-color: var(--dior-black); 
-            color: var(--white); 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
             overflow-x: hidden; 
             -webkit-font-smoothing: antialiased;
         }
+        h1, h2, h3, h4, .serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+        }
 
         /* ==========================================================================
-           HEADER INTELIGENTE (SMART NAV)
+           HEADER INTELIGENTE
            ========================================================================== */
         header {
-            position: fixed; 
-            top: 0; 
-            width: 100%; 
-            height: 90px;
-            display: flex; 
-            align-items: center; 
-            justify-content: flex-start;
-            padding: 0 60px;
-            background: transparent; 
-            z-index: 1000;
-            transition: transform 0.4s ease-in-out, background 0.4s ease;
+            position: fixed; top: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: flex-start;
+            padding: 0 50px; background: rgba(7, 7, 7, 0.95); 
+            backdrop-filter: blur(10px); z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            transition: transform 0.4s ease;
         }
-        
-        .header-hidden { 
-            transform: translateY(-100%); 
-        }
-        
-        .header-active { 
-            background: var(--glass); 
-            backdrop-filter: blur(15px); 
-            border-bottom: 1px solid rgba(232, 195, 176, 0.1);
-        }
-
-        .nav-links { 
-            display: flex; 
-            gap: 35px; 
-        }
-        
+        .header-hidden { transform: translateY(-100%); }
+        .nav-links { display: flex; gap: 40px; }
         .nav-links a {
-            font-size: 10px; 
-            text-transform: uppercase; 
-            letter-spacing: 3px;
-            color: var(--white); 
-            transition: 0.3s; 
-            font-weight: 400; 
-            text-decoration: none;
+            font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-muted); transition: var(--transition); text-decoration: none;
         }
-        
-        .nav-links a:hover { 
-            color: var(--dior-gold); 
-        }
-        
-        .nav-links a.active { 
-            color: var(--dior-gold); 
-            border-bottom: 1px solid var(--dior-gold); 
-            padding-bottom: 4px; 
-        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
 
         /* ==========================================================================
-           ICONOS FIJOS GLOBALES (CARRITO Y CORAZÓN)
+           ICONOS FIJOS
            ========================================================================== */
         .nav-actions-fixed {
-            position: fixed; 
-            top: 35px; 
-            right: 60px; 
-            display: flex; 
-            gap: 30px; 
-            z-index: 1100; 
-            align-items: center;
+            position: fixed; top: 30px; right: 50px; display: flex; gap: 25px; 
+            z-index: 1100; align-items: center;
         }
-        
         .icon-wrapper { 
-            position: relative; 
-            cursor: pointer; 
-            color: #fff; 
-            font-size: 19px; 
-            transition: 0.3s; 
+            position: relative; cursor: pointer; color: var(--text-main); 
+            font-size: 16px; transition: var(--transition); 
         }
-        
-        .icon-wrapper:hover {
-            color: var(--dior-gold);
-            transform: scale(1.1);
-        }
-        
+        .icon-wrapper:hover { color: var(--accent-gold); }
         .badge-count {
-            position: absolute; 
-            top: -9px; 
-            right: -11px; 
-            background: var(--dior-gold); 
-            color: #000;
-            font-size: 9px; 
-            font-weight: 800; 
-            width: 17px; 
-            height: 17px; 
-            border-radius: 50%;
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
+            position: absolute; top: -6px; right: -8px; background: var(--text-main); 
+            color: var(--bg-dark); font-size: 8px; font-weight: 500; 
+            width: 14px; height: 14px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
         }
 
         /* ==========================================================================
-           HERO SECTION (PORTADA)
+           INTRODUCCIÓN DIRECTA (CON SHEIN VIP DESTACADO)
            ========================================================================== */
-        .hero {
-            position: relative; 
-            min-height: 80vh; 
-            width: 100%;
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            justify-content: center;
-            background: url('s0.jpg') center center / cover no-repeat;
-            background-color: #000;
-            overflow: hidden;
-            padding-top: 100px;
-        }
-        
-        .hero-overlay {
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, #050505 100%);
-            z-index: 2;
-        }
-        
-        .hero-content { 
-            position: relative; 
-            z-index: 3; 
+        .intro-section { 
+            padding: 160px 40px 60px; /* Espacio superior para que el header no lo tape */
             text-align: center; 
-            padding: 0 20px; 
-            max-width: 900px;
         }
         
+        /* ETIQUETA SHEIN VIP */
         .special-label {
             display: inline-block; 
-            padding: 8px 25px; 
-            border: 1px solid var(--dior-gold);
-            color: var(--dior-gold); 
-            font-size: 9px; 
+            color: var(--accent-gold); 
+            font-size: 11px; 
             letter-spacing: 6px; 
             text-transform: uppercase;
             margin-bottom: 25px; 
-            background: rgba(232, 195, 176, 0.05);
+            border: 1px solid var(--accent-gold);
+            padding: 8px 20px;
+            background: rgba(197, 160, 89, 0.05);
+            font-weight: 500;
         }
 
         .title-main { 
-            font-family: 'Cinzel', serif; 
-            font-size: clamp(2.5rem, 6vw, 4.5rem); 
-            font-weight: 400; 
-            margin-bottom: 20px; 
-            letter-spacing: 5px; 
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 15px; 
+            letter-spacing: 2px; font-style: italic; color: var(--text-main);
         }
-        
-        .hero-desc { 
-            font-size: 12px; 
-            color: var(--white); 
-            letter-spacing: 3px; 
-            text-transform: uppercase; 
-            font-weight: 300;
+        .intro-content { max-width: 600px; margin: 0 auto; }
+        .intro-content p {
+            font-size: 13px; color: var(--text-muted); line-height: 1.8; 
+            font-weight: 300; margin-bottom: 25px;
         }
-
-        /* ==========================================================================
-           SECCIÓN EDITORIAL (BOUTIQUE INFANTIL)
-           ========================================================================== */
-        .editorial-section {
-            padding: 100px 60px 40px;
-            background: #050505;
-            text-align: center;
-        }
-
-        .editorial-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .editorial-content p {
-            font-size: 12px;
-            color: var(--dior-gray);
-            line-height: 2.2;
-            font-weight: 300;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
-        }
-
         .promo-text {
-            color: var(--dior-gold);
-            font-family: 'Cinzel', serif;
-            font-size: 14px;
-            letter-spacing: 2px;
+            color: var(--text-main); font-size: 9px; letter-spacing: 3px; 
+            text-transform: uppercase; border-bottom: 1px solid var(--accent-gold); 
+            display: inline-block; padding-bottom: 5px;
         }
 
         /* ==========================================================================
-           GALERÍA DE PRODUCTOS
+           GALERÍA DE PRODUCTOS (IMÁGENES SIN RECORTAR)
            ========================================================================== */
         .gallery-wrapper { 
-            padding: 60px 60px 150px; 
-            max-width: 1500px; 
-            margin: 0 auto; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 60px; 
+            padding: 20px 50px 120px; max-width: 1400px; margin: 0 auto; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; 
         }
-        
-        .model-card { 
-            background: transparent; 
-            border: 1px solid #111; 
-            transition: var(--transition); 
-            position: relative; 
-            padding-bottom: 20px; 
-            background-color: #080808;
-        }
-        
-        .model-card:hover { 
-            border-color: var(--dior-gold); 
-            transform: translateY(-15px); 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
+        .model-card { background: var(--bg-card); transition: var(--transition); position: relative; }
         
         .img-container { 
-            width: 100%; 
-            height: 480px; 
-            overflow: hidden; 
-            position: relative; 
-            background: #000; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .img-container img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: contain; 
-            transition: 1.5s cubic-bezier(0.2, 1, 0.3, 1); 
-        }
-        
-        .model-card:hover .img-container img { 
-            transform: scale(1.08); 
-            filter: brightness(1.1); 
-        }
-
-        /* Botón Corazón Flotante */
-        .btn-heart { 
-            position: absolute; 
-            top: 25px; 
-            right: 25px; 
-            background: rgba(0,0,0,0.6); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            color: #fff; 
-            width: 45px; 
-            height: 45px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            transition: 0.3s; 
-            z-index: 10; 
-            backdrop-filter: blur(5px);
-        }
-        
-        .btn-heart:hover {
-            background: rgba(0,0,0,0.9);
-            transform: scale(1.1);
-        }
-
-        .btn-heart.active { 
-            color: #ff4b4b; 
-            border-color: #ff4b4b; 
-            background: rgba(255,75,75,0.15);
-        }
-        
-        /* Detalles de la Prenda */
-        .card-details { 
-            padding: 40px 30px; 
-            text-align: center; 
-        }
-        
-        .model-name { 
-            font-family: 'Cinzel', serif; 
-            font-size: 20px; 
-            color: var(--white); 
-            margin-bottom: 10px; 
-            letter-spacing: 2px; 
-            font-weight: 500;
-        }
-        
-        .model-ref { 
-            font-family: monospace; 
-            font-size: 10px; 
-            color: var(--dior-gray); 
-            letter-spacing: 4px; 
-            margin-bottom: 20px; 
-        }
-        
-        .model-price { 
-            font-family: 'Cinzel', serif; 
-            font-size: 24px; 
-            color: var(--dior-gold); 
-            margin-bottom: 30px; 
-        }
-
-        /* ==========================================================================
-           SELECTORES DE EDAD Y CANTIDAD
-           ========================================================================== */
-        .luxury-selectors { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 25px; 
-            margin-bottom: 35px; 
-        }
-        
-        .selector-label { 
-            font-size: 9px; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            color: var(--dior-gray); 
-            margin-bottom: 10px; 
-            display: block; 
-        }
-        
-        .sizes-container { 
-            display: flex; 
-            justify-content: center; 
-            gap: 8px; 
-            flex-wrap: wrap;
-        }
-        
-        .size-box {
-            padding: 10px 15px; 
-            border: 1px solid #222; 
-            color: var(--dior-gray); 
-            font-size: 10px; 
-            cursor: pointer; 
-            transition: 0.3s;
-            min-width: 50px;
-        }
-        
-        .size-box:hover { 
-            border-color: var(--white); 
-            color: var(--white); 
-        }
-        
-        .size-box.active { 
-            background: var(--white); 
-            color: #000; 
-            border-color: var(--white); 
-            font-weight: 700; 
-        }
-
-        .qty-container {
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 15px;
-            border: 1px solid #222; 
-            width: fit-content; 
-            margin: 0 auto; 
-            padding: 8px 20px;
-        }
-        
-        .qty-btn { 
-            background: none; 
-            border: none; 
-            color: var(--white); 
-            cursor: pointer; 
-            font-size: 16px; 
-            padding: 0 10px;
-        }
-        
-        .qty-val { 
-            font-size: 14px; 
-            font-family: 'Cinzel', serif; 
-            min-width: 25px; 
-        }
-
-        /* ==========================================================================
-           BOTÓN DE COMPRA
-           ========================================================================== */
-        .btn-buy { 
-            display: block; 
-            width: 100%; 
-            padding: 22px; 
+            width: 100%; height: 500px; overflow: hidden; position: relative; 
+            display: flex; align-items: center; justify-content: center;
             background: transparent; 
-            border: 1px solid var(--white); 
-            color: var(--white); 
-            font-size: 11px; 
-            letter-spacing: 5px; 
-            text-transform: uppercase; 
-            cursor: pointer; 
-            transition: 0.4s; 
         }
+        .img-container img { 
+            width: 100%; height: 100%; 
+            object-fit: contain; /* Imágenes completas sin recortes */
+            transition: transform 1.2s ease; opacity: 0.95;
+        }
+        .model-card:hover .img-container img { transform: scale(1.05); opacity: 1; }
+
+        .btn-heart { 
+            position: absolute; top: 20px; right: 20px; background: transparent; 
+            border: none; color: rgba(255,255,255,0.4); font-size: 18px;
+            cursor: pointer; transition: var(--transition); z-index: 10; 
+        }
+        .btn-heart:hover { color: var(--text-main); transform: scale(1.1); }
+        .btn-heart.active { color: var(--accent-gold); }
         
-        .btn-buy:hover { 
-            background: var(--white); 
-            color: #000; 
+        .card-details { padding: 20px 20px 30px; text-align: center; }
+        .model-name { font-size: 22px; color: var(--text-main); margin-bottom: 5px; font-style: italic; }
+        .model-ref { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 15px; }
+        .model-price { font-size: 16px; color: var(--text-main); margin-bottom: 25px; letter-spacing: 1px; }
+
+        .luxury-selectors { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
+        .selector-label { 
+            font-size: 8px; text-transform: uppercase; letter-spacing: 2px; 
+            color: var(--text-muted); margin-bottom: 8px; display: block; 
         }
+        .sizes-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .size-box {
+            padding: 8px 0; width: 45px; border-bottom: 1px solid var(--border-light); 
+            color: var(--text-muted); font-size: 10px; cursor: pointer; transition: var(--transition);
+        }
+        .size-box:hover { color: var(--text-main); border-bottom-color: var(--text-main); }
+        .size-box.active { color: var(--accent-gold); border-bottom-color: var(--accent-gold); }
+
+        .qty-container { display: flex; align-items: center; justify-content: center; gap: 20px; }
+        .qty-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; transition: var(--transition); }
+        .qty-btn:hover { color: var(--text-main); }
+        .qty-val { font-size: 13px; min-width: 15px; }
+
+        .btn-buy { 
+            display: block; width: 100%; padding: 16px; background: transparent; 
+            border: 1px solid var(--border-light); color: var(--text-main); font-size: 9px; 
+            letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: var(--transition); 
+        }
+        .btn-buy:hover { background: var(--text-main); color: var(--bg-dark); }
 
         /* ==========================================================================
            NOTIFICACIÓN TOAST
            ========================================================================== */
         .toast { 
-            position: fixed; 
-            bottom: -80px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            background: var(--dior-gold); 
-            color: #000; 
-            padding: 18px 50px; 
-            border-radius: 2px; 
-            font-size: 11px; 
-            font-weight: 700; 
-            z-index: 4000; 
-            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            letter-spacing: 2px; 
-            text-transform: uppercase;
+            position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%); 
+            background: var(--text-main); color: var(--bg-dark); padding: 15px 40px; 
+            font-size: 9px; font-weight: 500; z-index: 4000; 
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+            letter-spacing: 2px; text-transform: uppercase;
         }
-        
-        .toast.show { 
-            bottom: 50px; 
-        }
+        .toast.show { bottom: 40px; }
 
         /* ==========================================================================
            FOOTER
            ========================================================================== */
-        footer { 
-            padding: 80px 60px; 
-            text-align: center; 
-            background: #000; 
-            border-top: 1px solid #111; 
-        }
-        
+        footer { padding: 60px 40px; text-align: center; border-top: 1px solid var(--border-light); }
         .contact-info { 
-            font-size: 10px; 
-            color: var(--dior-gray); 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            line-height: 2.5; 
+            font-size: 9px; color: var(--text-muted); letter-spacing: 2px; 
+            text-transform: uppercase; line-height: 2.5; 
         }
+        .contact-info strong { color: var(--text-main); font-weight: 400; }
 
-        /* ==========================================================================
-           RESPONSIVE DESIGN (MOBILE)
-           ========================================================================== */
         @media (max-width: 768px) {
-            header { padding: 0 30px; height: 80px; justify-content: center; }
-            .nav-links { display: none; }
+            header { padding: 0 20px; height: 70px; }
+            .nav-links { display: none; } 
             .nav-actions-fixed { right: 20px; top: 25px; }
-            .hero-content { margin-top: 150px; }
-            .gallery-wrapper { padding: 60px 20px 100px; gap: 40px; grid-template-columns: 1fr; }
+            .intro-section { padding-top: 120px; }
+            .gallery-wrapper { padding: 20px 20px 80px; grid-template-columns: 1fr; }
             .img-container { height: 400px; }
         }
     </style>
@@ -515,19 +228,13 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="special-label">Shein VIP Exclusive</div>
+    <section class="intro-section">
+        <div class="intro-content">
+            <div class="special-label">SHEIN VIP EXCLUSIVE</div>
+            
             <h1 class="title-main">Colección Niña</h1>
-            <p class="hero-desc">Alta Costura Infantil | Importación España</p>
-        </div>
-    </section>
-
-    <section class="editorial-section">
-        <div class="editorial-content">
-            <p>Vestidos diseñados para brillar. Una curaduría de piezas excepcionales donde la delicadeza se encuentra con el diseño europeo. Calidad garantizada para los momentos más especiales.</p>
-            <p class="promo-text">10% DE DESCUENTO AL ADQUIRIR 5 PIEZAS DEL MISMO MODELO</p>
+            <p>Una curaduría de piezas excepcionales donde la delicadeza se encuentra con el diseño europeo. Siluetas atemporales creadas para los momentos más especiales.</p>
+            <span class="promo-text">10% de cortesía al adquirir 5 piezas del mismo modelo</span>
         </div>
     </section>
 
@@ -544,10 +251,9 @@
                 <h3 class="model-name">Dulce Ternura</h3>
                 <p class="model-ref">REF-70101</p>
                 <p class="model-price">L. 499</p>
-                
                 <div class="luxury-selectors">
                     <div>
-                        <span class="selector-label">Edad</span>
+                        <span class="selector-label">Talla / Edad</span>
                         <div class="sizes-container" id="sizes-n1">
                             <span class="size-box" onclick="selectSize('n1', '6-9m', this)">6-9m</span>
                             <span class="size-box" onclick="selectSize('n1', '9-12m', this)">9-12m</span>
@@ -561,12 +267,11 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('n1', -1)">-</button>
-                            <span class="qty-val" id="qty-n1">1</span>
+                            <span class="qty-val serif" id="qty-n1">1</span>
                             <button class="qty-btn" onclick="updateQty('n1', 1)">+</button>
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('n1', 'Dulce Ternura', 'REF-70101', 499, 'n1.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
@@ -582,10 +287,9 @@
                 <h3 class="model-name">Pequeña Estrella</h3>
                 <p class="model-ref">REF-70102</p>
                 <p class="model-price">L. 499</p>
-                
                 <div class="luxury-selectors">
                     <div>
-                        <span class="selector-label">Edad</span>
+                        <span class="selector-label">Talla / Edad</span>
                         <div class="sizes-container" id="sizes-n2">
                             <span class="size-box" onclick="selectSize('n2', '6-9m', this)">6-9m</span>
                             <span class="size-box" onclick="selectSize('n2', '9-12m', this)">9-12m</span>
@@ -599,12 +303,11 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('n2', -1)">-</button>
-                            <span class="qty-val" id="qty-n2">1</span>
+                            <span class="qty-val serif" id="qty-n2">1</span>
                             <button class="qty-btn" onclick="updateQty('n2', 1)">+</button>
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('n2', 'Pequeña Estrella', 'REF-70102', 499, 'n2.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
@@ -620,26 +323,24 @@
                 <h3 class="model-name">Sueño Infantil</h3>
                 <p class="model-ref">REF-70103</p>
                 <p class="model-price">L. 499</p>
-                
                 <div class="luxury-selectors">
                     <div>
-                        <span class="selector-label">Edad</span>
+                        <span class="selector-label">Talla / Edad</span>
                         <div class="sizes-container" id="sizes-n3">
-                            <span class="size-box" onclick="selectSize('n3', '4a', this)">4 años</span>
-                            <span class="size-box" onclick="selectSize('n3', '5a', this)">5 años</span>
-                            <span class="size-box" onclick="selectSize('n3', '6a', this)">6 años</span>
+                            <span class="size-box" onclick="selectSize('n3', '4a', this)">4a</span>
+                            <span class="size-box" onclick="selectSize('n3', '5a', this)">5a</span>
+                            <span class="size-box" onclick="selectSize('n3', '6a', this)">6a</span>
                         </div>
                     </div>
                     <div>
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('n3', -1)">-</button>
-                            <span class="qty-val" id="qty-n3">1</span>
+                            <span class="qty-val serif" id="qty-n3">1</span>
                             <button class="qty-btn" onclick="updateQty('n3', 1)">+</button>
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('n3', 'Sueño Infantil', 'REF-70103', 499, 'n3.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
@@ -655,10 +356,9 @@
                 <h3 class="model-name">Encanto Mágico</h3>
                 <p class="model-ref">REF-70104</p>
                 <p class="model-price">L. 499</p>
-                
                 <div class="luxury-selectors">
                     <div>
-                        <span class="selector-label">Edad</span>
+                        <span class="selector-label">Talla / Edad</span>
                         <div class="sizes-container" id="sizes-n4">
                             <span class="size-box" onclick="selectSize('n4', '4a', this)">4a</span>
                             <span class="size-box" onclick="selectSize('n4', '5a', this)">5a</span>
@@ -670,12 +370,11 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('n4', -1)">-</button>
-                            <span class="qty-val" id="qty-n4">1</span>
+                            <span class="qty-val serif" id="qty-n4">1</span>
                             <button class="qty-btn" onclick="updateQty('n4', 1)">+</button>
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('n4', 'Encanto Mágico', 'REF-70104', 499, 'n4.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
@@ -691,10 +390,9 @@
                 <h3 class="model-name">Boutique Real</h3>
                 <p class="model-ref">REF-70105</p>
                 <p class="model-price">L. 599</p>
-                
                 <div class="luxury-selectors">
                     <div>
-                        <span class="selector-label">Edad</span>
+                        <span class="selector-label">Talla / Edad</span>
                         <div class="sizes-container" id="sizes-n5">
                             <span class="size-box" onclick="selectSize('n5', '4a', this)">4a</span>
                             <span class="size-box" onclick="selectSize('n5', '5a', this)">5a</span>
@@ -706,12 +404,11 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('n5', -1)">-</button>
-                            <span class="qty-val" id="qty-n5">1</span>
+                            <span class="qty-val serif" id="qty-n5">1</span>
                             <button class="qty-btn" onclick="updateQty('n5', 1)">+</button>
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('n5', 'Boutique Real', 'REF-70105', 599, 'n5.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
@@ -727,24 +424,22 @@
                 <h3 class="model-name">Gala Infantil</h3>
                 <p class="model-ref">REF-70106</p>
                 <p class="model-price">L. 599</p>
-                
                 <div class="luxury-selectors">
                     <div>
-                        <span class="selector-label">Edad</span>
+                        <span class="selector-label">Talla / Edad</span>
                         <div class="sizes-container" id="sizes-n6">
-                            <span class="size-box" onclick="selectSize('n6', '7a', this)">7 años</span>
+                            <span class="size-box" onclick="selectSize('n6', '7a', this)">7a</span>
                         </div>
                     </div>
                     <div>
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('n6', -1)">-</button>
-                            <span class="qty-val" id="qty-n6">1</span>
+                            <span class="qty-val serif" id="qty-n6">1</span>
                             <button class="qty-btn" onclick="updateQty('n6', 1)">+</button>
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('n6', 'Gala Infantil', 'REF-70106', 599, 'n6.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
@@ -760,10 +455,9 @@
                 <h3 class="model-name">Esencia Pura</h3>
                 <p class="model-ref">REF-70107</p>
                 <p class="model-price">L. 599</p>
-                
                 <div class="luxury-selectors">
                     <div>
-                        <span class="selector-label">Edad</span>
+                        <span class="selector-label">Talla / Edad</span>
                         <div class="sizes-container" id="sizes-n7">
                             <span class="size-box" onclick="selectSize('n7', '2-3a', this)">2-3a</span>
                             <span class="size-box" onclick="selectSize('n7', '4a', this)">4a</span>
@@ -775,12 +469,11 @@
                         <span class="selector-label">Cantidad</span>
                         <div class="qty-container">
                             <button class="qty-btn" onclick="updateQty('n7', -1)">-</button>
-                            <span class="qty-val" id="qty-n7">1</span>
+                            <span class="qty-val serif" id="qty-n7">1</span>
                             <button class="qty-btn" onclick="updateQty('n7', 1)">+</button>
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('n7', 'Esencia Pura', 'REF-70107', 599, 'n7.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
@@ -792,13 +485,12 @@
     <footer>
         <div class="contact-info">
             <p>Boutique Infantil VIP</p>
-            <p>Directora de Operaciones: Abril Armas | pedidos@storeabril.com</p>
-            <p style="margin-top: 20px; opacity: 0.2;">© 2026 ABRIL VIP | ÈNIGME LUXE SYSTEMS</p>
+            <p>Disponibilidad en  Choluteca.</p>
+            <p style="margin-top: 30px; opacity: 0.3;">© 2026 ABRIL STORE | SHEIN VIP EXCLUSIVITÉ</p>
         </div>
     </footer>
 
     <script>
-        // 1. NAVEGACIÓN INTELIGENTE (SCROLL)
         let lastScroll = 0;
         window.addEventListener('scroll', () => {
             const currentScroll = window.pageYOffset;
@@ -806,27 +498,21 @@
             
             if (currentScroll <= 10) {
                 header.classList.remove('header-hidden');
-                header.classList.remove('header-active');
                 return;
             }
-
             if (currentScroll > lastScroll && !header.classList.contains('header-hidden')) {
                 header.classList.add('header-hidden');
             } else if (currentScroll < lastScroll && header.classList.contains('header-hidden')) {
                 header.classList.remove('header-hidden');
-                header.classList.add('header-active');
             }
             lastScroll = currentScroll;
         });
 
-        // 2. BASES DE DATOS LOCALES
         let cart = JSON.parse(localStorage.getItem('abrilCart')) || [];
         let wishlist = JSON.parse(localStorage.getItem('abrilWishlist')) || [];
-        
         let currentSizes = {};
         let quantities = { n1:1, n2:1, n3:1, n4:1, n5:1, n6:1, n7:1 };
 
-        // 3. INICIALIZAR PÁGINA (PINTAR CORAZONES)
         function initPage() {
             document.getElementById('wish-count').textContent = wishlist.length;
             document.getElementById('cart-count').textContent = cart.length;
@@ -836,15 +522,11 @@
                 const idAttr = btn.getAttribute('id'); 
                 if(!idAttr) return;
                 const pId = idAttr.replace('fav-', ''); 
-                
                 const isSaved = wishlist.some(item => item.id === pId);
-                if(isSaved) {
-                    btn.classList.add('active');
-                }
+                if(isSaved) btn.classList.add('active');
             });
         }
 
-        // 4. ACTUALIZAR CANTIDAD (+ / -)
         function updateQty(id, delta) {
             let next = quantities[id] + delta;
             if (next >= 1 && next <= 10) {
@@ -853,7 +535,6 @@
             }
         }
 
-        // 5. SELECCIONAR EDAD/TALLA
         function selectSize(id, size, el) {
             currentSizes[id] = size;
             const boxes = document.getElementById('sizes-' + id).querySelectorAll('.size-box');
@@ -861,57 +542,44 @@
             el.classList.add('active');
         }
 
-        // 6. AÑADIR AL CARRITO CON LÓGICA DE DESCUENTO
         function addToCart(productId, name, ref, price, img) {
             const size = currentSizes[productId];
             const qty = quantities[productId];
             
             if(!size) {
-                showToast('Seleccione la edad de la niña');
+                showToast('Por favor, seleccione una talla');
                 return;
             }
 
-            // Descuento del 10% si compran 5 o más unidades del mismo
             let finalPrice = price;
-            if(qty >= 5) { 
-                finalPrice = price * 0.9; 
-            }
+            if(qty >= 5) finalPrice = price * 0.9; 
 
             cart.push({ 
                 id: productId + Date.now(), 
-                name: name, 
-                ref: ref, 
-                basePrice: price, 
-                price: finalPrice * qty, 
-                qty: qty, 
-                size: size, 
-                img: img 
+                name: name, ref: ref, basePrice: price, 
+                price: finalPrice * qty, qty: qty, size: size, img: img 
             });
             
             localStorage.setItem('abrilCart', JSON.stringify(cart));
             document.getElementById('cart-count').textContent = cart.length;
-            showToast('Pieza añadida a su Bolsa Exclusiva');
+            showToast('Añadido a su bolsa');
         }
 
-        // 7. GESTIÓN DE FAVORITOS (WISH LIST)
         function toggleHeart(id, name, ref, price, img, btn) {
             const idx = wishlist.findIndex(x => x.id === id);
-            
             if(idx > -1) { 
                 wishlist.splice(idx, 1); 
                 btn.classList.remove('active'); 
-                showToast('Retirado de su Lista de Deseos');
+                showToast('Retirado de favoritos');
             } else { 
                 wishlist.push({id: id, name: name, ref: ref, price: price, img: img}); 
                 btn.classList.add('active'); 
-                showToast('Guardado en su Lista de Deseos');
+                showToast('Guardado en favoritos');
             }
-            
             localStorage.setItem('abrilWishlist', JSON.stringify(wishlist));
             document.getElementById('wish-count').textContent = wishlist.length;
         }
 
-        // 8. ALERTAS ESTILO DIOR
         function showToast(msg) { 
             const t = document.getElementById('toastAlert'); 
             t.textContent = msg; 
@@ -919,9 +587,7 @@
             setTimeout(() => t.classList.remove('show'), 3500); 
         }
 
-        // Iniciar todo
         window.onload = initPage;
-
     </script>
 </body>
 </html>
