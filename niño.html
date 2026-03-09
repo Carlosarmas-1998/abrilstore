@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colección Niño | SHEIN VIP</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,600&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           VARIABLES GLOBALES - MINIMALISMO DE LUJO
+           ========================================================================== */
+        :root {
+            --bg-dark: #070707;
+            --bg-card: #0a0a0a;
+            --accent-gold: #c5a059; 
+            --text-main: #f0f0f0;
+            --text-muted: #666666;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* ==========================================================================
+           RESET Y BASE
+           ========================================================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4, .serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+        }
+
+        /* ==========================================================================
+           HEADER INTELIGENTE
+           ========================================================================== */
+        header {
+            position: fixed; top: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: flex-start;
+            padding: 0 50px; background: rgba(7, 7, 7, 0.95); 
+            backdrop-filter: blur(10px); z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            transition: transform 0.4s ease;
+        }
+        .header-hidden { transform: translateY(-100%); }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-muted); transition: var(--transition); text-decoration: none;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+
+        /* ==========================================================================
+           ICONOS FIJOS
+           ========================================================================== */
+        .nav-actions-fixed {
+            position: fixed; top: 30px; right: 50px; display: flex; gap: 25px; 
+            z-index: 1100; align-items: center;
+        }
+        .icon-wrapper { 
+            position: relative; cursor: pointer; color: var(--text-main); 
+            font-size: 16px; transition: var(--transition); 
+        }
+        .icon-wrapper:hover { color: var(--accent-gold); }
+        .badge-count {
+            position: absolute; top: -6px; right: -8px; background: var(--text-main); 
+            color: var(--bg-dark); font-size: 8px; font-weight: 500; 
+            width: 14px; height: 14px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* ==========================================================================
+           INTRODUCCIÓN DIRECTA
+           ========================================================================== */
+        .intro-section { 
+            padding: 160px 40px 60px; 
+            text-align: center; 
+        }
+        
+        .special-label {
+            display: inline-block; color: var(--accent-gold); font-size: 11px; 
+            letter-spacing: 6px; text-transform: uppercase; margin-bottom: 25px; 
+            border: 1px solid var(--accent-gold); padding: 8px 20px;
+            background: rgba(197, 160, 89, 0.05); font-weight: 500;
+        }
+
+        .title-main { 
+            font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 15px; 
+            letter-spacing: 2px; font-style: italic; color: var(--text-main);
+        }
+        .intro-content { max-width: 600px; margin: 0 auto; }
+        .intro-content p {
+            font-size: 13px; color: var(--text-muted); line-height: 1.8; 
+            font-weight: 300; margin-bottom: 25px;
+        }
+        .promo-text {
+            color: var(--text-main); font-size: 9px; letter-spacing: 3px; 
+            text-transform: uppercase; border-bottom: 1px solid var(--accent-gold); 
+            display: inline-block; padding-bottom: 5px;
+        }
+
+        /* ==========================================================================
+           GALERÍA DE PRODUCTOS
+           ========================================================================== */
+        .gallery-wrapper { 
+            padding: 20px 50px 120px; max-width: 1400px; margin: 0 auto; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; 
+        }
+        .model-card { 
+            background: var(--bg-card); transition: var(--transition); position: relative; 
+            border: 1px solid transparent;
+        }
+        
+        .img-container { 
+            width: 100%; height: 500px; overflow: hidden; position: relative; 
+            display: flex; align-items: center; justify-content: center; background: transparent; 
+            cursor: default;
+        }
+        .img-container img { 
+            width: 100%; height: 100%; object-fit: contain; 
+            transition: transform 1.2s ease; opacity: 0.95;
+        }
+        .model-card:hover .img-container img { transform: scale(1.05); opacity: 1; }
+
+        .btn-heart { 
+            position: absolute; top: 20px; right: 20px; background: transparent; 
+            border: none; color: rgba(255,255,255,0.4); font-size: 18px;
+            cursor: pointer; transition: var(--transition); z-index: 10; 
+        }
+        .btn-heart:hover { color: var(--text-main); transform: scale(1.1); }
+        .btn-heart.active { color: var(--accent-gold); }
+        
+        .card-details { padding: 30px 20px 40px; text-align: center; }
+        .model-name { font-size: 22px; color: var(--text-main); margin-bottom: 5px; font-style: italic; }
+        .model-ref { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase; }
+        
+        .model-motto { font-size: 9px; color: var(--accent-gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; font-weight: 500;}
+
+        .model-desc {
+            font-size: 10px; color: var(--text-muted); line-height: 1.6;
+            margin-bottom: 20px; font-weight: 300; padding: 0 10px;
+        }
+
+        .model-price { font-size: 16px; color: var(--text-main); margin-bottom: 25px; letter-spacing: 1px; }
+
+        /* ==========================================================================
+           SELECTORES DE TALLA Y CANTIDAD
+           ========================================================================== */
+        .luxury-selectors { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; transition: var(--transition); }
+        .selector-label { 
+            font-size: 8px; text-transform: uppercase; letter-spacing: 2px; 
+            color: var(--text-muted); margin-bottom: 8px; display: block; 
+        }
+        .sizes-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .size-box {
+            padding: 8px 0; width: 45px; border-bottom: 1px solid var(--border-light); 
+            color: var(--text-muted); font-size: 10px; cursor: pointer; transition: var(--transition);
+        }
+        .size-box:hover { color: var(--text-main); border-bottom-color: var(--text-main); }
+        .size-box.active { color: var(--accent-gold); border-bottom-color: var(--accent-gold); }
+
+        .qty-container { display: flex; align-items: center; justify-content: center; gap: 20px; }
+        .qty-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; transition: var(--transition); }
+        .qty-btn:hover { color: var(--text-main); }
+        .qty-val { font-size: 13px; min-width: 15px; font-family: 'Cormorant Garamond', serif;}
+
+        .btn-buy { 
+            display: block; width: 100%; padding: 16px; background: transparent; 
+            border: 1px solid var(--border-light); color: var(--text-main); font-size: 9px; 
+            letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: var(--transition); 
+        }
+        .btn-buy:hover { background: var(--text-main); color: var(--bg-dark); }
+
+        /* ==========================================================================
+           MODO SELECCIÓN RÁPIDA (ELEGIR MÚLTIPLES)
+           ========================================================================== */
+        body.selection-mode .img-container { cursor: pointer; }
+        
+        body.selection-mode .img-container img {
+            animation: slowFloat 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowFloat {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(-8px) scale(1.02); }
+        }
+
+        body.selection-mode .btn-buy { display: none; }
+        body.selection-mode .btn-heart { display: none; }
+
+        .select-indicator {
+            position: absolute; top: 20px; left: 20px; width: 25px; height: 25px;
+            border-radius: 50%; border: 1px solid var(--text-muted); background: rgba(0,0,0,0.5);
+            display: none; align-items: center; justify-content: center; z-index: 10;
+            color: transparent; transition: var(--transition); font-size: 12px;
+        }
+        body.selection-mode .select-indicator { display: flex; }
+
+        .model-card.selected { border-color: var(--accent-gold); box-shadow: 0 0 20px rgba(197, 160, 89, 0.1); }
+        .model-card.selected .select-indicator { background: var(--accent-gold); border-color: var(--accent-gold); color: var(--bg-dark); }
+        .model-card.selected .img-container img { animation-play-state: paused; transform: scale(1.05); opacity: 1;}
+
+        /* BOTÓN INFERIOR GIGANTE (MÁGICO) */
+        .magic-action-container {
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: rgba(7,7,7,0.95); backdrop-filter: blur(10px);
+            padding: 20px; text-align: center; z-index: 3000;
+            border-top: 1px solid var(--border-light);
+            transition: transform 0.5s ease;
+        }
+
+        .btn-magic {
+            background: var(--text-main); color: var(--bg-dark); border: none;
+            padding: 20px 60px; font-size: 11px; font-weight: 600; letter-spacing: 5px;
+            text-transform: uppercase; cursor: pointer; transition: var(--transition);
+            width: 100%; max-width: 600px;
+        }
+
+        .btn-magic.pay-mode {
+            background: var(--accent-gold); color: var(--bg-dark);
+            animation: pulseGold 2s infinite;
+        }
+
+        @keyframes pulseGold {
+            0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+        }
+
+        /* ==========================================================================
+           NOTIFICACIÓN TOAST
+           ========================================================================== */
+        .toast { 
+            position: fixed; top: 100px; left: 50%; transform: translateX(-50%); 
+            background: var(--text-main); color: var(--bg-dark); padding: 15px 40px; 
+            font-size: 9px; font-weight: 500; z-index: 4000; 
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+            letter-spacing: 2px; text-transform: uppercase;
+            opacity: 0; visibility: hidden;
+        }
+        .toast.show { opacity: 1; visibility: visible; }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        footer { padding: 60px 40px 150px; text-align: center; border-top: 1px solid var(--border-light); }
+        .contact-info { 
+            font-size: 9px; color: var(--text-muted); letter-spacing: 2px; 
+            text-transform: uppercase; line-height: 2.5; 
+        }
+        .contact-info strong { color: var(--text-main); font-weight: 400; }
+
+        @media (max-width: 768px) {
+            header { padding: 0 20px; height: 70px; }
+            .nav-links { display: none; } 
+            .nav-actions-fixed { right: 20px; top: 25px; }
+            .intro-section { padding-top: 120px; }
+            .gallery-wrapper { padding: 20px 20px 80px; grid-template-columns: 1fr; }
+            .img-container { height: 400px; }
+            .btn-magic { padding: 15px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-actions-fixed">
+        <div class="icon-wrapper" onclick="window.location.href='favoritos.html'">
+            <i class="fa-regular fa-heart"></i>
+            <span class="badge-count" id="wish-count">0</span>
+        </div>
+        <div class="icon-wrapper" onclick="window.location.href='carrito.html'">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="badge-count" id="cart-count">0</span>
+        </div>
+    </div>
+
+    <header id="smart-header">
+        <nav class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="dama.html">Dama</a>
+            <a href="niña.html">Niña</a>
+            <a href="niños.html" class="active">Niño</a>
+            <a href="joyeria.html">Joyería</a>
+            <a href="acero.html">Acero VIP</a>
+        </nav>
+    </header>
+
+    <section class="intro-section">
+        <div class="intro-content">
+            <div class="special-label">SHEIN VIP EXCLUSIVE</div>
+            <h1 class="title-main">Colección Niño</h1>
+            <p>Elegancia en desarrollo. Una selección impecable diseñada para los pequeños caballeros, fusionando tejidos de alta durabilidad con el inconfundible estilo europeo.</p>
+            <span class="promo-text">10% de cortesía al adquirir 5 piezas del mismo modelo</span>
+        </div>
+    </section>
+
+    <section class="gallery-wrapper">
+
+        <article class="model-card" id="card-c1" data-id="c1" data-name="Camisa Cielo VIP" data-ref="REF-80101" data-price="369" data-img="c1.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-c1')">
+                <button class="btn-heart" id="fav-c1" onclick="toggleHeart(event, 'c1', 'Camisa Cielo VIP', 'REF-80101', 369, 'c1.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="c1.jpg" alt="Camisa Cielo VIP">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Camisa Cielo VIP</h3>
+                <p class="model-ref">REF-80101</p>
+                <p class="model-motto">Frescura Celeste</p>
+                <p class="model-desc">Un tono celeste impecable que aporta frescura y sofisticación. Ideal para las tardes de verano y eventos casuales con gran estilo.</p>
+                <p class="model-price">L. 369</p>
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla / Edad</span>
+                        <div class="sizes-container" id="sizes-c1">
+                            <span class="size-box" onclick="selectSize('c1', '8a', this)">8a</span>
+                            <span class="size-box" onclick="selectSize('c1', '9a', this)">9a</span>
+                            <span class="size-box" onclick="selectSize('c1', '10a', this)">10a</span>
+                            <span class="size-box" onclick="selectSize('c1', '12a', this)">12a</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('c1', -1)">-</button>
+                            <span class="qty-val serif" id="qty-c1">1</span>
+                            <button class="qty-btn" onclick="updateQty('c1', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="addToCart('c1', 'Camisa Cielo VIP', 'REF-80101', 369, 'c1.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card" id="card-c2" data-id="c2" data-name="Polo Riviera" data-ref="REF-80102" data-price="389" data-img="c2.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-c2')">
+                <button class="btn-heart" id="fav-c2" onclick="toggleHeart(event, 'c2', 'Polo Riviera', 'REF-80102', 389, 'c2.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="c2.jpg" alt="Polo Riviera">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Polo Riviera</h3>
+                <p class="model-ref">REF-80102</p>
+                <p class="model-motto">Clásico a Rayas</p>
+                <p class="model-desc">Líneas celestes sobre un tejido premium. Una silueta náutica atemporal que nunca pasa de moda en el armario del pequeño caballero.</p>
+                <p class="model-price">L. 389</p>
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla / Edad</span>
+                        <div class="sizes-container" id="sizes-c2">
+                            <span class="size-box" onclick="selectSize('c2', '8a', this)">8a</span>
+                            <span class="size-box" onclick="selectSize('c2', '9a', this)">9a</span>
+                            <span class="size-box" onclick="selectSize('c2', '10a', this)">10a</span>
+                            <span class="size-box" onclick="selectSize('c2', '12a', this)">12a</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('c2', -1)">-</button>
+                            <span class="qty-val serif" id="qty-c2">1</span>
+                            <button class="qty-btn" onclick="updateQty('c2', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="addToCart('c2', 'Polo Riviera', 'REF-80102', 389, 'c2.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card" id="card-c3" data-id="c3" data-name="Suéter Royal" data-ref="REF-80103" data-price="569" data-img="c3.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-c3')">
+                <button class="btn-heart" id="fav-c3" onclick="toggleHeart(event, 'c3', 'Suéter Royal', 'REF-80103', 569, 'c3.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="c3.jpg" alt="Suéter Royal">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Suéter Royal</h3>
+                <p class="model-ref">REF-80103</p>
+                <p class="model-motto">Carácter y Energía</p>
+                <p class="model-desc">Tejido en un vibrante tono rojo a rayas. Una pieza estructurada y de alta costura que denota confianza desde la primera impresión.</p>
+                <p class="model-price">L. 569</p>
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla / Edad</span>
+                        <div class="sizes-container" id="sizes-c3">
+                            <span class="size-box" onclick="selectSize('c3', '8a', this)">8a</span>
+                            <span class="size-box" onclick="selectSize('c3', '9a', this)">9a</span>
+                            <span class="size-box" onclick="selectSize('c3', '10a', this)">10a</span>
+                            <span class="size-box" onclick="selectSize('c3', '12a', this)">12a</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('c3', -1)">-</button>
+                            <span class="qty-val serif" id="qty-c3">1</span>
+                            <button class="qty-btn" onclick="updateQty('c3', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="addToCart('c3', 'Suéter Royal', 'REF-80103', 569, 'c3.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card" id="card-c4" data-id="c4" data-name="Polo Escarlata" data-ref="REF-80104" data-price="399" data-img="c4.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-c4')">
+                <button class="btn-heart" id="fav-c4" onclick="toggleHeart(event, 'c4', 'Polo Escarlata', 'REF-80104', 399, 'c4.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="c4.jpg" alt="Polo Escarlata">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Polo Escarlata</h3>
+                <p class="model-ref">REF-80104</p>
+                <p class="model-motto">Elegancia Vibrante</p>
+                <p class="model-desc">Un color rojo puro y absoluto. Diseño minimalista y tejido transpirable para asegurar la máxima comodidad, libertad y presencia.</p>
+                <p class="model-price">L. 399</p>
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla / Edad</span>
+                        <div class="sizes-container" id="sizes-c4">
+                            <span class="size-box" onclick="selectSize('c4', '8a', this)">8a</span>
+                            <span class="size-box" onclick="selectSize('c4', '9a', this)">9a</span>
+                            <span class="size-box" onclick="selectSize('c4', '10a', this)">10a</span>
+                            <span class="size-box" onclick="selectSize('c4', '12a', this)">12a</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('c4', -1)">-</button>
+                            <span class="qty-val serif" id="qty-c4">1</span>
+                            <button class="qty-btn" onclick="updateQty('c4', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="addToCart('c4', 'Polo Escarlata', 'REF-80104', 399, 'c4.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card" id="card-c5" data-id="c5" data-name="T-Shirt Esencial" data-ref="REF-80105" data-price="289" data-img="c5.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-c5')">
+                <button class="btn-heart" id="fav-c5" onclick="toggleHeart(event, 'c5', 'T-Shirt Esencial', 'REF-80105', 289, 'c5.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="c5.jpg" alt="T-Shirt Esencial">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">T-Shirt Esencial</h3>
+                <p class="model-ref">REF-80105</p>
+                <p class="model-motto">Lujo Cotidiano</p>
+                <p class="model-desc">Camiseta premium en tono gris perla. El equilibrio perfecto entre la relajación absoluta y la calidad de los tejidos más selectos.</p>
+                <p class="model-price">L. 289</p>
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla / Edad</span>
+                        <div class="sizes-container" id="sizes-c5">
+                            <span class="size-box" onclick="selectSize('c5', '8a', this)">8a</span>
+                            <span class="size-box" onclick="selectSize('c5', '9a', this)">9a</span>
+                            <span class="size-box" onclick="selectSize('c5', '10a', this)">10a</span>
+                            <span class="size-box" onclick="selectSize('c5', '12a', this)">12a</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('c5', -1)">-</button>
+                            <span class="qty-val serif" id="qty-c5">1</span>
+                            <button class="qty-btn" onclick="updateQty('c5', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="addToCart('c5', 'T-Shirt Esencial', 'REF-80105', 289, 'c5.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card" id="card-c6" data-id="c6" data-name="Camisa Zafiro" data-ref="REF-80106" data-price="479" data-img="c6.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-c6')">
+                <button class="btn-heart" id="fav-c6" onclick="toggleHeart(event, 'c6', 'Camisa Zafiro', 'REF-80106', 479, 'c6.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="c6.jpg" alt="Camisa Zafiro">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Camisa Zafiro</h3>
+                <p class="model-ref">REF-80106</p>
+                <p class="model-motto">Profundidad Oceánica</p>
+                <p class="model-desc">Un azul profundo y cautivador. Su corte magistral convierte a esta prenda en una elección sublime y segura para celebraciones formales.</p>
+                <p class="model-price">L. 479</p>
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla / Edad</span>
+                        <div class="sizes-container" id="sizes-c6">
+                            <span class="size-box" onclick="selectSize('c6', '8a', this)">8a</span>
+                            <span class="size-box" onclick="selectSize('c6', '9a', this)">9a</span>
+                            <span class="size-box" onclick="selectSize('c6', '10a', this)">10a</span>
+                            <span class="size-box" onclick="selectSize('c6', '12a', this)">12a</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('c6', -1)">-</button>
+                            <span class="qty-val serif" id="qty-c6">1</span>
+                            <button class="qty-btn" onclick="updateQty('c6', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="addToCart('c6', 'Camisa Zafiro', 'REF-80106', 479, 'c6.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card" id="card-c7" data-id="c7" data-name="Suéter Garnet" data-ref="REF-80107" data-price="569" data-img="c7.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-c7')">
+                <button class="btn-heart" id="fav-c7" onclick="toggleHeart(event, 'c7', 'Suéter Garnet', 'REF-80107', 569, 'c7.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="c7.jpg" alt="Suéter Garnet">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Camisa Garnet</h3>
+                <p class="model-ref">REF-80107</p>
+                <p class="model-motto">Sofisticación Absoluta</p>
+                <p class="model-desc">Exclusivo tono borgoña que emana lujo y tradición. Acabados artesanales pensados para los pequeños caballeros más exigentes.</p>
+                <p class="model-price">L. 569</p>
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla / Edad</span>
+                        <div class="sizes-container" id="sizes-c7">
+                            <span class="size-box" onclick="selectSize('c7', '8a', this)">8a</span>
+                            <span class="size-box" onclick="selectSize('c7', '9a', this)">9a</span>
+                            <span class="size-box" onclick="selectSize('c7', '10a', this)">10a</span>
+                            <span class="size-box" onclick="selectSize('c7', '12a', this)">12a</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('c7', -1)">-</button>
+                            <span class="qty-val serif" id="qty-c7">1</span>
+                            <button class="qty-btn" onclick="updateQty('c7', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="addToCart('c7', 'Suéter Garnet', 'REF-80107', 569, 'c7.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+    </section>
+
+    <div class="magic-action-container">
+        <button class="btn-magic" id="btn-master-action" onclick="handleMasterAction()">ELEGIR MÚLTIPLES PIEZAS</button>
+    </div>
+
+    <div class="toast" id="toastAlert">Mensaje</div>
+
+    <footer>
+        <div class="contact-info">
+            <p>Boutique Infantil VIP</p>
+            <p>Disponibilidad en Choluteca.</p>
+            <p style="margin-top: 30px; opacity: 0.3;">© 2026 ABRIL STORE | SHEIN VIP EXCLUSIVITÉ</p>
+        </div>
+    </footer>
+
+    <script>
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const header = document.getElementById('smart-header');
+            
+            if (currentScroll <= 10) {
+                header.classList.remove('header-hidden');
+                return;
+            }
+            if (currentScroll > lastScroll && !header.classList.contains('header-hidden')) {
+                header.classList.add('header-hidden');
+            } else if (currentScroll < lastScroll && header.classList.contains('header-hidden')) {
+                header.classList.remove('header-hidden');
+            }
+            lastScroll = currentScroll;
+        });
+
+        let cart = JSON.parse(localStorage.getItem('abrilCart')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('abrilWishlist')) || [];
+        let currentSizes = {};
+        
+        // Inicializamos las cantidades para las 7 piezas
+        let quantities = { c1:1, c2:1, c3:1, c4:1, c5:1, c6:1, c7:1 };
+
+        // VARIABLES MODO SELECCIÓN
+        let isSelectionMode = false;
+        let selectedCards = new Set(); 
+
+        function initPage() {
+            document.getElementById('wish-count').textContent = wishlist.length;
+            document.getElementById('cart-count').textContent = cart.length;
+
+            const allHearts = document.querySelectorAll('.btn-heart');
+            allHearts.forEach(btn => {
+                const idAttr = btn.getAttribute('id'); 
+                if(!idAttr) return;
+                const pId = idAttr.replace('fav-', ''); 
+                const isSaved = wishlist.some(item => item.id === pId);
+                if(isSaved) btn.classList.add('active');
+            });
+        }
+
+        // CONTROL DE CANTIDAD MÁXIMA A 10
+        function updateQty(id, delta) {
+            let next = quantities[id] + delta;
+            if (next >= 1 && next <= 10) {
+                quantities[id] = next;
+                document.getElementById('qty-' + id).textContent = next;
+            }
+        }
+
+        function selectSize(id, size, el) {
+            currentSizes[id] = size;
+            const boxes = document.getElementById('sizes-' + id).querySelectorAll('.size-box');
+            boxes.forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function addToCart(productId, name, ref, price, img) {
+            const size = currentSizes[productId];
+            const qty = quantities[productId];
+            
+            if(!size) {
+                showToast('Por favor, seleccione una talla');
+                return;
+            }
+
+            let finalPrice = price;
+            if(qty >= 5) finalPrice = price * 0.9; 
+
+            cart.push({ 
+                id: productId + Date.now(), 
+                name: name, ref: ref, basePrice: price, 
+                price: finalPrice * qty, qty: qty, size: size, img: img 
+            });
+            
+            localStorage.setItem('abrilCart', JSON.stringify(cart));
+            document.getElementById('cart-count').textContent = cart.length;
+            showToast('Añadido a su bolsa exclusiva');
+        }
+
+        function toggleHeart(event, id, name, ref, price, img, btn) {
+            event.stopPropagation(); // Evita marcar la tarjeta al dar clic en favoritos
+            const idx = wishlist.findIndex(x => x.id === id);
+            if(idx > -1) { 
+                wishlist.splice(idx, 1); 
+                btn.classList.remove('active'); 
+                showToast('Retirado de favoritos');
+            } else { 
+                wishlist.push({id: id, name: name, ref: ref, price: price, img: img}); 
+                btn.classList.add('active'); 
+                showToast('Guardado en favoritos');
+            }
+            localStorage.setItem('abrilWishlist', JSON.stringify(wishlist));
+            document.getElementById('wish-count').textContent = wishlist.length;
+        }
+
+        // ==========================================================
+        // LÓGICA DEL MODO SELECCIÓN RÁPIDA (NIÑOS)
+        // ==========================================================
+
+        function handleMasterAction() {
+            const btn = document.getElementById('btn-master-action');
+
+            if (!isSelectionMode) {
+                isSelectionMode = true;
+                document.body.classList.add('selection-mode');
+                btn.textContent = "SELECCIONE LAS PIEZAS Y SUS TALLAS";
+                showToast('Modo de selección rápida activado');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } 
+            else if (isSelectionMode && selectedCards.size > 0) {
+                procesarMultiplesAlCarrito();
+            }
+        }
+
+        function toggleSelection(cardId) {
+            if (!isSelectionMode) return; 
+
+            const card = document.getElementById(cardId);
+            
+            if (selectedCards.has(cardId)) {
+                selectedCards.delete(cardId);
+                card.classList.remove('selected');
+            } else {
+                selectedCards.add(cardId);
+                card.classList.add('selected');
+            }
+
+            actualizarBotonMaster();
+        }
+
+        function actualizarBotonMaster() {
+            const btn = document.getElementById('btn-master-action');
+            if (selectedCards.size > 0) {
+                btn.innerHTML = `<i class="fa-solid fa-bag-shopping"></i> Mover ${selectedCards.size} piezas a la Bolsa y Pagar`;
+                btn.classList.add('pay-mode');
+            } else {
+                btn.textContent = "SELECCIONE LAS PIEZAS Y SUS TALLAS";
+                btn.classList.remove('pay-mode');
+            }
+        }
+
+        function procesarMultiplesAlCarrito() {
+            let todasTienenTalla = true;
+
+            // Validar que hayan elegido talla
+            selectedCards.forEach(cardId => {
+                const card = document.getElementById(cardId);
+                const id = card.getAttribute('data-id');
+                const size = currentSizes[id];
+
+                if(!size) {
+                    todasTienenTalla = false;
+                }
+            });
+
+            if(!todasTienenTalla) {
+                showToast('Por favor, elija la talla para todas las piezas marcadas');
+                return; 
+            }
+
+            // Enviar al carrito
+            selectedCards.forEach(cardId => {
+                const card = document.getElementById(cardId);
+                const id = card.getAttribute('data-id');
+                const name = card.getAttribute('data-name');
+                const ref = card.getAttribute('data-ref');
+                const price = parseFloat(card.getAttribute('data-price'));
+                const img = card.getAttribute('data-img');
+                
+                const size = currentSizes[id];
+                const qty = quantities[id] || 1;
+                
+                let finalPrice = price;
+                if(qty >= 5) { finalPrice = price * 0.9; }
+
+                cart.push({ 
+                    id: id + Date.now() + Math.random(), 
+                    name: name, ref: ref, basePrice: price, 
+                    price: finalPrice * qty, qty: qty, size: size, img: img 
+                });
+            });
+
+            localStorage.setItem('abrilCart', JSON.stringify(cart));
+            
+            showToast('Piezas transferidas. Redirigiendo a pago...');
+            setTimeout(() => {
+                window.location.href = 'carrito.html';
+            }, 1200);
+        }
+
+        function showToast(msg) { 
+            const t = document.getElementById('toastAlert'); 
+            t.textContent = msg; 
+            t.classList.add('show'); 
+            setTimeout(() => t.classList.remove('show'), 3000); 
+        }
+
+        window.onload = initPage;
+
+    </script>
+</body>
+</html>
