@@ -88,16 +88,10 @@
         }
         
         .special-label {
-            display: inline-block; 
-            color: var(--accent-gold); 
-            font-size: 11px; 
-            letter-spacing: 6px; 
-            text-transform: uppercase;
-            margin-bottom: 25px; 
-            border: 1px solid var(--accent-gold);
-            padding: 8px 20px;
-            background: rgba(197, 160, 89, 0.05);
-            font-weight: 500;
+            display: inline-block; color: var(--accent-gold); font-size: 11px; 
+            letter-spacing: 6px; text-transform: uppercase; margin-bottom: 25px; 
+            border: 1px solid var(--accent-gold); padding: 8px 20px;
+            background: rgba(197, 160, 89, 0.05); font-weight: 500;
         }
 
         .title-main { 
@@ -121,11 +115,15 @@
             padding: 20px 50px 120px; max-width: 1400px; margin: 0 auto; 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; 
         }
-        .model-card { background: var(--bg-card); transition: var(--transition); position: relative; }
+        .model-card { 
+            background: var(--bg-card); transition: var(--transition); position: relative; 
+            border: 1px solid transparent; 
+        }
         
         .img-container { 
             width: 100%; height: 500px; overflow: hidden; position: relative; 
             display: flex; align-items: center; justify-content: center; background: transparent; 
+            cursor: default;
         }
         .img-container img { 
             width: 100%; height: 100%; object-fit: contain; 
@@ -144,23 +142,14 @@
         .card-details { padding: 30px 20px 40px; text-align: center; }
         .model-name { font-size: 22px; color: var(--text-main); margin-bottom: 5px; font-style: italic; }
         .model-ref { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 15px; }
-        
-        /* ESTILO PARA LA DESCRIPCIÓN DEL VESTIDO */
-        .model-desc {
-            font-size: 10px; color: var(--text-muted); line-height: 1.6;
-            margin-bottom: 20px; font-weight: 300; padding: 0 10px;
-        }
-
+        .model-desc { font-size: 10px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; font-weight: 300; padding: 0 10px; }
         .model-price { font-size: 16px; color: var(--text-main); margin-bottom: 25px; letter-spacing: 1px; }
 
         /* ==========================================================================
            SELECTORES DE TALLA Y CANTIDAD
            ========================================================================== */
-        .luxury-selectors { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
-        .selector-label { 
-            font-size: 8px; text-transform: uppercase; letter-spacing: 2px; 
-            color: var(--text-muted); margin-bottom: 8px; display: block; 
-        }
+        .luxury-selectors { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; transition: var(--transition); }
+        .selector-label { font-size: 8px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 8px; display: block; }
         .sizes-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .size-box {
             padding: 8px 0; width: 45px; border-bottom: 1px solid var(--border-light); 
@@ -182,25 +171,84 @@
         .btn-buy:hover { background: var(--text-main); color: var(--bg-dark); }
 
         /* ==========================================================================
+           MODO SELECCIÓN RÁPIDA (ELEGIR MÚLTIPLES)
+           ========================================================================== */
+        body.selection-mode .img-container { cursor: pointer; }
+        
+        body.selection-mode .img-container img {
+            animation: slowFloat 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowFloat {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(-8px) scale(1.02); }
+        }
+
+        /* En modo selección, solo ocultamos el botón individual de compra y el corazón para evitar clicks accidentales.
+           LAS TALLAS Y CANTIDADES SE MANTIENEN VISIBLES */
+        body.selection-mode .btn-buy { display: none; }
+        body.selection-mode .btn-heart { display: none; }
+
+        /* Indicador de seleccionado */
+        .select-indicator {
+            position: absolute; top: 20px; left: 20px; width: 25px; height: 25px;
+            border-radius: 50%; border: 1px solid var(--text-muted); background: rgba(0,0,0,0.5);
+            display: none; align-items: center; justify-content: center; z-index: 10;
+            color: transparent; transition: var(--transition); font-size: 12px;
+        }
+        body.selection-mode .select-indicator { display: flex; }
+
+        /* Tarjeta seleccionada */
+        .model-card.selected { border-color: var(--accent-gold); box-shadow: 0 0 20px rgba(197, 160, 89, 0.1); }
+        .model-card.selected .select-indicator { background: var(--accent-gold); border-color: var(--accent-gold); color: var(--bg-dark); }
+        .model-card.selected .img-container img { animation-play-state: paused; transform: scale(1.05); opacity: 1;}
+
+        /* BOTÓN INFERIOR GIGANTE (MÁGICO) */
+        .magic-action-container {
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: rgba(7,7,7,0.95); backdrop-filter: blur(10px);
+            padding: 20px; text-align: center; z-index: 3000;
+            border-top: 1px solid var(--border-light);
+            transition: transform 0.5s ease;
+        }
+
+        .btn-magic {
+            background: var(--text-main); color: var(--bg-dark); border: none;
+            padding: 20px 60px; font-size: 11px; font-weight: 600; letter-spacing: 5px;
+            text-transform: uppercase; cursor: pointer; transition: var(--transition);
+            width: 100%; max-width: 600px;
+        }
+
+        /* Cuando está en modo pagar, se pone dorado */
+        .btn-magic.pay-mode {
+            background: var(--accent-gold); color: var(--bg-dark);
+            animation: pulseGold 2s infinite;
+        }
+
+        @keyframes pulseGold {
+            0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+        }
+
+        /* ==========================================================================
            NOTIFICACIÓN TOAST
            ========================================================================== */
         .toast { 
-            position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%); 
+            position: fixed; top: 100px; left: 50%; transform: translateX(-50%); 
             background: var(--text-main); color: var(--bg-dark); padding: 15px 40px; 
             font-size: 9px; font-weight: 500; z-index: 4000; 
             transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
             letter-spacing: 2px; text-transform: uppercase;
+            opacity: 0; visibility: hidden;
         }
-        .toast.show { bottom: 40px; }
+        .toast.show { opacity: 1; visibility: visible; }
 
         /* ==========================================================================
            FOOTER
            ========================================================================== */
-        footer { padding: 60px 40px; text-align: center; border-top: 1px solid var(--border-light); }
-        .contact-info { 
-            font-size: 9px; color: var(--text-muted); letter-spacing: 2px; 
-            text-transform: uppercase; line-height: 2.5; 
-        }
+        footer { padding: 60px 40px 150px; text-align: center; border-top: 1px solid var(--border-light); }
+        .contact-info { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; line-height: 2.5; }
         .contact-info strong { color: var(--text-main); font-weight: 400; }
 
         @media (max-width: 768px) {
@@ -210,6 +258,7 @@
             .intro-section { padding-top: 120px; }
             .gallery-wrapper { padding: 20px 20px 80px; grid-template-columns: 1fr; }
             .img-container { height: 400px; }
+            .btn-magic { padding: 15px 20px; }
         }
     </style>
 </head>
@@ -245,9 +294,10 @@
 
     <section class="gallery-wrapper">
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-v1" onclick="toggleHeart('v1', 'Vestido Aura', 'REF-10452', 599, 's1.jpg', this)">
+        <article class="model-card" id="card-v1" data-id="v1" data-name="Vestido Aura" data-ref="REF-10452" data-price="599" data-img="s1.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-v1')">
+                <button class="btn-heart" id="fav-v1" onclick="toggleHeart(event, 'v1', 'Vestido Aura', 'REF-10452', 599, 's1.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s1.jpg" alt="Vestido Aura">
@@ -277,14 +327,14 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('v1', 'Vestido Aura', 'REF-10452', 599, 's1.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-v2" onclick="toggleHeart('v2', 'Vestido Enigma', 'REF-10893', 599, 's2.jpg', this)">
+        <article class="model-card" id="card-v2" data-id="v2" data-name="Vestido Enigma" data-ref="REF-10893" data-price="599" data-img="s2.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-v2')">
+                <button class="btn-heart" id="fav-v2" onclick="toggleHeart(event, 'v2', 'Vestido Enigma', 'REF-10893', 599, 's2.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s2.jpg" alt="Vestido Enigma">
@@ -314,14 +364,14 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('v2', 'Vestido Enigma', 'REF-10893', 599, 's2.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-v3" onclick="toggleHeart('v3', 'Vestido Éter', 'REF-20119', 699, 's3.jpg', this)">
+        <article class="model-card" id="card-v3" data-id="v3" data-name="Vestido Éter" data-ref="REF-20119" data-price="699" data-img="s3.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-v3')">
+                <button class="btn-heart" id="fav-v3" onclick="toggleHeart(event, 'v3', 'Vestido Éter', 'REF-20119', 699, 's3.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s3.jpg" alt="Vestido Éter">
@@ -351,14 +401,14 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('v3', 'Vestido Éter', 'REF-20119', 699, 's3.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-v4" onclick="toggleHeart('v4', 'Vestido Oasis', 'REF-20554', 699, 's4.jpg', this)">
+        <article class="model-card" id="card-v4" data-id="v4" data-name="Vestido Oasis" data-ref="REF-20554" data-price="699" data-img="s4.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-v4')">
+                <button class="btn-heart" id="fav-v4" onclick="toggleHeart(event, 'v4', 'Vestido Oasis', 'REF-20554', 699, 's4.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s4.jpg" alt="Vestido Oasis">
@@ -388,14 +438,14 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('v4', 'Vestido Oasis', 'REF-20554', 699, 's4.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-v5" onclick="toggleHeart('v5', 'Vestido Esencia', 'REF-30771', 799, 's5.jpg', this)">
+        <article class="model-card" id="card-v5" data-id="v5" data-name="Vestido Esencia" data-ref="REF-30771" data-price="799" data-img="s5.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-v5')">
+                <button class="btn-heart" id="fav-v5" onclick="toggleHeart(event, 'v5', 'Vestido Esencia', 'REF-30771', 799, 's5.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s5.jpg" alt="Vestido Esencia">
@@ -425,14 +475,14 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('v5', 'Vestido Esencia', 'REF-30771', 799, 's5.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-v6" onclick="toggleHeart('v6', 'Vestido Sublime', 'REF-30998', 799, 's6.jpg', this)">
+        <article class="model-card" id="card-v6" data-id="v6" data-name="Vestido Sublime" data-ref="REF-30998" data-price="799" data-img="s6.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-v6')">
+                <button class="btn-heart" id="fav-v6" onclick="toggleHeart(event, 'v6', 'Vestido Sublime', 'REF-30998', 799, 's6.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s6.jpg" alt="Vestido Sublime">
@@ -462,14 +512,14 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('v6', 'Vestido Sublime', 'REF-30998', 799, 's6.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-v7" onclick="toggleHeart('v7', 'Vestido Eclipse', 'REF-40333', 899, 's7.jpg', this)">
+        <article class="model-card" id="card-v7" data-id="v7" data-name="Vestido Eclipse" data-ref="REF-40333" data-price="899" data-img="s7.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-v7')">
+                <button class="btn-heart" id="fav-v7" onclick="toggleHeart(event, 'v7', 'Vestido Eclipse', 'REF-40333', 899, 's7.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s7.jpg" alt="Vestido Eclipse">
@@ -499,14 +549,14 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('v7', 'Vestido Eclipse', 'REF-40333', 899, 's7.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-v8" onclick="toggleHeart('v8', 'Vestido Ícono', 'REF-40876', 899, 's8.jpg', this)">
+        <article class="model-card" id="card-v8" data-id="v8" data-name="Vestido Ícono" data-ref="REF-40876" data-price="899" data-img="s8.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-v8')">
+                <button class="btn-heart" id="fav-v8" onclick="toggleHeart(event, 'v8', 'Vestido Ícono', 'REF-40876', 899, 's8.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s8.jpg" alt="Vestido Ícono">
@@ -536,14 +586,14 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('v8', 'Vestido Ícono', 'REF-40876', 899, 's8.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-v9" onclick="toggleHeart('v9', 'Vestido Gala', 'REF-50212', 599, 's9.jpg', this)">
+        <article class="model-card" id="card-v9" data-id="v9" data-name="Vestido Gala" data-ref="REF-50212" data-price="599" data-img="s9.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-v9')">
+                <button class="btn-heart" id="fav-v9" onclick="toggleHeart(event, 'v9', 'Vestido Gala', 'REF-50212', 599, 's9.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s9.jpg" alt="Vestido Gala">
@@ -573,14 +623,14 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('v9', 'Vestido Gala', 'REF-50212', 599, 's9.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card">
-            <div class="img-container">
-                <button class="btn-heart" id="fav-v10" onclick="toggleHeart('v10', 'Vestido Mito', 'REF-50988', 699, 's0.jpg', this)">
+        <article class="model-card" id="card-v10" data-id="v10" data-name="Vestido Mito" data-ref="REF-50988" data-price="699" data-img="s0.jpg">
+            <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="img-container" onclick="toggleSelection('card-v10')">
+                <button class="btn-heart" id="fav-v10" onclick="toggleHeart(event, 'v10', 'Vestido Mito', 'REF-50988', 699, 's0.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s0.jpg" alt="Vestido Mito">
@@ -610,19 +660,23 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="btn-buy" onclick="addToCart('v10', 'Vestido Mito', 'REF-50988', 699, 's0.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
     </section>
 
+    <div class="magic-action-container">
+        <button class="btn-magic" id="btn-master-action" onclick="handleMasterAction()">ELEGIR MÚLTIPLES PIEZAS</button>
+    </div>
+
     <div class="toast" id="toastAlert">Mensaje</div>
 
     <footer>
         <div class="contact-info">
             <p>Colección Dama VIP</p>
-            <p>Disponibilidad en Choluteca.</p>
+            <p>Directora Creativa: <strong>Abril Armas</strong></p>
+            <p>Disponibilidad en los departamentos de Choluteca y Valle, junto con sus respectivos municipios.</p>
             <p style="margin-top: 30px; opacity: 0.3;">© 2026 ABRIL STORE | SHEIN VIP EXCLUSIVITÉ</p>
         </div>
     </footer>
@@ -649,6 +703,10 @@
         let wishlist = JSON.parse(localStorage.getItem('abrilWishlist')) || [];
         let currentSizes = {};
         let quantities = { v1:1, v2:1, v3:1, v4:1, v5:1, v6:1, v7:1, v8:1, v9:1, v10:1 };
+
+        // VARIABLES MODO SELECCIÓN
+        let isSelectionMode = false;
+        let selectedCards = new Set(); // Guarda los IDs de las tarjetas seleccionadas
 
         function initPage() {
             document.getElementById('wish-count').textContent = wishlist.length;
@@ -691,19 +749,11 @@
             }
 
             let finalPrice = price;
-            if(qty >= 5) { 
-                finalPrice = price * 0.9; 
-            }
+            if(qty >= 5) { finalPrice = price * 0.9; }
 
             cart.push({ 
-                id: productId + Date.now(), 
-                name: name, 
-                ref: ref, 
-                basePrice: price, 
-                price: finalPrice * qty, 
-                qty: qty, 
-                size: size, 
-                img: img 
+                id: productId + Date.now(), name: name, ref: ref, 
+                basePrice: price, price: finalPrice * qty, qty: qty, size: size, img: img 
             });
             
             localStorage.setItem('abrilCart', JSON.stringify(cart));
@@ -711,7 +761,8 @@
             showToast('Añadido a su bolsa exclusiva');
         }
 
-        function toggleHeart(id, name, ref, price, img, btn) {
+        function toggleHeart(event, id, name, ref, price, img, btn) {
+            event.stopPropagation(); // Evita que se seleccione la imagen si está en modo selección
             const idx = wishlist.findIndex(x => x.id === id);
             if(idx > -1) { 
                 wishlist.splice(idx, 1); 
@@ -724,6 +775,102 @@
             }
             localStorage.setItem('abrilWishlist', JSON.stringify(wishlist));
             document.getElementById('wish-count').textContent = wishlist.length;
+        }
+
+        // ==========================================================
+        // LÓGICA DEL MODO SELECCIÓN RÁPIDA
+        // ==========================================================
+
+        function handleMasterAction() {
+            const btn = document.getElementById('btn-master-action');
+
+            // Si NO está en modo selección, lo activa
+            if (!isSelectionMode) {
+                isSelectionMode = true;
+                document.body.classList.add('selection-mode');
+                btn.textContent = "SELECCIONE LAS PIEZAS Y SUS TALLAS";
+                showToast('Modo de selección rápida activado');
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // Sube al inicio
+            } 
+            // Si ESTÁ en modo selección y HAY piezas elegidas, procesa el pago
+            else if (isSelectionMode && selectedCards.size > 0) {
+                procesarMultiplesAlCarrito();
+            }
+        }
+
+        function toggleSelection(cardId) {
+            if (!isSelectionMode) return; // Si no está en el modo, no hace nada al tocar la imagen
+
+            const card = document.getElementById(cardId);
+            
+            if (selectedCards.has(cardId)) {
+                selectedCards.delete(cardId);
+                card.classList.remove('selected');
+            } else {
+                selectedCards.add(cardId);
+                card.classList.add('selected');
+            }
+
+            actualizarBotonMaster();
+        }
+
+        function actualizarBotonMaster() {
+            const btn = document.getElementById('btn-master-action');
+            if (selectedCards.size > 0) {
+                btn.innerHTML = `<i class="fa-solid fa-bag-shopping"></i> Mover ${selectedCards.size} piezas a la Bolsa y Pagar`;
+                btn.classList.add('pay-mode');
+            } else {
+                btn.textContent = "SELECCIONE LAS PIEZAS Y SUS TALLAS";
+                btn.classList.remove('pay-mode');
+            }
+        }
+
+        function procesarMultiplesAlCarrito() {
+            let todasTienenTalla = true;
+
+            selectedCards.forEach(cardId => {
+                const card = document.getElementById(cardId);
+                const id = card.getAttribute('data-id');
+                const size = currentSizes[id];
+
+                if(!size) {
+                    todasTienenTalla = false;
+                }
+            });
+
+            if(!todasTienenTalla) {
+                showToast('Por favor, elija la talla para todas las piezas marcadas');
+                return; // Detenemos la función si falta alguna talla
+            }
+
+            // Si todo está bien, lo pasamos al carrito
+            selectedCards.forEach(cardId => {
+                const card = document.getElementById(cardId);
+                const id = card.getAttribute('data-id');
+                const name = card.getAttribute('data-name');
+                const ref = card.getAttribute('data-ref');
+                const price = parseFloat(card.getAttribute('data-price'));
+                const img = card.getAttribute('data-img');
+                
+                const size = currentSizes[id];
+                const qty = quantities[id] || 1;
+                
+                let finalPrice = price;
+                if(qty >= 5) { finalPrice = price * 0.9; }
+
+                cart.push({ 
+                    id: id + Date.now() + Math.random(), 
+                    name: name, ref: ref, basePrice: price, 
+                    price: finalPrice * qty, qty: qty, size: size, img: img 
+                });
+            });
+
+            localStorage.setItem('abrilCart', JSON.stringify(cart));
+            
+            showToast('Piezas transferidas. Redirigiendo a pago...');
+            setTimeout(() => {
+                window.location.href = 'carrito.html';
+            }, 1200);
         }
 
         function showToast(msg) { 
