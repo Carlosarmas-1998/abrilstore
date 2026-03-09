@@ -4,83 +4,214 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Deseos | ABRIL VIP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* ==========================================================================
+           VARIABLES GLOBALES - MINIMALISMO DE LUJO
+           ========================================================================== */
         :root {
-            --dior-black: #050505;
-            --dior-gold: #e8c3b0;
-            --dior-gray: #757575;
-            --white: #ffffff;
-            --transition: all 0.4s ease;
+            --bg-dark: #070707;
+            --bg-card: #0a0a0a;
+            --accent-gold: #c5a059; 
+            --text-main: #f0f0f0;
+            --text-muted: #666666;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--dior-black); color: var(--white); overflow-x: hidden; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4, .serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+        }
 
-        /* --- HEADER --- */
+        /* ==========================================================================
+           HEADER
+           ========================================================================== */
         header {
-            padding: 30px 60px; border-bottom: 1px solid #111;
-            display: flex; justify-content: space-between; align-items: center; background: #000;
+            position: fixed; top: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 50px; background: rgba(7, 7, 7, 0.95); 
+            backdrop-filter: blur(10px); z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
         }
-        .btn-back { color: var(--dior-gray); font-size: 10px; text-transform: uppercase; letter-spacing: 3px; text-decoration: none; transition: var(--transition); }
-        .btn-back:hover { color: var(--dior-gold); }
-        .logo-mini { font-family: 'Cinzel', serif; font-size: 24px; letter-spacing: 12px; color: var(--white); text-align: center; position: absolute; left: 50%; transform: translateX(-50%); }
+        .btn-back { 
+            color: var(--text-muted); font-size: 10px; text-transform: uppercase; 
+            letter-spacing: 3px; text-decoration: none; transition: var(--transition); 
+        }
+        .btn-back:hover { color: var(--text-main); }
+        .logo-mini { 
+            font-family: 'Cormorant Garamond', serif; font-size: 26px; 
+            letter-spacing: 8px; color: var(--text-main); 
+            position: absolute; left: 50%; transform: translateX(-50%); 
+        }
 
-        /* --- CONTENIDO --- */
+        /* ==========================================================================
+           BOTÓN FLOTANTE (VIAJAR A SHEIN)
+           ========================================================================== */
+        .floating-widget {
+            position: fixed; bottom: 30px; right: 30px; z-index: 2100;
+            background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(15px);
+            border: 1px solid rgba(197, 160, 89, 0.3); padding: 18px 25px;
+            display: flex; align-items: center; gap: 18px; text-decoration: none;
+            overflow: hidden; transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            flex-direction: row-reverse; text-align: right;
+            animation: floatWidget 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatWidget {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        .floating-widget::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(197, 160, 89, 0.15), transparent);
+            transform: skewX(-20deg); animation: glint 4s infinite;
+        }
+
+        @keyframes glint {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        .floating-widget:hover { border-color: var(--accent-gold); transform: translateY(-10px) scale(1.02); animation-play-state: paused; }
+        .fw-icon { font-size: 28px; color: var(--accent-gold); display: flex; align-items: center; justify-content: center; }
+        .fw-content { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+        .fw-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: var(--accent-gold); letter-spacing: 1px; }
+        .fw-desc { font-size: 8px; color: var(--text-main); text-transform: uppercase; letter-spacing: 2px; max-width: 180px; line-height: 1.5; }
+
+        /* ==========================================================================
+           TÍTULO Y ACCIONES DE PAGO
+           ========================================================================== */
         .page-title {
-            text-align: center; margin: 80px 0 60px;
+            text-align: center; margin: 150px 0 40px; padding: 0 20px;
         }
-        .page-title h1 { font-family: 'Cinzel', serif; font-size: 36px; letter-spacing: 6px; font-weight: 400; color: var(--dior-gold); }
-        .page-title p { font-size: 10px; color: var(--dior-gray); letter-spacing: 4px; text-transform: uppercase; margin-top: 15px; }
+        .page-title h1 { 
+            font-size: 40px; font-style: italic; color: var(--text-main); 
+            margin-bottom: 10px; 
+        }
+        .page-title p { 
+            font-size: 10px; color: var(--text-muted); letter-spacing: 4px; text-transform: uppercase; 
+        }
 
-        /* --- GRID FAVORITOS --- */
+        /* BARRA DE PAGAR AHORA */
+        .checkout-bar {
+            max-width: 1400px; margin: 0 auto 40px; padding: 20px 60px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--bg-card); border: 1px solid var(--accent-gold);
+            opacity: 0; pointer-events: none; transform: translateY(20px); transition: var(--transition);
+        }
+        .checkout-bar.active {
+            opacity: 1; pointer-events: all; transform: translateY(0);
+        }
+        .selected-info { font-size: 14px; color: var(--accent-gold); font-family: 'Cormorant Garamond', serif; font-style: italic; letter-spacing: 1px; }
+        .btn-checkout {
+            background: var(--accent-gold); border: none; color: var(--bg-dark);
+            padding: 15px 30px; font-size: 9px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 3px; cursor: pointer; transition: var(--transition);
+        }
+        .btn-checkout:hover { background: var(--text-main); }
+
+        /* ==========================================================================
+           GRID DE FAVORITOS
+           ========================================================================== */
         .wishlist-grid {
             max-width: 1400px; margin: 0 auto 100px; padding: 0 60px;
             display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px;
         }
 
         .wish-card {
-            background: #0a0a0a; border: 1px solid #111; position: relative;
-            transition: var(--transition); display: flex; flex-direction: column;
+            background: var(--bg-card); border: 1px solid var(--border-light); 
+            position: relative; transition: var(--transition); 
+            display: flex; flex-direction: column; cursor: pointer;
         }
-        .wish-card:hover { border-color: var(--dior-gold); transform: translateY(-5px); }
+        .wish-card.selected { border-color: var(--accent-gold); box-shadow: 0 0 20px rgba(197, 160, 89, 0.1); }
+        .wish-card:hover { transform: translateY(-5px); }
 
-        .img-box { width: 100%; height: 350px; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .img-box img { max-width: 100%; max-height: 100%; object-fit: contain; transition: 1s ease; }
-        .wish-card:hover .img-box img { transform: scale(1.05); }
+        /* CHECKBOX CIRCULAR LUJO */
+        .select-indicator {
+            position: absolute; top: 20px; left: 20px; width: 25px; height: 25px;
+            border-radius: 50%; border: 1px solid var(--text-muted); background: rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center; z-index: 10;
+            color: transparent; transition: var(--transition); font-size: 12px;
+        }
+        .wish-card.selected .select-indicator {
+            background: var(--accent-gold); border-color: var(--accent-gold); color: var(--bg-dark);
+        }
+
+        .img-box { 
+            width: 100%; height: 350px; background: transparent; overflow: hidden; 
+            display: flex; align-items: center; justify-content: center; 
+        }
+        .img-box img { max-width: 100%; max-height: 100%; object-fit: contain; transition: 1s ease; opacity: 0.9; }
+        .wish-card:hover .img-box img { transform: scale(1.05); opacity: 1; }
 
         .card-info { padding: 30px 20px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .item-name { font-family: 'Cinzel', serif; font-size: 16px; margin-bottom: 8px; letter-spacing: 1px; }
-        .item-ref { font-family: monospace; font-size: 10px; color: var(--dior-gray); letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase; }
-        .item-price { font-family: 'Cinzel', serif; font-size: 20px; color: var(--dior-gold); margin-bottom: 20px; }
+        .item-name { font-size: 20px; font-style: italic; color: var(--text-main); margin-bottom: 8px; }
+        .item-ref { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase; }
+        .item-price { font-size: 18px; color: var(--text-main); margin-bottom: 20px; }
 
         .btn-remove {
-            background: transparent; border: 1px solid #333; color: #888;
-            padding: 12px; font-size: 9px; text-transform: uppercase; letter-spacing: 2px;
-            cursor: pointer; transition: 0.3s; width: 100%;
+            background: transparent; border: 1px solid var(--border-light); color: var(--text-muted);
+            padding: 12px; font-size: 8px; text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer; transition: 0.3s; width: 100%; z-index: 20; position: relative;
         }
         .btn-remove:hover { border-color: #ff4b4b; color: #ff4b4b; }
 
-        /* --- ESTADO VACÍO --- */
+        /* ==========================================================================
+           ESTADO VACÍO
+           ========================================================================== */
         .empty-state { text-align: center; padding: 100px 20px; grid-column: 1 / -1; }
-        .empty-state i { font-size: 50px; color: #222; margin-bottom: 30px; }
-        .empty-state h2 { font-family: 'Cinzel', serif; font-size: 24px; color: var(--dior-gray); margin-bottom: 20px; }
+        .empty-state i { font-size: 40px; color: var(--text-muted); margin-bottom: 25px; opacity: 0.5; }
+        .empty-state h2 { font-size: 28px; font-style: italic; color: var(--text-main); margin-bottom: 15px; }
         .btn-explore {
-            display: inline-block; margin-top: 30px; padding: 18px 50px; background: var(--white);
-            color: #000; text-decoration: none; font-size: 10px; letter-spacing: 4px;
-            text-transform: uppercase; font-weight: 600; transition: 0.3s;
+            display: inline-block; margin-top: 30px; padding: 16px 45px; background: transparent; border: 1px solid var(--border-light);
+            color: var(--text-main); text-decoration: none; font-size: 9px; letter-spacing: 4px;
+            text-transform: uppercase; transition: var(--transition);
         }
-        .btn-explore:hover { background: var(--dior-gold); }
+        .btn-explore:hover { background: var(--text-main); color: var(--bg-dark); }
 
-        footer { text-align: center; padding: 40px; font-size: 10px; color: #444; letter-spacing: 2px; text-transform: uppercase; border-top: 1px solid #111; }
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        footer { text-align: center; padding: 60px 40px; font-size: 9px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; border-top: 1px solid var(--border-light); line-height: 2.5; }
+        footer strong { color: var(--text-main); font-weight: 400; }
+
+        /* TOAST */
+        .toast { 
+            position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%); 
+            background: var(--text-main); color: var(--bg-dark); padding: 15px 40px; 
+            font-size: 9px; font-weight: 500; z-index: 4000; 
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); letter-spacing: 2px; text-transform: uppercase;
+        }
+        .toast.show { bottom: 40px; }
 
         @media (max-width: 768px) {
             .wishlist-grid { padding: 0 20px; grid-template-columns: repeat(2, 1fr); gap: 20px; }
             .img-box { height: 250px; }
-            .logo-mini { position: static; transform: none; }
-            header { padding: 25px; }
+            .logo-mini { position: static; transform: none; font-size: 20px; }
+            header { padding: 0 20px; }
+            .checkout-bar { flex-direction: column; gap: 15px; padding: 20px; margin: 0 20px 30px; text-align: center; }
+            .btn-checkout { width: 100%; }
+            
+            /* Ajuste del widget flotante */
+            .floating-widget { padding: 12px 15px; gap: 12px; max-width: calc(100vw - 40px); bottom: 20px; right: 20px; }
+            .fw-icon { font-size: 22px; }
+            .fw-title { font-size: 15px; }
+            .fw-desc { font-size: 7px; max-width: 100%; }
         }
         @media (max-width: 480px) { .wishlist-grid { grid-template-columns: 1fr; } }
     </style>
@@ -88,65 +219,167 @@
 <body>
 
     <header>
-        <a href="index.html" class="btn-back"><i class="fas fa-chevron-left"></i> Regresar</a>
+        <a href="index.html" class="btn-back"><i class="fas fa-chevron-left"></i> Volver</a>
         <div class="logo-mini">ABRIL</div>
-        <div style="width: 100px;"></div> </header>
+        <div style="width: 60px;"></div> 
+    </header>
+
+    <a href="https://es.shein.com/" target="_blank" class="floating-widget widget-right">
+        <div class="fw-icon"><i class="fa-solid fa-plane-departure"></i></div>
+        <div class="fw-content">
+            <span class="fw-title">¿Viajamos a SHEIN?</span>
+            <span class="fw-desc">Explora el catálogo oficial, elige tu pieza y nosotros la importamos.</span>
+        </div>
+    </a>
 
     <div class="page-title">
-        <h1>Lista de Deseos</h1>
-        <p>Sus piezas exclusivas seleccionadas</p>
+        <h1 class="serif">Lista de Deseos</h1>
+        <p>Su probador virtual exclusivo</p>
+    </div>
+
+    <div class="checkout-bar" id="checkout-bar">
+        <span class="selected-info" id="selected-text">0 piezas seleccionadas</span>
+        <button class="btn-checkout" onclick="procesarCompra()"><i class="fa-solid fa-bag-shopping"></i> Mover a la Bolsa y Pagar</button>
     </div>
 
     <div id="wishlist-render" class="wishlist-grid">
         </div>
 
+    <div class="toast" id="toastAlert">Mensaje</div>
+
     <footer>
-        Directora de Operaciones: Abril Armas | © 2026 ABRIL STORE
+        <p>Boutique Importaciones VIP</p>
+        <p>Entregas exclusivas en Choluteca.</p>
+        <p style="margin-top: 20px; opacity: 0.3;">© 2026 ABRIL STORE | SHEIN VIP EXCLUSIVITÉ</p>
     </footer>
 
     <script>
         let wishlist = JSON.parse(localStorage.getItem('abrilWishlist')) || [];
+        let selectedIndices = new Set(); // Guarda los índices de los items seleccionados
 
         function loadWishlist() {
             const container = document.getElementById('wishlist-render');
             container.innerHTML = '';
 
             if (wishlist.length === 0) {
+                document.getElementById('checkout-bar').classList.remove('active');
                 container.innerHTML = `
                     <div class="empty-state">
                         <i class="fa-regular fa-heart"></i>
-                        <h2>Su lista de deseos está vacía</h2>
-                        <p style="font-size:12px; color:var(--dior-gray); letter-spacing:2px; font-weight:300;">Guarde aquí las piezas que más le inspiren.</p>
-                        <a href="index.html" class="btn-explore">Explorar Colecciones</a>
+                        <h2 class="serif">Su lista de deseos está vacía</h2>
+                        <p style="font-size:10px; color:var(--text-muted); letter-spacing:2px; font-weight:300; text-transform:uppercase;">Explore nuestras colecciones y guarde aquí sus piezas favoritas.</p>
+                        <a href="index.html" class="btn-explore">Descubrir Colecciones</a>
                     </div>
                 `;
                 return;
             }
 
             wishlist.forEach((item, index) => {
-                let refHtml = item.ref ? `<p class="item-ref">${item.ref}</p>` : '';
+                const isSelected = selectedIndices.has(index);
+                const selectedClass = isSelected ? 'selected' : '';
+                
                 container.innerHTML += `
-                    <div class="wish-card">
+                    <div class="wish-card ${selectedClass}" onclick="toggleSelection(${index})">
+                        <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
                         <div class="img-box">
                             <img src="${item.img}" alt="${item.name}">
                         </div>
                         <div class="card-info">
                             <div>
-                                <h3 class="item-name">${item.name}</h3>
-                                ${refHtml}
-                                <p class="item-price">L. ${item.price}</p>
+                                <h3 class="item-name serif">${item.name}</h3>
+                                <p class="item-ref">${item.ref || 'SHEIN VIP'}</p>
+                                <p class="item-price serif">L. ${item.price}</p>
                             </div>
-                            <button class="btn-remove" onclick="removeItem(${index})"><i class="fas fa-times"></i> Eliminar de la lista</button>
+                            <button class="btn-remove" onclick="removeItem(event, ${index})"><i class="fas fa-times"></i> Retirar</button>
                         </div>
                     </div>
                 `;
             });
+            
+            updateCheckoutBar();
         }
 
-        function removeItem(index) {
+        // Seleccionar/Deseleccionar producto
+        function toggleSelection(index) {
+            if(selectedIndices.has(index)) {
+                selectedIndices.delete(index);
+            } else {
+                selectedIndices.add(index);
+            }
+            loadWishlist(); // Re-renderiza para aplicar los estilos dorados
+        }
+
+        // Mostrar/Ocultar barra de pago
+        function updateCheckoutBar() {
+            const bar = document.getElementById('checkout-bar');
+            const text = document.getElementById('selected-text');
+            
+            if(selectedIndices.size > 0) {
+                text.textContent = `${selectedIndices.size} pieza(s) seleccionada(s) para compra`;
+                bar.classList.add('active');
+            } else {
+                bar.classList.remove('active');
+            }
+        }
+
+        // Enviar al carrito y proceder a pagar
+        function procesarCompra() {
+            let cart = JSON.parse(localStorage.getItem('abrilCart')) || [];
+            
+            // Transformar el Set a Array y ordenarlo de mayor a menor para evitar problemas al borrar
+            let indicesToMove = Array.from(selectedIndices).sort((a, b) => b - a);
+
+            indicesToMove.forEach(idx => {
+                let item = wishlist[idx];
+                
+                // Mover al carrito (asignando talla 'A coordinar' por defecto)
+                cart.push({
+                    id: item.id || ('fav-' + Date.now() + Math.random()),
+                    name: item.name,
+                    ref: item.ref || 'VIP',
+                    price: item.price,
+                    basePrice: item.price,
+                    qty: 1,
+                    size: "A definir por asesor",
+                    img: item.img
+                });
+
+                // Eliminar de favoritos ya que se movió al carrito
+                wishlist.splice(idx, 1);
+            });
+
+            // Guardar cambios en el navegador
+            localStorage.setItem('abrilCart', JSON.stringify(cart));
+            localStorage.setItem('abrilWishlist', JSON.stringify(wishlist));
+
+            // Limpiar selección
+            selectedIndices.clear();
+
+            // Notificar y redirigir
+            showToast('Piezas movidas a su bolsa. Redirigiendo a pago...');
+            setTimeout(() => {
+                window.location.href = 'carrito.html';
+            }, 1200);
+        }
+
+        // Eliminar un item directamente
+        function removeItem(event, index) {
+            event.stopPropagation(); // Evita que se seleccione la tarjeta al dar clic en borrar
             wishlist.splice(index, 1);
+            
+            // Limpiar las selecciones para evitar desajustes de índices
+            selectedIndices.clear(); 
+            
             localStorage.setItem('abrilWishlist', JSON.stringify(wishlist));
             loadWishlist();
+            showToast('Pieza retirada de sus deseos');
+        }
+
+        function showToast(msg) { 
+            const t = document.getElementById('toastAlert'); 
+            t.textContent = msg; 
+            t.classList.add('show'); 
+            setTimeout(() => t.classList.remove('show'), 3000); 
         }
 
         window.onload = loadWishlist;
