@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Pedidos VIP | ABRIL STORE</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #070707;
+            --bg-card: #0a0a0a;
+            --accent-gold: #c5a059; 
+            --text-main: #f0f0f0;
+            --text-muted: #666666;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+        h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: 400; }
+
+        header {
+            position: fixed; top: 0; width: 100%; height: 80px; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 50px; background: rgba(7, 7, 7, 0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border-light);
+        }
+        .btn-back { color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 3px; text-decoration: none; transition: var(--transition); }
+        .btn-back:hover { color: var(--text-main); }
+        .logo-mini { font-family: 'Cormorant Garamond', serif; font-size: 26px; letter-spacing: 8px; position: absolute; left: 50%; transform: translateX(-50%); }
+
+        .page-header { text-align: center; margin: 150px 0 60px; }
+        .page-header h1 { font-size: 40px; font-style: italic; color: var(--accent-gold); margin-bottom: 10px; }
+        .page-header p { font-size: 10px; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; }
+
+        .orders-wrapper { max-width: 900px; margin: 0 auto 150px; padding: 0 20px; }
+        
+        .order-card { 
+            background: var(--bg-card); border: 1px solid var(--border-light); 
+            padding: 40px; margin-bottom: 30px; position: relative; 
+        }
+        .order-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; border-bottom: 1px dashed #333; padding-bottom: 20px; }
+        
+        .order-id { font-size: 18px; color: var(--text-main); margin-bottom: 5px; }
+        .order-date { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+        
+        .status-badge { 
+            background: rgba(197, 160, 89, 0.1); color: var(--accent-gold); 
+            padding: 8px 15px; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--accent-gold);
+        }
+
+        .delivery-box { 
+            background: #111; padding: 20px; text-align: center; margin-bottom: 30px; border-radius: 4px;
+        }
+        .delivery-box i { font-size: 24px; color: var(--accent-gold); margin-bottom: 10px; }
+        .delivery-box h4 { font-size: 14px; margin-bottom: 5px; letter-spacing: 2px; font-style: italic; }
+        .delivery-box p { font-size: 16px; color: var(--accent-gold); font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+
+        .items-list { margin-bottom: 30px; }
+        .order-item { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #1a1a1a; }
+        .order-item span:first-child { flex: 1; padding-right: 20px; }
+        
+        .order-total { text-align: right; font-size: 22px; color: var(--text-main); }
+        
+        .empty-orders { text-align: center; padding: 80px 0; color: var(--text-muted); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+
+        @media (max-width: 768px) { header { padding: 0 20px; } .order-header { flex-direction: column; gap: 15px; } .order-card { padding: 25px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="btn-back"><i class="fas fa-chevron-left"></i> Inicio</a>
+        <div class="logo-mini">ABRIL</div>
+        <div style="width: 70px;"></div>
+    </header>
+
+    <div class="page-header">
+        <h1 class="serif">Mis Pedidos VIP</h1>
+        <p>Justificantes y seguimiento de sus exclusivas importaciones</p>
+    </div>
+
+    <div class="orders-wrapper" id="orders-container">
+        </div>
+
+    <script>
+        function loadOrders() {
+            const container = document.getElementById('orders-container');
+            const orders = JSON.parse(localStorage.getItem('abrilOrders')) || [];
+
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-orders">
+                        <i class="fa-solid fa-box-open" style="font-size: 40px; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <p>Aún no tiene pedidos registrados en nuestra boutique.</p>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = '';
+
+            orders.forEach(order => {
+                let itemsHtml = '';
+                order.items.forEach(item => {
+                    let desc = `${item.qty}x ${item.name}`;
+                    if(item.size) desc += ` (Talla: ${item.size})`;
+                    itemsHtml += `<div class="order-item"><span>${desc}</span><span>L. ${item.price}</span></div>`;
+                });
+
+                container.innerHTML += `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div>
+                                <h3 class="order-id serif">Pedido ${order.idPedido}</h3>
+                                <p class="order-date">Adquirido el: ${order.fechaCompra}</p>
+                            </div>
+                            <div class="status-badge"><i class="fa-solid fa-check"></i> ${order.estado}</div>
+                        </div>
+
+                        <div class="delivery-box">
+                            <i class="fa-solid fa-plane-arrival"></i>
+                            <h4 class="serif">Fecha Estimada de Entrega en ${order.destino}</h4>
+                            <p>${order.fechaEntregaEstimada}</p>
+                        </div>
+
+                        <div class="items-list">
+                            <p style="font-size: 10px; color: var(--accent-gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px;">Detalle de Piezas</p>
+                            ${itemsHtml}
+                        </div>
+
+                        <div class="order-total serif">
+                            TOTAL ABONADO: <span style="color: var(--accent-gold);">${order.total}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.onload = loadOrders;
+    </script>
+</body>
+</html>
