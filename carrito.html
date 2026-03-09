@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout VIP | ABRIL STORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --dior-black: #050505;
+            --dior-gold: #e8c3b0;
+            --dior-gray: #757575;
+            --white: #ffffff;
+            --input-bg: #0a0a0a;
+            --transition: all 0.4s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--dior-black); color: var(--white); overflow-x: hidden; }
+
+        /* --- HEADER MINIMALISTA --- */
+        header {
+            padding: 30px 60px; border-bottom: 1px solid #111;
+            display: flex; justify-content: space-between; align-items: center; background: #000;
+        }
+        .btn-back { color: var(--dior-gray); font-size: 10px; text-transform: uppercase; letter-spacing: 3px; text-decoration: none; transition: var(--transition); }
+        .btn-back:hover { color: var(--dior-gold); }
+        .logo-mini { font-family: 'Cinzel', serif; font-size: 24px; letter-spacing: 12px; color: var(--white); text-align: center; position: absolute; left: 50%; transform: translateX(-50%); }
+
+        /* --- LAYOUT CHECKOUT --- */
+        .checkout-container {
+            max-width: 1400px; margin: 60px auto 100px; display: grid;
+            grid-template-columns: 1.2fr 0.8fr; gap: 80px; padding: 0 60px;
+        }
+
+        /* --- FORMULARIO IZQUIERDA --- */
+        .checkout-section h2 { font-family: 'Cinzel', serif; font-size: 20px; letter-spacing: 4px; margin-bottom: 40px; color: var(--dior-gold); border-bottom: 1px solid #222; padding-bottom: 15px; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
+        .form-group { display: flex; flex-direction: column; margin-bottom: 25px; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        
+        label { font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: var(--dior-gray); margin-bottom: 10px; }
+        input, select {
+            background: transparent; border: none; border-bottom: 1px solid #333;
+            color: var(--white); font-family: inherit; font-size: 13px; padding: 10px 0; outline: none; transition: var(--transition);
+        }
+        input:focus, select:focus { border-color: var(--dior-gold); }
+        select option { background: var(--dior-black); color: var(--white); }
+        
+        /* Selectores bloqueados visualmente */
+        select.locked { color: var(--dior-gold); font-weight: 500; pointer-events: none; border-bottom: 1px solid var(--dior-gold); }
+
+        /* --- RESUMEN DERECHA --- */
+        .summary-box { background: var(--input-bg); border: 1px solid #111; padding: 40px; height: fit-content; }
+        .summary-item { display: flex; gap: 20px; margin-bottom: 25px; border-bottom: 1px solid #1a1a1a; padding-bottom: 25px; }
+        .summary-item img { width: 70px; height: 90px; object-fit: contain; background: #000; }
+        .item-details h4 { font-family: 'Cinzel', serif; font-size: 14px; margin-bottom: 8px; }
+        .item-meta { font-size: 10px; color: var(--dior-gray); line-height: 1.6; }
+        .item-price { color: var(--dior-gold); font-weight: 600; margin-top: 8px; font-size: 14px; }
+
+        .totals { margin-top: 30px; border-top: 1px solid #222; padding-top: 30px; }
+        .total-line { display: flex; justify-content: space-between; font-size: 12px; color: var(--dior-gray); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
+        .total-line.grand-total { font-family: 'Cinzel', serif; font-size: 22px; color: var(--white); margin-top: 20px; border-top: 1px solid #222; padding-top: 20px; font-weight: 600; }
+
+        .btn-pay {
+            width: 100%; padding: 25px; background: var(--white); color: #000; font-family: 'Cinzel', serif;
+            font-size: 14px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
+            border: none; cursor: pointer; transition: var(--transition); margin-top: 40px;
+        }
+        .btn-pay:hover { background: var(--dior-gold); }
+
+        /* --- TICKET MODAL --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; backdrop-filter: blur(15px); align-items: center; justify-content: center; }
+        .ticket {
+            background: #080808; border: 1px solid var(--dior-gold); padding: 50px; width: 100%; max-width: 500px;
+            box-shadow: 0 20px 60px rgba(232, 195, 176, 0.1); text-align: center;
+        }
+        .ticket h2 { font-family: 'Cinzel', serif; color: var(--dior-gold); letter-spacing: 5px; margin-bottom: 10px; font-size: 26px; }
+        .ticket p.subtitle { font-size: 10px; color: var(--dior-gray); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 30px; }
+        
+        .ticket-data { text-align: left; font-family: monospace; font-size: 12px; color: #aaa; line-height: 1.8; margin-bottom: 30px; border-top: 1px dashed #333; border-bottom: 1px dashed #333; padding: 20px 0; }
+        .ticket-data span { color: var(--white); }
+        .ticket-data .t-gold { color: var(--dior-gold); font-weight: bold; font-size: 14px; }
+
+        .btn-close-ticket { display: inline-block; padding: 15px 40px; border: 1px solid var(--white); color: var(--white); text-decoration: none; font-size: 10px; text-transform: uppercase; letter-spacing: 3px; transition: 0.3s; }
+        .btn-close-ticket:hover { background: var(--white); color: #000; }
+
+        /* --- EMPTY CART STATE --- */
+        .empty-cart { text-align: center; padding: 100px 20px; grid-column: 1 / -1; }
+        .empty-cart h2 { font-family: 'Cinzel', serif; color: var(--dior-gold); margin-bottom: 20px; font-size: 24px; }
+        .empty-cart a { display: inline-block; margin-top: 30px; padding: 15px 40px; border: 1px solid var(--white); color: var(--white); text-decoration: none; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; }
+
+        footer { text-align: center; padding: 40px; font-size: 10px; color: #444; letter-spacing: 2px; text-transform: uppercase; border-top: 1px solid #111; }
+
+        @media (max-width: 900px) {
+            .checkout-container { grid-template-columns: 1fr; gap: 50px; padding: 0 20px; margin-top: 40px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .logo-mini { position: static; transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="btn-back"><i class="fas fa-chevron-left"></i> Volver a la Boutique</a>
+        <div class="logo-mini">ABRIL</div>
+        <div style="width: 150px;"></div> </header>
+
+    <div id="checkout-content" class="checkout-container">
+        
+        <div class="checkout-section">
+            <form id="checkout-form" onsubmit="procesarPedido(event)">
+                
+                <h2>1. Datos del Cliente</h2>
+                <div class="form-group full-width">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="c-name" required placeholder="Tal como aparece en su identificación">
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="c-email" required placeholder="Para envío del recibo digital">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono (WhatsApp)</label>
+                        <input type="tel" id="c-phone" required placeholder="+504 0000-0000">
+                    </div>
+                </div>
+
+                <h2>2. Logística de Entrega</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Ciudad de Destino</label>
+                        <select id="c-city" class="locked">
+                            <option value="Choluteca">Choluteca</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Punto de Encuentro Oficial</label>
+                        <select id="c-point" class="locked">
+                            <option value="Expreco, Barrio La Libertad">Expreco, Barrio La Libertad</option>
+                        </select>
+                    </div>
+                </div>
+                <p style="font-size: 9px; color: var(--dior-gray); margin-top:-10px; margin-bottom: 40px; letter-spacing: 1px;">* Por políticas de seguridad VIP, las entregas se realizan exclusivamente en este punto.</p>
+
+                <h2>3. Pago Seguro</h2>
+                <div class="form-group full-width">
+                    <label>Nombre en la Tarjeta</label>
+                    <input type="text" required placeholder="TITULAR DE LA TARJETA">
+                </div>
+                <div class="form-group full-width">
+                    <label>Número de Tarjeta</label>
+                    <input type="text" required placeholder="0000 0000 0000 0000" maxlength="19">
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Vencimiento</label>
+                        <input type="text" required placeholder="MM/AA" maxlength="5">
+                    </div>
+                    <div class="form-group">
+                        <label>CVC</label>
+                        <input type="password" required placeholder="123" maxlength="4">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-pay">Autorizar Pago</button>
+            </form>
+        </div>
+
+        <div class="summary-box">
+            <h2 style="font-family: 'Cinzel', serif; font-size: 16px; letter-spacing: 3px; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 15px;">Resumen de su Orden</h2>
+            
+            <div id="order-items-render">
+                </div>
+
+            <div class="totals">
+                <div class="total-line">
+                    <span>Subtotal</span>
+                    <span id="t-subtotal">L. 0</span>
+                </div>
+                <div class="total-line">
+                    <span>Envío Internacional</span>
+                    <span style="color: #2ecc71;">Cortesía VIP</span>
+                </div>
+                <div class="total-line grand-total">
+                    <span>Total a Pagar</span>
+                    <span id="t-total" style="color: var(--dior-gold);">L. 0</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-overlay" id="ticket-modal">
+        <div class="ticket">
+            <h2>PAGO APROBADO</h2>
+            <p class="subtitle">Abril VIP Exclusive</p>
+            
+            <div class="ticket-data">
+                ORDEN NO: <span id="tk-order" style="color: var(--dior-gold);"></span><br>
+                FECHA: <span id="tk-date"></span><br>
+                CLIENTE: <span id="tk-name"></span><br>
+                CONTACTO: <span id="tk-contact"></span><br>
+                DESTINO: <span>Choluteca (Expreco B. La Libertad)</span><br>
+                -----------------------------------<br>
+                <div id="tk-items"></div>
+                -----------------------------------<br>
+                IMPORTE TOTAL: <span class="t-gold" id="tk-total"></span>
+            </div>
+            
+            <p style="font-size: 9px; color: var(--dior-gray); margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px;">Una copia de este recibo ha sido enviada a su correo. El tiempo de gestión es de 1 mes exacto.</p>
+            
+            <a href="index.html" class="btn-close-ticket">Finalizar y Salir</a>
+        </div>
+    </div>
+
+    <footer>
+        Directora de Operaciones: Abril Armas | © 2026 ABRIL STORE
+    </footer>
+
+    <script>
+        // 1. CARGAR CARRITO
+        let cart = JSON.parse(localStorage.getItem('abrilCart')) || [];
+        let orderTotal = 0;
+
+        function loadCheckout() {
+            const container = document.getElementById('order-items-render');
+            const mainContent = document.getElementById('checkout-content');
+
+            if (cart.length === 0) {
+                mainContent.innerHTML = `
+                    <div class="empty-cart">
+                        <h2>Su bolsa de compras está vacía</h2>
+                        <p style="color:var(--dior-gray); font-size:12px; letter-spacing:2px;">Explore nuestras colecciones para encontrar su pieza ideal.</p>
+                        <a href="index.html">Descubrir Colecciones</a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            orderTotal = 0;
+
+            cart.forEach(item => {
+                orderTotal += item.price;
+                let metaData = [];
+                if (item.qty) metaData.push(`CANT: ${item.qty}`);
+                if (item.size) metaData.push(`TALLA: ${item.size}`);
+                if (item.customText) metaData.push(`<br><span style="color:var(--dior-gold); font-style:italic;">${item.customText}</span>`);
+
+                container.innerHTML += `
+                    <div class="summary-item">
+                        <img src="${item.img}" alt="Producto">
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p class="item-meta">${metaData.join(' | ')}</p>
+                            <p class="item-price">L. ${item.price.toFixed(0)}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('t-subtotal').textContent = `L. ${orderTotal.toFixed(0)}`;
+            document.getElementById('t-total').textContent = `L. ${orderTotal.toFixed(0)}`;
+        }
+
+        // 2. PROCESAR PEDIDO Y GENERAR TICKET
+        function procesarPedido(e) {
+            e.preventDefault();
+
+            // Extraer datos del cliente
+            const cliente = {
+                nombre: document.getElementById('c-name').value,
+                email: document.getElementById('c-email').value,
+                telefono: document.getElementById('c-phone').value,
+                ciudad: document.getElementById('c-city').value,
+                puntoEncuentro: document.getElementById('c-point').value
+            };
+
+            // Crear ID de orden y Fecha
+            const orderId = 'VIP-' + Math.floor(Math.random() * 900000 + 100000);
+            const now = new Date();
+
+            // Llenar el Ticket Modal
+            document.getElementById('tk-order').textContent = orderId;
+            document.getElementById('tk-date').textContent = now.toLocaleString();
+            document.getElementById('tk-name').textContent = cliente.nombre;
+            document.getElementById('tk-contact').textContent = `${cliente.telefono} / ${cliente.email}`;
+            
+            let tkItemsHtml = '';
+            cart.forEach(i => {
+                let extra = i.customText ? ` (${i.customText})` : '';
+                let qty = i.qty || 1;
+                tkItemsHtml += `${qty}x ${i.name} ${extra} ... L.${i.price.toFixed(0)}<br>`;
+            });
+            document.getElementById('tk-items').innerHTML = tkItemsHtml;
+            document.getElementById('tk-total').textContent = `L. ${orderTotal.toFixed(0)}`;
+
+            // TODO: PRÓXIMO PASO (CONEXIÓN A SUPABASE)
+            /*
+            El objeto que enviaremos a la base de datos SQL será:
+            const baseDeDatosData = {
+                order_id: orderId,
+                cliente_nombre: cliente.nombre,
+                cliente_email: cliente.email,
+                cliente_telefono: cliente.telefono,
+                ciudad: cliente.ciudad,
+                punto_entrega: cliente.puntoEncuentro,
+                total_pagado: orderTotal,
+                items: cart, // El array completo con tallas y nombres personalizados
+                fecha: now.toISOString(),
+                estatus: 'Pagado - En Producción'
+            };
+            */
+
+            // Mostrar el Ticket y Vaciar Carrito
+            document.getElementById('ticket-modal').style.display = 'flex';
+            localStorage.removeItem('abrilCart'); // Vaciamos la bolsa porque ya se compró
+        }
+
+        // Iniciar
+        window.onload = loadCheckout;
+    </script>
+</body>
+</html>

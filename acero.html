@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acero VIP Special Edition | ABRIL STORE</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           VARIABLES GLOBALES - ESTÉTICA DIOR LUXE (DARK MODE)
+           ========================================================================== */
+        :root {
+            --dior-black: #050505;
+            --dior-gold: #e8c3b0;
+            --dior-gray: #757575;
+            --white: #ffffff;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --glass: rgba(5, 5, 5, 0.95);
+        }
+
+        /* ==========================================================================
+           RESET
+           ========================================================================== */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        html { 
+            scroll-behavior: smooth; 
+        }
+        
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--dior-black); 
+            color: var(--white); 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ==========================================================================
+           HEADER INTELIGENTE (SMART NAV)
+           ========================================================================== */
+        header {
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            height: 90px;
+            display: flex; 
+            align-items: center; 
+            justify-content: flex-start;
+            padding: 0 60px;
+            background: transparent; 
+            z-index: 1000;
+            transition: transform 0.4s ease-in-out, background 0.4s ease;
+        }
+        
+        .header-hidden { 
+            transform: translateY(-100%); 
+        }
+        
+        .header-active { 
+            background: var(--glass); 
+            backdrop-filter: blur(15px); 
+            border-bottom: 1px solid rgba(232, 195, 176, 0.1);
+        }
+
+        .nav-links { 
+            display: flex; 
+            gap: 35px; 
+        }
+        
+        .nav-links a {
+            font-size: 10px; 
+            text-transform: uppercase; 
+            letter-spacing: 3px;
+            color: var(--white); 
+            transition: 0.3s; 
+            font-weight: 400; 
+            text-decoration: none;
+        }
+        
+        .nav-links a:hover { 
+            color: var(--dior-gold); 
+        }
+        
+        .nav-links a.active { 
+            color: var(--dior-gold); 
+            border-bottom: 1px solid var(--dior-gold); 
+            padding-bottom: 4px; 
+        }
+
+        /* ==========================================================================
+           ICONOS FIJOS GLOBALES (DERECHA)
+           ========================================================================== */
+        .nav-actions-fixed {
+            position: fixed; 
+            top: 35px; 
+            right: 60px; 
+            display: flex; 
+            gap: 30px; 
+            z-index: 1100; 
+            align-items: center;
+        }
+        
+        .icon-wrapper { 
+            position: relative; 
+            cursor: pointer; 
+            color: #fff; 
+            font-size: 19px; 
+            transition: 0.3s; 
+        }
+        
+        .icon-wrapper:hover {
+            color: var(--dior-gold);
+            transform: scale(1.1);
+        }
+        
+        .badge-count {
+            position: absolute; 
+            top: -9px; 
+            right: -11px; 
+            background: var(--dior-gold); 
+            color: #000;
+            font-size: 9px; 
+            font-weight: 800; 
+            width: 17px; 
+            height: 17px; 
+            border-radius: 50%;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+
+        /* ==========================================================================
+           HERO SECTION (PORTADA COMPLETA)
+           ========================================================================== */
+        .hero {
+            position: relative; 
+            height: 100vh; 
+            width: 100%;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            background: url('s0.jpg') center center / contain no-repeat;
+            background-color: #000;
+            overflow: hidden;
+        }
+        
+        .hero-overlay {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 50%, #050505 100%);
+            z-index: 2;
+        }
+        
+        .hero-content { 
+            position: relative; 
+            z-index: 3; 
+            text-align: center; 
+            margin-top: 300px; 
+            padding: 0 20px; 
+        }
+        
+        .special-label {
+            display: inline-block; 
+            padding: 8px 25px; 
+            border: 1px solid var(--dior-gold);
+            color: var(--dior-gold); 
+            font-size: 9px; 
+            letter-spacing: 6px; 
+            text-transform: uppercase;
+            margin-bottom: 25px; 
+            background: rgba(232, 195, 176, 0.05);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(232, 195, 176, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(232, 195, 176, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(232, 195, 176, 0); }
+        }
+        
+        .title-main { 
+            font-family: 'Cinzel', serif; 
+            font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            font-weight: 400; 
+            margin-bottom: 20px; 
+            letter-spacing: 5px; 
+        }
+        
+        .hero-desc { 
+            font-size: 12px; 
+            color: var(--dior-gray); 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+        }
+
+        /* ==========================================================================
+           EL ARTE DEL ACERO (SECCIÓN INFO VIP)
+           ========================================================================== */
+        .craftsmanship-section {
+            padding: 120px 60px;
+            background: #030303;
+            border-bottom: 1px solid #111;
+        }
+
+        .craft-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            text-align: center;
+        }
+
+        .craft-box i {
+            font-size: 30px;
+            color: var(--dior-gold);
+            margin-bottom: 25px;
+        }
+
+        .craft-box h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            color: var(--white);
+        }
+
+        .craft-box p {
+            font-size: 11px;
+            color: var(--dior-gray);
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        /* ==========================================================================
+           GALERÍA DE JOYAS
+           ========================================================================== */
+        .gallery-wrapper { 
+            padding: 120px 60px 150px; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 80px; 
+        }
+        
+        .model-card { 
+            background: transparent; 
+            border: 1px solid #111; 
+            transition: var(--transition); 
+            position: relative; 
+            padding-bottom: 20px; 
+        }
+        
+        .model-card:hover { 
+            border-color: var(--dior-gold); 
+            transform: translateY(-15px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        
+        .img-container { 
+            width: 100%; 
+            height: 450px; 
+            overflow: hidden; 
+            position: relative; 
+            background: #000; 
+        }
+        
+        .img-container img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+            transition: 1.5s ease; 
+            filter: brightness(0.85); 
+        }
+        
+        .model-card:hover .img-container img { 
+            transform: scale(1.08); 
+            filter: brightness(1.1); 
+        }
+
+        /* Botón Corazón Flotante */
+        .btn-heart { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            background: rgba(0,0,0,0.6); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            color: #fff; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            z-index: 10; 
+            backdrop-filter: blur(5px);
+        }
+        
+        .btn-heart:hover {
+            background: rgba(0,0,0,0.9);
+            transform: scale(1.1);
+        }
+
+        .btn-heart.active { 
+            color: #ff4b4b; 
+            border-color: #ff4b4b; 
+            background: rgba(255,75,75,0.15);
+        }
+        
+        /* Detalles de la Joya */
+        .card-details { 
+            padding: 40px 30px; 
+            text-align: center; 
+        }
+        
+        .model-name { 
+            font-family: 'Cinzel', serif; 
+            font-size: 20px; 
+            color: var(--white); 
+            margin-bottom: 10px; 
+            letter-spacing: 2px; 
+            font-weight: 500;
+        }
+        
+        .model-ref { 
+            font-family: monospace; 
+            font-size: 10px; 
+            color: var(--dior-gray); 
+            letter-spacing: 4px; 
+            margin-bottom: 25px; 
+        }
+        
+        .model-price { 
+            font-family: 'Cinzel', serif; 
+            font-size: 24px; 
+            color: var(--dior-gold); 
+            margin-bottom: 30px; 
+        }
+
+        /* ==========================================================================
+           CAMPOS DE PERSONALIZACIÓN
+           ========================================================================== */
+        .custom-input-group { 
+            margin-bottom: 30px; 
+            text-align: left; 
+            background: rgba(255,255,255,0.02);
+            padding: 20px;
+            border: 1px solid #1a1a1a;
+        }
+        
+        .custom-input-group label { 
+            display: block; 
+            font-size: 9px; 
+            color: var(--dior-gold); 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin-bottom: 10px; 
+        }
+        
+        .custom-input-group input { 
+            width: 100%; 
+            padding: 12px 15px; 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #fff; 
+            outline: none; 
+            font-family: inherit; 
+            transition: 0.3s; 
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+        
+        .custom-input-group input:focus { 
+            border-color: var(--dior-gold); 
+            box-shadow: 0 0 10px rgba(232, 195, 176, 0.1);
+        }
+
+        /* ==========================================================================
+           BOTÓN DE COMPRA
+           ========================================================================== */
+        .btn-buy { 
+            display: block; 
+            width: 100%; 
+            padding: 22px; 
+            background: transparent; 
+            border: 1px solid var(--white); 
+            color: var(--white); 
+            font-size: 11px; 
+            letter-spacing: 5px; 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            transition: 0.4s; 
+        }
+        
+        .btn-buy:hover { 
+            background: var(--white); 
+            color: #000; 
+        }
+
+        /* ==========================================================================
+           NOTIFICACIÓN TOAST
+           ========================================================================== */
+        .toast { 
+            position: fixed; 
+            bottom: -80px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: var(--dior-gold); 
+            color: #000; 
+            padding: 18px 50px; 
+            border-radius: 2px; 
+            font-size: 11px; 
+            font-weight: 700; 
+            z-index: 4000; 
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            letter-spacing: 2px; 
+            text-transform: uppercase;
+        }
+        
+        .toast.show { 
+            bottom: 50px; 
+        }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        footer { 
+            padding: 80px 60px; 
+            text-align: center; 
+            background: #000; 
+            border-top: 1px solid #111; 
+        }
+        
+        .contact-info { 
+            font-size: 10px; 
+            color: var(--dior-gray); 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            line-height: 2.5; 
+        }
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN (MOBILE)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            header { padding: 0 30px; height: 80px; justify-content: center; }
+            .nav-links { display: none; }
+            .nav-actions-fixed { right: 20px; top: 25px; }
+            .hero-content { margin-top: 200px; }
+            .craft-grid { grid-template-columns: 1fr; gap: 40px; }
+            .gallery-wrapper { padding: 80px 20px; gap: 40px; grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-actions-fixed">
+        <div class="icon-wrapper" onclick="window.location.href='favoritos.html'">
+            <i class="fa-regular fa-heart"></i>
+            <span class="badge-count" id="wish-count">0</span>
+        </div>
+        <div class="icon-wrapper" onclick="window.location.href='carrito.html'">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="badge-count" id="cart-count">0</span>
+        </div>
+    </div>
+
+    <header id="smart-header">
+        <nav class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="dama.html">Dama</a>
+            <a href="niña.html">Niña</a>
+            <a href="joyeria.html">Joyería</a>
+            <a href="acero.html" class="active">Acero VIP</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="special-label">Edición Limitada VIP</div>
+            <h1 class="title-main">Acero Inoxidable</h1>
+            <p class="hero-desc">Importación Especial | Grado 316L</p>
+        </div>
+    </section>
+
+    <section class="craftsmanship-section">
+        <div class="craft-grid">
+            <div class="craft-box">
+                <i class="fa-solid fa-droplet"></i>
+                <h3>Inalterable</h3>
+                <p>Nuestras piezas no se oxidan ni pierden su brillo. Están diseñadas para resistir el agua, perfumes y el uso diario extremo.</p>
+            </div>
+            <div class="craft-box">
+                <i class="fa-solid fa-leaf"></i>
+                <h3>Hipoalergénico</h3>
+                <p>Forjadas en Acero 316L de grado quirúrgico, garantizando seguridad absoluta y confort para las pieles más sensibles.</p>
+            </div>
+            <div class="craft-box">
+                <i class="fa-solid fa-gem"></i>
+                <h3>Baño Premium</h3>
+                <p>Las tonalidades doradas cuentan con un recubrimiento especial inspirado en el oro de 14K para una apariencia de alta joyería.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-wrapper" id="product-grid">
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-a1" onclick="toggleHeart('a1', 'Herencia Dualidad', 'VIP-STEEL-01', 399, 'a1.png', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="a1.png" alt="Herencia Dualidad">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Herencia Dualidad</h3>
+                <p class="model-ref">VIP-STEEL-01</p>
+                <p class="model-price">L. 399</p>
+                <button class="btn-buy" onclick="addToCart('a1', 'Herencia Dualidad', 'VIP-STEEL-01', 399, 'a1.png')">Adquirir Pieza</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-a2" onclick="toggleHeart('a2', 'Legado Eterno 14K', 'VIP-STEEL-02', 399, 'a2.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="a2.jpg" alt="Legado Eterno">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Legado Eterno 14K</h3>
+                <p class="model-ref">VIP-STEEL-02</p>
+                <p class="model-price">L. 399</p>
+                <button class="btn-buy" onclick="addToCart('a2', 'Legado Eterno 14K', 'VIP-STEEL-02', 399, 'a2.jpg')">Adquirir Pieza</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-a3" onclick="toggleHeart('a3', 'Collar Lazo Gold', 'VIP-STEEL-03', 399, 'a3.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="a3.jpg" alt="Collar Lazo Gold">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Collar Lazo Gold</h3>
+                <p class="model-ref">VIP-STEEL-03</p>
+                <p class="model-price">L. 399</p>
+                <button class="btn-buy" onclick="addToCart('a3', 'Collar Lazo Gold', 'VIP-STEEL-03', 399, 'a3.jpg')">Adquirir Pieza</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-a4" onclick="toggleHeart('a4', 'Collar Ilusión', 'VIP-STEEL-04', 449, 'a4.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="a4.jpg" alt="Collar Ilusión">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Collar Ilusión</h3>
+                <p class="model-ref">VIP-STEEL-04</p>
+                <p class="model-price">L. 449</p>
+                
+                <div class="custom-input-group">
+                    <label for="custom1-a4"><i class="fa-solid fa-pen-nib"></i> Nombre para grabar</label>
+                    <input type="text" id="custom1-a4" placeholder="Ej. Camila" maxlength="15">
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('a4', 'Collar Ilusión', 'VIP-STEEL-04', 449, 'a4.jpg')">Adquirir Pieza</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-a5" onclick="toggleHeart('a5', 'Promesa Eterna', 'VIP-STEEL-05', 499, 'a5.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="a5.jpg" alt="Promesa Eterna">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Promesa Eterna</h3>
+                <p class="model-ref">VIP-STEEL-05</p>
+                <p class="model-price">L. 499</p>
+                
+                <div class="custom-input-group">
+                    <label for="custom1-a5"><i class="fa-solid fa-pen-nib"></i> Primer Nombre</label>
+                    <input type="text" id="custom1-a5" placeholder="Ej. Ana" maxlength="12" style="margin-bottom: 15px;">
+                    
+                    <label for="custom2-a5"><i class="fa-solid fa-pen-nib"></i> Segundo Nombre</label>
+                    <input type="text" id="custom2-a5" placeholder="Ej. Carlos" maxlength="12">
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('a5', 'Promesa Eterna', 'VIP-STEEL-05', 499, 'a5.jpg')">Adquirir Pieza</button>
+            </div>
+        </article>
+
+    </section>
+
+    <div class="toast" id="toastAlert">Pieza añadida</div>
+
+    <footer>
+        <div class="contact-info">
+            <p>Colección Exclusiva Acero VIP</p>
+            <p>pedidos@storeabril.com</p>
+            <p style="margin-top: 20px; opacity: 0.2;">© 2026 ABRIL VIP |  LUXE SYSTEMS</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. CONTROL DE NAVEGACIÓN INTELIGENTE (SCROLL)
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const header = document.getElementById('smart-header');
+            
+            if (currentScroll <= 10) {
+                header.classList.remove('header-hidden');
+                header.classList.remove('header-active');
+                return;
+            }
+
+            if (currentScroll > lastScroll && !header.classList.contains('header-hidden')) {
+                // Scroll Abajo -> Ocultar
+                header.classList.add('header-hidden');
+            } else if (currentScroll < lastScroll && header.classList.contains('header-hidden')) {
+                // Scroll Arriba -> Mostrar
+                header.classList.remove('header-hidden');
+                header.classList.add('header-active');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // 2. BASES DE DATOS Y MEMORIA LOCAL
+        let cart = JSON.parse(localStorage.getItem('abrilCart')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('abrilWishlist')) || [];
+
+        // 3. INICIALIZAR PÁGINA
+        function initPage() {
+            // Actualizar contadores
+            document.getElementById('wish-count').textContent = wishlist.length;
+            document.getElementById('cart-count').textContent = cart.length;
+
+            // Pintar corazones si ya están en favoritos
+            const allHearts = document.querySelectorAll('.btn-heart');
+            allHearts.forEach(btn => {
+                const idAttr = btn.getAttribute('id'); 
+                if(!idAttr) return;
+                const pId = idAttr.replace('fav-', ''); 
+                
+                const isSaved = wishlist.some(item => item.id === pId);
+                if(isSaved) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // 4. AÑADIR A LA BOLSA (CARRITO)
+        function addToCart(id, name, ref, price, img) {
+            let customText = "";
+            
+            // Validaciones especiales para personalizados
+            if (id === 'a4') {
+                const inputName = document.getElementById(`custom1-${id}`).value.trim();
+                if (!inputName) {
+                    alert("Para adquirir esta pieza, por favor ingrese el nombre que desea grabar.");
+                    return;
+                }
+                customText = "Grabado: " + inputName;
+            } else if (id === 'a5') {
+                const name1 = document.getElementById(`custom1-${id}`).value.trim();
+                const name2 = document.getElementById(`custom2-${id}`).value.trim();
+                if (!name1 || !name2) {
+                    alert("Para esta pieza especial, por favor ingrese ambos nombres para el grabado.");
+                    return;
+                }
+                customText = "Grabados: " + name1 + " y " + name2;
+            }
+
+            // Inyectar al carrito
+            cart.push({ 
+                id: id + Date.now(), 
+                name: name, 
+                ref: ref, 
+                price: price, 
+                img: img, 
+                customText: customText 
+            });
+            
+            localStorage.setItem('abrilCart', JSON.stringify(cart));
+            document.getElementById('cart-count').textContent = cart.length;
+            showToast('Pieza añadida a su Bolsa Exclusiva');
+        }
+
+        // 5. AÑADIR/QUITAR DE FAVORITOS
+        function toggleHeart(id, name, ref, price, img, btn) {
+            const idx = wishlist.findIndex(x => x.id === id);
+            
+            if(idx > -1) { 
+                wishlist.splice(idx, 1); 
+                btn.classList.remove('active'); 
+                showToast('Eliminado de Favoritos');
+            } else { 
+                wishlist.push({id: id, name: name, ref: ref, price: price, img: img}); 
+                btn.classList.add('active'); 
+                showToast('Guardado en Favoritos');
+            }
+            
+            localStorage.setItem('abrilWishlist', JSON.stringify(wishlist));
+            document.getElementById('wish-count').textContent = wishlist.length;
+        }
+
+        // 6. MOSTRAR MENSAJE (TOAST)
+        function showToast(msg) { 
+            const t = document.getElementById('toastAlert'); 
+            t.textContent = msg; 
+            t.classList.add('show'); 
+            setTimeout(() => t.classList.remove('show'), 3500); 
+        }
+
+        // Ejecutar funciones de inicio
+        window.onload = initPage;
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colección Dama | ABRIL VIP</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           ESTÉTICA DIOR LUXE - VARIABLES GLOBALES
+           ========================================================================== */
+        :root {
+            --dior-black: #0a0a0a;
+            --dior-gold: #e8c3b0;
+            --dior-gray: #757575;
+            --white: #ffffff;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ==========================================================================
+           RESET Y ESTILOS BASE
+           ========================================================================== */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--dior-black); 
+            color: var(--white); 
+            overflow-x: hidden; 
+        }
+
+        /* ==========================================================================
+           NAVEGACIÓN SUPERIOR (NAVBAR)
+           ========================================================================== */
+        .nav-header {
+            position: fixed; top: 0; width: 100%; padding: 25px 50px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(15px); z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .btn-back { 
+            color: var(--dior-gray); font-size: 10px; text-transform: uppercase; 
+            letter-spacing: 3px; font-weight: 500; transition: 0.3s; text-decoration: none; 
+        }
+        
+        .btn-back:hover { color: var(--dior-gold); }
+        
+        .logo-mini { 
+            font-family: 'Cinzel', serif; font-size: 24px; letter-spacing: 10px; 
+            color: var(--white); position: absolute; left: 50%; transform: translateX(-50%); 
+        }
+        
+        .nav-actions { display: flex; gap: 30px; align-items: center; }
+        
+        .icon-wrapper { 
+            position: relative; cursor: pointer; color: #fff; font-size: 18px; transition: 0.3s; 
+        }
+        
+        .icon-wrapper:hover { color: var(--dior-gold); transform: scale(1.1); }
+        
+        .badge-count {
+            position: absolute; top: -8px; right: -10px; background: var(--dior-gold); color: #000;
+            font-size: 9px; font-weight: 800; width: 16px; height: 16px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* ==========================================================================
+           SECCIÓN HERO (TÍTULO Y PROMO)
+           ========================================================================== */
+        .collection-hero { 
+            padding: 180px 20px 80px; text-align: center; max-width: 900px; margin: 0 auto; 
+        }
+        
+        .promo-banner {
+            display: inline-block; padding: 10px 25px; border: 1px solid var(--dior-gold);
+            color: var(--dior-gold); font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+            margin-bottom: 30px; background: rgba(232, 195, 176, 0.05);
+        }
+        
+        .title-main { 
+            font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            font-weight: 400; line-height: 1.1; margin-bottom: 25px; 
+        }
+
+        /* ==========================================================================
+           GALERÍA DE PRODUCTOS (GRID)
+           ========================================================================== */
+        .gallery-wrapper { 
+            padding: 0 50px 100px; max-width: 1600px; margin: 0 auto; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px; 
+        }
+        
+        .model-card { 
+            background: #000; border: 1px solid #111; transition: var(--transition); position: relative; 
+        }
+        
+        .model-card:hover { border-color: var(--dior-gold); transform: translateY(-10px); }
+        
+        .img-container { 
+            width: 100%; height: 500px; overflow: hidden; position: relative; background: #000; 
+        }
+        
+        .img-container img { width: 100%; height: 100%; object-fit: contain; transition: 1.2s ease; }
+        .model-card:hover .img-container img { transform: scale(1.05); }
+
+        /* ==========================================================================
+           BOTÓN FAVORITOS (CORAZÓN EN LA IMAGEN)
+           ========================================================================== */
+        .btn-heart {
+            position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.5); 
+            border: 1px solid rgba(255,255,255,0.1); color: #fff; width: 40px; height: 40px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.3s; z-index: 10;
+        }
+        .btn-heart:hover { transform: scale(1.1); background: rgba(0,0,0,0.8); }
+        .btn-heart.active { color: #ff4b4b; border-color: #ff4b4b; background: rgba(255,75,75,0.1); }
+        
+        /* ==========================================================================
+           DETALLES DEL PRODUCTO
+           ========================================================================== */
+        .card-details { padding: 40px 30px; text-align: center; }
+        
+        .model-name { font-family: 'Cinzel', serif; font-size: 20px; color: var(--white); margin-bottom: 8px; letter-spacing: 2px; }
+        .model-ref { font-family: monospace; font-size: 11px; color: var(--dior-gray); letter-spacing: 3px; margin-bottom: 20px; }
+        .model-price { font-family: 'Cinzel', serif; font-size: 24px; color: var(--dior-gold); margin-bottom: 25px; }
+
+        /* ==========================================================================
+           SELECTORES DE TALLA Y CANTIDAD
+           ========================================================================== */
+        .luxury-selectors { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
+        .selector-label { font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: var(--dior-gray); margin-bottom: 8px; display: block; }
+        
+        .sizes-container { display: flex; justify-content: center; gap: 8px; }
+        .size-box {
+            width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
+            border: 1px solid #222; color: var(--dior-gray); font-size: 10px; cursor: pointer; transition: 0.3s;
+        }
+        .size-box:hover { border-color: var(--white); color: var(--white); }
+        .size-box.active { background: var(--white); color: #000; border-color: var(--white); font-weight: 700; }
+
+        .qty-container {
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            border: 1px solid #222; width: fit-content; margin: 0 auto; padding: 5px 15px;
+        }
+        .qty-btn { background: none; border: none; color: var(--white); cursor: pointer; font-size: 16px; padding: 5px; }
+        .qty-val { font-size: 14px; font-family: 'Cinzel', serif; min-width: 25px; }
+
+        /* ==========================================================================
+           BOTÓN AÑADIR A LA BOLSA
+           ========================================================================== */
+        .btn-buy {
+            display: block; width: 100%; padding: 20px; background: transparent; border: 1px solid var(--white);
+            color: var(--white); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; font-weight: 500;
+            transition: 0.4s; cursor: pointer;
+        }
+        .btn-buy:hover { background: var(--white); color: #000; }
+
+        /* ==========================================================================
+           NOTIFICACIÓN TOAST
+           ========================================================================== */
+        .toast { 
+            position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%); 
+            background: var(--dior-gold); color: #000; padding: 15px 40px; border-radius: 2px; 
+            font-size: 12px; font-weight: 600; letter-spacing: 1px; z-index: 4000; transition: 0.4s; text-align: center; 
+        }
+        .toast.show { bottom: 40px; }
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN (MÓVILES)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .nav-header { padding: 20px; }
+            .logo-mini { position: static; transform: none; font-size: 20px; }
+            .gallery-wrapper { padding: 0 20px 60px; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .img-container { height: 350px; }
+        }
+        @media (max-width: 480px) {
+            .gallery-wrapper { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-header">
+        <a href="index.html" class="btn-back"><i class="fas fa-chevron-left"></i> Regresar</a>
+        <div class="logo-mini">ABRIL</div>
+        <div class="nav-actions">
+            <div class="icon-wrapper" onclick="window.location.href='favoritos.html'">
+                <i class="fa-regular fa-heart"></i><span class="badge-count" id="wish-count">0</span>
+            </div>
+            <div class="icon-wrapper" onclick="window.location.href='carrito.html'">
+                <i class="fa-solid fa-bag-shopping"></i><span class="badge-count" id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="collection-hero">
+        <div class="promo-banner">Por compra de 5 piezas del mismo modelo obtienen el 10% de descuento</div>
+        <h1 class="title-main">Colección Dama</h1>
+        <p style="font-size: 13px; color: var(--dior-gray); letter-spacing: 2px; font-weight: 200;">
+            Curaduría Exclusiva SHEIN VIP. Seleccione cantidad (máx. 10 por modelo).
+        </p>
+    </header>
+
+    <section class="gallery-wrapper">
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-v1" onclick="toggleHeart('v1', 'Vestido Aura', 'REF-10452', 599, 's1.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="s1.jpg" alt="Vestido Aura">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Vestido Aura</h3>
+                <p class="model-ref">REF-10452</p>
+                <p class="model-price">L. 599</p>
+                
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla</span>
+                        <div class="sizes-container" id="sizes-v1">
+                            <span class="size-box" onclick="selectSize('v1', 'S', this)">S</span>
+                            <span class="size-box" onclick="selectSize('v1', 'M', this)">M</span>
+                            <span class="size-box" onclick="selectSize('v1', 'L', this)">L</span>
+                            <span class="size-box" onclick="selectSize('v1', 'XL', this)">XL</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('v1', -1)">-</button>
+                            <span class="qty-val" id="qty-v1">1</span>
+                            <button class="qty-btn" onclick="updateQty('v1', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('v1', 'Vestido Aura', 'REF-10452', 599, 's1.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-v2" onclick="toggleHeart('v2', 'Vestido Enigma', 'REF-10893', 599, 's2.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="s2.jpg" alt="Vestido Enigma">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Vestido Enigma</h3>
+                <p class="model-ref">REF-10893</p>
+                <p class="model-price">L. 599</p>
+                
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla</span>
+                        <div class="sizes-container" id="sizes-v2">
+                            <span class="size-box" onclick="selectSize('v2', 'S', this)">S</span>
+                            <span class="size-box" onclick="selectSize('v2', 'M', this)">M</span>
+                            <span class="size-box" onclick="selectSize('v2', 'L', this)">L</span>
+                            <span class="size-box" onclick="selectSize('v2', 'XL', this)">XL</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('v2', -1)">-</button>
+                            <span class="qty-val" id="qty-v2">1</span>
+                            <button class="qty-btn" onclick="updateQty('v2', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('v2', 'Vestido Enigma', 'REF-10893', 599, 's2.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-v3" onclick="toggleHeart('v3', 'Vestido Éter', 'REF-20119', 699, 's3.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="s3.jpg" alt="Vestido Éter">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Vestido Éter</h3>
+                <p class="model-ref">REF-20119</p>
+                <p class="model-price">L. 699</p>
+                
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla</span>
+                        <div class="sizes-container" id="sizes-v3">
+                            <span class="size-box" onclick="selectSize('v3', 'S', this)">S</span>
+                            <span class="size-box" onclick="selectSize('v3', 'M', this)">M</span>
+                            <span class="size-box" onclick="selectSize('v3', 'L', this)">L</span>
+                            <span class="size-box" onclick="selectSize('v3', 'XL', this)">XL</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('v3', -1)">-</button>
+                            <span class="qty-val" id="qty-v3">1</span>
+                            <button class="qty-btn" onclick="updateQty('v3', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('v3', 'Vestido Éter', 'REF-20119', 699, 's3.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-v4" onclick="toggleHeart('v4', 'Vestido Oasis', 'REF-20554', 699, 's4.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="s4.jpg" alt="Vestido Oasis">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Vestido Oasis</h3>
+                <p class="model-ref">REF-20554</p>
+                <p class="model-price">L. 699</p>
+                
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla</span>
+                        <div class="sizes-container" id="sizes-v4">
+                            <span class="size-box" onclick="selectSize('v4', 'S', this)">S</span>
+                            <span class="size-box" onclick="selectSize('v4', 'M', this)">M</span>
+                            <span class="size-box" onclick="selectSize('v4', 'L', this)">L</span>
+                            <span class="size-box" onclick="selectSize('v4', 'XL', this)">XL</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('v4', -1)">-</button>
+                            <span class="qty-val" id="qty-v4">1</span>
+                            <button class="qty-btn" onclick="updateQty('v4', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('v4', 'Vestido Oasis', 'REF-20554', 699, 's4.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-v5" onclick="toggleHeart('v5', 'Vestido Esencia', 'REF-30771', 799, 's5.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="s5.jpg" alt="Vestido Esencia">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Vestido Esencia</h3>
+                <p class="model-ref">REF-30771</p>
+                <p class="model-price">L. 799</p>
+                
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla</span>
+                        <div class="sizes-container" id="sizes-v5">
+                            <span class="size-box" onclick="selectSize('v5', 'S', this)">S</span>
+                            <span class="size-box" onclick="selectSize('v5', 'M', this)">M</span>
+                            <span class="size-box" onclick="selectSize('v5', 'L', this)">L</span>
+                            <span class="size-box" onclick="selectSize('v5', 'XL', this)">XL</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('v5', -1)">-</button>
+                            <span class="qty-val" id="qty-v5">1</span>
+                            <button class="qty-btn" onclick="updateQty('v5', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('v5', 'Vestido Esencia', 'REF-30771', 799, 's5.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-v6" onclick="toggleHeart('v6', 'Vestido Sublime', 'REF-30998', 799, 's6.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="s6.jpg" alt="Vestido Sublime">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Vestido Sublime</h3>
+                <p class="model-ref">REF-30998</p>
+                <p class="model-price">L. 799</p>
+                
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla</span>
+                        <div class="sizes-container" id="sizes-v6">
+                            <span class="size-box" onclick="selectSize('v6', 'S', this)">S</span>
+                            <span class="size-box" onclick="selectSize('v6', 'M', this)">M</span>
+                            <span class="size-box" onclick="selectSize('v6', 'L', this)">L</span>
+                            <span class="size-box" onclick="selectSize('v6', 'XL', this)">XL</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('v6', -1)">-</button>
+                            <span class="qty-val" id="qty-v6">1</span>
+                            <button class="qty-btn" onclick="updateQty('v6', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('v6', 'Vestido Sublime', 'REF-30998', 799, 's6.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-v7" onclick="toggleHeart('v7', 'Vestido Eclipse', 'REF-40333', 899, 's7.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="s7.jpg" alt="Vestido Eclipse">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Vestido Eclipse</h3>
+                <p class="model-ref">REF-40333</p>
+                <p class="model-price">L. 899</p>
+                
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla</span>
+                        <div class="sizes-container" id="sizes-v7">
+                            <span class="size-box" onclick="selectSize('v7', 'S', this)">S</span>
+                            <span class="size-box" onclick="selectSize('v7', 'M', this)">M</span>
+                            <span class="size-box" onclick="selectSize('v7', 'L', this)">L</span>
+                            <span class="size-box" onclick="selectSize('v7', 'XL', this)">XL</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('v7', -1)">-</button>
+                            <span class="qty-val" id="qty-v7">1</span>
+                            <button class="qty-btn" onclick="updateQty('v7', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('v7', 'Vestido Eclipse', 'REF-40333', 899, 's7.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-v8" onclick="toggleHeart('v8', 'Vestido Ícono', 'REF-40876', 899, 's8.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="s8.jpg" alt="Vestido Ícono">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Vestido Ícono</h3>
+                <p class="model-ref">REF-40876</p>
+                <p class="model-price">L. 899</p>
+                
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla</span>
+                        <div class="sizes-container" id="sizes-v8">
+                            <span class="size-box" onclick="selectSize('v8', 'S', this)">S</span>
+                            <span class="size-box" onclick="selectSize('v8', 'M', this)">M</span>
+                            <span class="size-box" onclick="selectSize('v8', 'L', this)">L</span>
+                            <span class="size-box" onclick="selectSize('v8', 'XL', this)">XL</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('v8', -1)">-</button>
+                            <span class="qty-val" id="qty-v8">1</span>
+                            <button class="qty-btn" onclick="updateQty('v8', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('v8', 'Vestido Ícono', 'REF-40876', 899, 's8.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-v9" onclick="toggleHeart('v9', 'Vestido Gala', 'REF-50212', 599, 's9.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="s9.jpg" alt="Vestido Gala">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Vestido Gala</h3>
+                <p class="model-ref">REF-50212</p>
+                <p class="model-price">L. 599</p>
+                
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla</span>
+                        <div class="sizes-container" id="sizes-v9">
+                            <span class="size-box" onclick="selectSize('v9', 'S', this)">S</span>
+                            <span class="size-box" onclick="selectSize('v9', 'M', this)">M</span>
+                            <span class="size-box" onclick="selectSize('v9', 'L', this)">L</span>
+                            <span class="size-box" onclick="selectSize('v9', 'XL', this)">XL</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('v9', -1)">-</button>
+                            <span class="qty-val" id="qty-v9">1</span>
+                            <button class="qty-btn" onclick="updateQty('v9', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('v9', 'Vestido Gala', 'REF-50212', 599, 's9.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+        <article class="model-card">
+            <div class="img-container">
+                <button class="btn-heart" id="fav-v10" onclick="toggleHeart('v10', 'Vestido Mito', 'REF-50988', 699, 's0.jpg', this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <img src="s0.jpg" alt="Vestido Mito">
+            </div>
+            <div class="card-details">
+                <h3 class="model-name">Vestido Mito</h3>
+                <p class="model-ref">REF-50988</p>
+                <p class="model-price">L. 699</p>
+                
+                <div class="luxury-selectors">
+                    <div>
+                        <span class="selector-label">Talla</span>
+                        <div class="sizes-container" id="sizes-v10">
+                            <span class="size-box" onclick="selectSize('v10', 'S', this)">S</span>
+                            <span class="size-box" onclick="selectSize('v10', 'M', this)">M</span>
+                            <span class="size-box" onclick="selectSize('v10', 'L', this)">L</span>
+                            <span class="size-box" onclick="selectSize('v10', 'XL', this)">XL</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-container">
+                            <button class="qty-btn" onclick="updateQty('v10', -1)">-</button>
+                            <span class="qty-val" id="qty-v10">1</span>
+                            <button class="qty-btn" onclick="updateQty('v10', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="addToCart('v10', 'Vestido Mito', 'REF-50988', 699, 's0.jpg')">Añadir a la bolsa</button>
+            </div>
+        </article>
+
+    </section>
+
+    <div class="toast" id="toastAlert">Mensaje</div>
+
+    <script>
+        // Bases de datos locales
+        let cart = JSON.parse(localStorage.getItem('abrilCart')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('abrilWishlist')) || [];
+        
+        // Memoria temporal de la página
+        let currentSizes = {};
+        let quantities = { v1:1, v2:1, v3:1, v4:1, v5:1, v6:1, v7:1, v8:1, v9:1, v10:1 };
+
+        // 1. INICIALIZAR LA PÁGINA (Pintar Corazones y Contadores)
+        function initPage() {
+            document.getElementById('wish-count').textContent = wishlist.length;
+            document.getElementById('cart-count').textContent = cart.length;
+
+            // Recorrer los corazones y si están en wishlist, ponerlos activos (rojos)
+            const allHearts = document.querySelectorAll('.btn-heart');
+            allHearts.forEach(btn => {
+                const idAttr = btn.getAttribute('id'); 
+                if(!idAttr) return;
+                const pId = idAttr.replace('fav-', ''); // obtiene 'v1', 'v2', etc.
+                
+                // Busca si el id está guardado en el array wishlist
+                const isSaved = wishlist.some(item => item.id === pId);
+                if(isSaved) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // 2. ACTUALIZAR CANTIDAD (+ / -)
+        function updateQty(id, delta) {
+            let next = quantities[id] + delta;
+            if (next >= 1 && next <= 10) {
+                quantities[id] = next;
+                document.getElementById('qty-' + id).textContent = next;
+            }
+        }
+
+        // 3. SELECCIONAR TALLA
+        function selectSize(id, size, el) {
+            currentSizes[id] = size;
+            const boxes = document.getElementById('sizes-' + id).querySelectorAll('.size-box');
+            boxes.forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // 4. AÑADIR AL CARRITO
+        function addToCart(productId, name, ref, price, img) {
+            const size = currentSizes[productId];
+            const qty = quantities[productId];
+            
+            if(!size) {
+                showToast('Por favor, seleccione una talla');
+                return;
+            }
+
+            // Lógica de Descuento (10% si lleva 5 o más)
+            let finalPrice = price;
+            if(qty >= 5) { 
+                finalPrice = price * 0.9; 
+            }
+
+            // Guardar en memoria global
+            cart.push({ 
+                id: productId + Date.now(), 
+                name: name, 
+                ref: ref, 
+                basePrice: price, 
+                price: finalPrice * qty, 
+                qty: qty, 
+                size: size, 
+                img: img 
+            });
+            
+            localStorage.setItem('abrilCart', JSON.stringify(cart));
+            
+            // Actualizar número en la bolsita
+            document.getElementById('cart-count').textContent = cart.length;
+            showToast('Prenda añadida a su Bolsa Exclusiva');
+        }
+
+        // 5. GUARDAR/ELIMINAR DE FAVORITOS
+        function toggleHeart(id, name, ref, price, img, btn) {
+            // Verifica si ya existe en la lista
+            const idx = wishlist.findIndex(x => x.id === id);
+            
+            if(idx > -1) { 
+                // Si existe, lo borra y quita la clase roja
+                wishlist.splice(idx, 1); 
+                btn.classList.remove('active'); 
+                showToast('Eliminado de Favoritos');
+            } else { 
+                // Si no existe, lo agrega y pone la clase roja
+                wishlist.push({id: id, name: name, ref: ref, price: price, img: img}); 
+                btn.classList.add('active'); 
+                showToast('Guardado en Favoritos');
+            }
+            
+            // Guarda en memoria y actualiza número
+            localStorage.setItem('abrilWishlist', JSON.stringify(wishlist));
+            document.getElementById('wish-count').textContent = wishlist.length;
+        }
+
+        // 6. MOSTRAR MENSAJE (TOAST)
+        function showToast(msg) { 
+            const t = document.getElementById('toastAlert'); 
+            t.textContent = msg; 
+            t.classList.add('show'); 
+            setTimeout(() => t.classList.remove('show'), 3000); 
+        }
+
+        // Ejecutar funciones de inicio al cargar la página
+        window.onload = initPage;
+
+    </script>
+</body>
+</html>
