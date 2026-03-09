@@ -31,9 +31,102 @@
         .btn-back:hover { color: var(--text-main); }
         .logo-mini { font-family: 'Cormorant Garamond', serif; font-size: 26px; letter-spacing: 8px; position: absolute; left: 50%; transform: translateX(-50%); }
 
-        .page-header { text-align: center; margin: 150px 0 60px; padding: 0 20px; }
+        .page-header { text-align: center; margin: 150px 0 40px; padding: 0 20px; }
         .page-header h1 { font-size: 40px; font-style: italic; color: var(--text-main); margin-bottom: 10px; }
         .page-header p { font-size: 10px; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; }
+
+        .lookup-box {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            padding: 0 20px;
+        }
+
+        .lookup-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            padding: 30px;
+        }
+
+        .lookup-title {
+            font-size: 24px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .lookup-subtitle {
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .lookup-form {
+            display: flex;
+            gap: 15px;
+            align-items: end;
+            flex-wrap: wrap;
+        }
+
+        .lookup-form .field {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .lookup-form label {
+            display: block;
+            font-size: 9px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .lookup-form input {
+            width: 100%;
+            padding: 15px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-main);
+            outline: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .lookup-form input:focus {
+            border-bottom-color: var(--accent-gold);
+        }
+
+        .btn-lookup, .btn-clear-tests {
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-main);
+            padding: 14px 20px;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            min-width: 180px;
+        }
+
+        .btn-lookup:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .btn-clear-tests {
+            display: block;
+            margin: 50px auto;
+            color: #555;
+        }
+
+        .btn-clear-tests:hover {
+            color: #ff4b4b;
+            border-color: #ff4b4b;
+        }
 
         .orders-wrapper { max-width: 900px; margin: 0 auto 150px; padding: 0 20px; }
         
@@ -61,6 +154,24 @@
         .delivery-box h4 { font-size: 14px; margin-bottom: 5px; letter-spacing: 2px; font-style: italic; color: var(--text-muted); }
         .delivery-box p { font-size: 18px; color: var(--text-main); font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 
+        .client-box {
+            background: #0d0d0d;
+            border: 1px solid #1f1f1f;
+            padding: 18px 20px;
+            margin-bottom: 30px;
+        }
+
+        .client-box p {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .client-box strong {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
         .items-list { margin-bottom: 30px; }
         .order-item { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #1a1a1a; line-height: 1.6;}
         .order-item span:first-child { flex: 1; padding-right: 20px; }
@@ -68,18 +179,15 @@
         .order-total { text-align: right; font-size: 22px; color: var(--text-main); border-top: 1px solid var(--border-light); padding-top: 20px;}
         
         .empty-orders { text-align: center; padding: 80px 0; color: var(--text-muted); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
-
-        .btn-clear-tests {
-            display: block; margin: 50px auto; background: transparent; border: 1px solid #333; color: #555;
-            padding: 10px 20px; font-size: 8px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s;
-        }
-        .btn-clear-tests:hover { color: #ff4b4b; border-color: #ff4b4b; }
+        .empty-orders p { margin-top: 10px; }
 
         @media (max-width: 768px) { 
             header { padding: 0 20px; } 
             .order-header { flex-direction: column; gap: 15px; } 
             .order-card { padding: 25px; } 
             .status-badge { align-self: flex-start; }
+            .lookup-form { flex-direction: column; align-items: stretch; }
+            .btn-lookup { width: 100%; }
         }
     </style>
 </head>
@@ -96,25 +204,66 @@
         <p>Justificantes de sus exclusivas importaciones</p>
     </div>
 
-    <div class="orders-wrapper" id="orders-container">
+    <div class="lookup-box">
+        <div class="lookup-card">
+            <h2 class="lookup-title serif">Consultar mis pedidos</h2>
+            <p class="lookup-subtitle">Solo se mostrarán las órdenes asociadas a su correo</p>
+
+            <form class="lookup-form" id="lookup-form">
+                <div class="field">
+                    <label for="lookup-email">Correo del cliente</label>
+                    <input type="email" id="lookup-email" placeholder="Ingrese su correo para ver sus pedidos" required>
+                </div>
+                <button type="submit" class="btn-lookup">
+                    <i class="fa-solid fa-magnifying-glass"></i> Ver mis pedidos
+                </button>
+            </form>
         </div>
+    </div>
+
+    <div class="orders-wrapper" id="orders-container"></div>
 
     <button class="btn-clear-tests" onclick="limpiarPruebas()">
-        <i class="fa-solid fa-trash-can"></i> Limpiar 
+        <i class="fa-solid fa-trash-can"></i> Limpiar pruebas
     </button>
 
     <script>
-        function loadOrders() {
+        function normalizarEmail(email) {
+            return String(email || '').trim().toLowerCase();
+        }
+
+        function obtenerPedidosPorEmail(email) {
+            const pedidosPorEmail = JSON.parse(localStorage.getItem('abrilOrdersByEmail')) || {};
+            return pedidosPorEmail[normalizarEmail(email)] || [];
+        }
+
+        function guardarEmailActual(email) {
+            localStorage.setItem('abrilCurrentClientEmail', normalizarEmail(email));
+        }
+
+        function obtenerEmailActual() {
+            return normalizarEmail(localStorage.getItem('abrilCurrentClientEmail') || '');
+        }
+
+        function renderPedidos(email) {
             const container = document.getElementById('orders-container');
-            
-            // Traemos exactamente lo que el carrito nuevo guardó
-            const orders = JSON.parse(localStorage.getItem('abrilOrders')) || [];
+            const orders = obtenerPedidosPorEmail(email);
+
+            if (!email) {
+                container.innerHTML = `
+                    <div class="empty-orders">
+                        <i class="fa-solid fa-envelope-open-text" style="font-size: 40px; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <p>Ingrese su correo para consultar sus pedidos.</p>
+                    </div>`;
+                return;
+            }
 
             if (orders.length === 0) {
                 container.innerHTML = `
                     <div class="empty-orders">
                         <i class="fa-solid fa-box-open" style="font-size: 40px; margin-bottom: 20px; opacity: 0.5;"></i>
-                        <p>Aún no tiene órdenes registradas.</p>
+                        <p>No se encontraron órdenes para:</p>
+                        <p style="color: var(--accent-gold); text-transform: none; letter-spacing: 1px;">${email}</p>
                     </div>`;
                 return;
             }
@@ -124,15 +273,14 @@
             orders.forEach(order => {
                 let itemsHtml = '';
                 
-                // Leemos los artículos exactos que se pagaron
                 order.items.forEach(item => {
                     let desc = `<strong>${item.qty}x ${item.name}</strong>`;
-                    if(item.size) desc += `<br><span style="font-size: 10px;">Talla/Edad: ${item.size}</span>`;
-                    if(item.customText) desc += `<br><span style="font-size: 10px;">${item.customText}</span>`;
+                    if (item.ref) desc += `<br><span style="font-size: 10px;">Referencia: ${item.ref}</span>`;
+                    if (item.size) desc += `<br><span style="font-size: 10px;">Talla/Edad: ${item.size}</span>`;
+                    if (item.customText) desc += `<br><span style="font-size: 10px;">${item.customText}</span>`;
                     
-                    // Asegurarnos de que el precio se muestre bien
                     let itemPrice = item.price;
-                    if(typeof itemPrice === 'number') {
+                    if (typeof itemPrice === 'number') {
                         itemPrice = `L. ${itemPrice}`;
                     } else if (!String(itemPrice).startsWith('L.')) {
                         itemPrice = `L. ${itemPrice}`;
@@ -149,10 +297,17 @@
                     <div class="order-card">
                         <div class="order-header">
                             <div>
-                                <h3 class="order-id serif">Orden ${order.idPedido}</h3>
+                                <h3 class="order-id serif">Expediente ${order.idPedido}</h3>
                                 <p class="order-date">Registrada el: ${order.fechaCompra}</p>
                             </div>
                             <div class="status-badge"><i class="fa-solid fa-hourglass-half"></i> ${order.estado}</div>
+                        </div>
+
+                        <div class="client-box">
+                            <p><strong>Cliente:</strong> ${order.cliente || '-'}</p>
+                            <p><strong>Correo:</strong> ${order.email || '-'}</p>
+                            <p><strong>Teléfono / WhatsApp:</strong> ${order.telefono || '-'}</p>
+                            <p><strong>Destino:</strong> ${order.destino || '-'}</p>
                         </div>
 
                         <div class="delivery-box">
@@ -175,16 +330,30 @@
             });
         }
 
-        // Función para borrar la "basura" de las pruebas viejas
         function limpiarPruebas() {
-            if(confirm("¿Estás segura de querer borrar todas las órdenes de prueba? Esto dejará la página en blanco como si fuera un cliente nuevo.")) {
-                localStorage.removeItem('abrilOrders');
+            if (confirm("¿Desea borrar todas las órdenes de prueba y el carrito guardado en este navegador?")) {
+                localStorage.removeItem('abrilOrdersByEmail');
                 localStorage.removeItem('abrilCart');
-                loadOrders();
+                localStorage.removeItem('abrilCurrentClientEmail');
+                document.getElementById('lookup-email').value = '';
+                renderPedidos('');
             }
         }
 
-        window.onload = loadOrders;
+        document.getElementById('lookup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = normalizarEmail(document.getElementById('lookup-email').value);
+            guardarEmailActual(email);
+            renderPedidos(email);
+        });
+
+        window.onload = function() {
+            const emailActual = obtenerEmailActual();
+            if (emailActual) {
+                document.getElementById('lookup-email').value = emailActual;
+            }
+            renderPedidos(emailActual);
+        };
     </script>
 </body>
 </html>
