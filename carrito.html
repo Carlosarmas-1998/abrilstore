@@ -112,7 +112,6 @@
                 <select name="Departamento" id="c-city" required>
                     <option value="" disabled selected>Departamento de Entrega</option>
                     <option value="Choluteca">Choluteca</option>
-                    <option value="Valle">Valle</option>
                 </select>
 
                 <input type="hidden" name="Detalle_del_Pedido" id="c-order-details">
@@ -224,7 +223,7 @@
             // Recogemos los datos del formulario
             const formData = new FormData(form);
 
-            // 1. Enviamos el pedido silenciosamente a tu correo (vía Web3Forms con tu llave)
+            // 1. Enviamos el pedido silenciosamente a tu correo (vía Web3Forms)
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 body: formData
@@ -255,8 +254,8 @@
                 // Vaciamos carrito
                 localStorage.removeItem('abrilCart');
 
-                // 3. REDIRECCIÓN A STRIPE (AQUÍ DEBES PEGAR TU ENLACE "buy.stripe.com/...")
-                const stripeLink = "https://buy.stripe.com/TU_ENLACE_AQUI"; 
+                // 3. REDIRECCIÓN OFICIAL A TU STRIPE
+                const stripeLink = "https://buy.stripe.com/9B6fZjdC45JEeviaUH4Vy02"; 
                 
                 // Enviamos al cliente a pagar
                 window.location.href = stripeLink;
