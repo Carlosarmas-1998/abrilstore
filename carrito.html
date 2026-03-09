@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Bolsa VIP | ABRIL STORE</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,600&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -31,6 +31,9 @@
         .btn-back { color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 3px; text-decoration: none; transition: var(--transition); }
         .btn-back:hover { color: var(--text-main); }
         .logo-mini { font-family: 'Cormorant Garamond', serif; font-size: 26px; letter-spacing: 8px; position: absolute; left: 50%; transform: translateX(-50%); }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; transition: var(--transition); }
+        .nav-links a:hover { color: var(--accent-gold); }
 
         .cart-wrapper { max-width: 1200px; margin: 150px auto 100px; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr; gap: 60px; }
         .cart-header { margin-bottom: 40px; border-bottom: 1px solid var(--border-light); padding-bottom: 20px; }
@@ -39,7 +42,6 @@
 
         .cart-items { display: flex; flex-direction: column; gap: 30px; }
         .cart-item { display: flex; gap: 30px; background: var(--bg-card); padding: 25px; border: 1px solid var(--border-light); align-items: center; transition: var(--transition); }
-        .cart-item:hover { border-color: rgba(197, 160, 89, 0.3); }
         
         .item-img { width: 120px; height: 150px; object-fit: contain; }
         .item-details { flex: 1; }
@@ -62,17 +64,29 @@
         .form-group select option { background: var(--bg-dark); color: var(--text-main); }
 
         .stripe-badge { display: flex; align-items: center; justify-content: center; gap: 10px; color: #635bff; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 20px; font-weight: 600; }
-        .stripe-badge i { font-size: 24px; }
-        .apple-pay-badge { display: flex; align-items: center; justify-content: center; gap: 10px; color: #fff; font-size: 14px; margin-top: 10px; }
-
-        .btn-buy { display: block; width: 100%; padding: 18px; background: var(--text-main); border: none; color: var(--bg-dark); font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; transition: var(--transition); margin-top: 20px; }
+        
+        .btn-buy { display: block; width: 100%; padding: 18px; background: var(--text-main); border: none; color: var(--bg-dark); font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; transition: var(--transition); margin-top: 20px; text-decoration: none; text-align: center;}
         .btn-buy:hover { background: var(--accent-gold); }
         
         .empty-cart-msg { text-align: center; padding: 50px 0; color: var(--text-muted); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* Pantalla de carga VIP */
-        .loader-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index: 5000; display: none; align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(10px); }
-        .loader-overlay.show { display: flex; }
+        /* NUEVO MODAL DE JUSTIFICANTE (ANTES DE IR A STRIPE) */
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index: 5000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+        .modal-overlay.show { display: flex; }
+        
+        .receipt-card { background: var(--bg-card); border: 1px solid var(--accent-gold); padding: 50px 40px; width: 90%; max-width: 500px; text-align: center; position: relative; }
+        .receipt-icon { font-size: 40px; color: var(--accent-gold); margin-bottom: 20px; }
+        .receipt-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-style: italic; color: var(--text-main); margin-bottom: 10px; }
+        .receipt-subtitle { font-size: 9px; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 30px; }
+        
+        .receipt-details { text-align: left; border-top: 1px dashed var(--border-light); border-bottom: 1px dashed var(--border-light); padding: 20px 0; margin-bottom: 30px; font-size: 12px; color: var(--text-muted); line-height: 1.8; }
+        .receipt-details strong { color: var(--text-main); font-weight: 500; }
+        
+        .btn-stripe { display: flex; align-items: center; justify-content: center; gap: 10px; background: #635bff; color: white; padding: 18px; width: 100%; text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
+        .btn-stripe:hover { background: #5048e5; }
+        
+        /* Loader */
+        .loader-box { display: none; flex-direction: column; align-items: center; justify-content: center; }
         .spinner { width: 40px; height: 40px; border: 2px solid var(--border-light); border-top-color: var(--accent-gold); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;}
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
@@ -84,7 +98,9 @@
     <header>
         <a href="index.html" class="btn-back"><i class="fas fa-chevron-left"></i> Volver</a>
         <div class="logo-mini">ABRIL</div>
-        <div style="width: 70px;"></div> 
+        <div class="nav-links">
+            <a href="mis-pedidos.html"><i class="fa-solid fa-box"></i> Mis Pedidos</a>
+        </div> 
     </header>
 
     <div class="cart-wrapper">
@@ -102,46 +118,59 @@
             <div class="summary-row"><span>Envío VIP</span><span class="serif" style="font-size: 16px;">Coordinado</span></div>
             <div class="summary-total"><span class="serif" style="font-style: italic;">Total</span><span id="summary-total" class="serif" style="color: var(--accent-gold);">L. 0</span></div>
 
-            <form class="form-group" id="checkout-form" action="https://api.web3forms.com/submit" method="POST">
+            <form class="form-group" id="checkout-form">
                 
-                <input type="hidden" name="access_key" value="b74be360-5d4a-4506-b071-f1ec4ff4d64b">
-                <input type="hidden" name="subject" value="💎 NUEVA ORDEN DE COMPRA VIP">
-                
-                <input type="text" name="Nombre_Cliente" id="c-name" placeholder="Nombre Completo" required>
-                <input type="tel" name="Whatsapp" id="c-phone" placeholder="Teléfono / WhatsApp" required>
-                <select name="Departamento" id="c-city" required>
+                <input type="text" id="c-name" placeholder="Nombre Completo" required>
+                <input type="email" id="c-email" placeholder="Correo Electrónico (Para su recibo)" required>
+                <input type="tel" id="c-phone" placeholder="Teléfono / WhatsApp" required>
+                <select id="c-city" required>
                     <option value="" disabled selected>Departamento de Entrega</option>
                     <option value="Choluteca">Choluteca</option>
                 </select>
 
-                <input type="hidden" name="Detalle_del_Pedido" id="c-order-details">
-                <input type="hidden" name="Total_a_Pagar" id="c-total">
-                <input type="hidden" name="ID_Pedido" id="c-order-id">
-
-                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
-                <button type="submit" class="btn-buy"><i class="fa-solid fa-lock"></i> Pagar Ahora</button>
+                <button type="submit" class="btn-buy"><i class="fa-solid fa-lock"></i> Procesar Orden Segura</button>
             </form>
 
             <div class="stripe-badge">
                 <i class="fa-brands fa-stripe"></i>
-                <span>Pagos Seguros</span>
-            </div>
-            <div class="apple-pay-badge">
-                <i class="fa-brands fa-apple-pay"></i> <i class="fa-brands fa-cc-visa"></i> <i class="fa-brands fa-cc-mastercard"></i>
+                <span>Pagos Seguros a España</span>
             </div>
         </div>
     </div>
 
-    <div class="loader-overlay" id="loader">
-        <div class="spinner"></div>
-        <h2 class="serif" style="color: var(--accent-gold); font-size: 24px;">Conectando con pasarela segura...</h2>
-        <p style="font-size: 10px; color: var(--text-muted); letter-spacing: 2px; margin-top: 10px; text-transform: uppercase;">Procesando pedido y redirigiendo a Stripe</p>
+    <div class="modal-overlay" id="receipt-modal">
+        
+        <div class="loader-box" id="loader">
+            <div class="spinner"></div>
+            <h2 class="serif" style="color: var(--accent-gold); font-size: 24px;">Generando Orden VIP...</h2>
+        </div>
+
+        <div class="receipt-card" id="receipt-card" style="display: none;">
+            <i class="fa-solid fa-gem receipt-icon"></i>
+            <h2 class="receipt-title">Orden Registrada</h2>
+            <p class="receipt-subtitle">Se ha guardado en "Mis Pedidos"</p>
+            
+            <div class="receipt-details">
+                <p><strong>Nº de Orden:</strong> <span id="r-order-id"></span></p>
+                <p><strong>Fecha Estimada de Entrega:</strong> <br><span id="r-date" style="color: var(--accent-gold);"></span></p>
+                <p><strong>Estado:</strong> Pendiente de Pago Internacional</p>
+            </div>
+
+            <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 20px;">Para confirmar la importación, complete su pago de <strong style="color: var(--text-main);" id="r-total"></strong> en la pasarela segura.</p>
+
+            <a href="https://buy.stripe.com/9B6fZjdC45JEeviaUH4Vy02" class="btn-stripe" id="stripe-button">
+                <i class="fa-brands fa-stripe"></i> Completar Pago en Stripe
+            </a>
+            
+            <button onclick="window.location.href='mis-pedidos.html'" style="background: transparent; border: none; color: var(--text-muted); font-size: 9px; text-transform: uppercase; letter-spacing: 2px; margin-top: 20px; cursor: pointer;">Pagar más tarde (Ver mis pedidos)</button>
+        </div>
+
     </div>
 
     <script>
         let cart = JSON.parse(localStorage.getItem('abrilCart')) || [];
         let totalFinal = 0;
+        let ordenDetalladaParaCorreo = "";
 
         function updateCartUI() {
             const container = document.getElementById('cart-container');
@@ -151,6 +180,7 @@
             
             container.innerHTML = '';
             totalFinal = 0;
+            ordenDetalladaParaCorreo = "";
 
             if(cart.length === 0) {
                 container.innerHTML = '<p class="empty-cart-msg">Su bolsa VIP se encuentra vacía.</p>';
@@ -159,7 +189,6 @@
                 totalText.textContent = 'L. 0';
                 document.getElementById('checkout-form').style.display = 'none';
                 document.querySelector('.stripe-badge').style.display = 'none';
-                document.querySelector('.apple-pay-badge').style.display = 'none';
                 return;
             }
 
@@ -167,18 +196,13 @@
             document.querySelector('.stripe-badge').style.display = 'flex';
             countText.textContent = `${cart.length} artículo(s)`;
 
-            let ordenDetalladaParaCorreo = "";
-
             cart.forEach((item, index) => {
                 totalFinal += item.price;
                 let metaInfo = `Ref: ${item.ref} | Cant: ${item.qty}`;
                 if(item.size) metaInfo += `<br>Talla/Edad: ${item.size}`;
                 if(item.customText) metaInfo += `<br>${item.customText}`;
 
-                // Construimos el texto exacto que te llegará al correo
-                ordenDetalladaParaCorreo += `- ${item.qty}x ${item.name} (${item.ref}) | L.${item.price}\n`;
-                if(item.size) ordenDetalladaParaCorreo += `  Talla: ${item.size}\n`;
-                if(item.customText) ordenDetalladaParaCorreo += `  Grabado: ${item.customText}\n`;
+                ordenDetalladaParaCorreo += `- ${item.qty}x ${item.name} | L.${item.price}\n`;
 
                 container.innerHTML += `
                     <div class="cart-item">
@@ -195,12 +219,6 @@
 
             subtotalText.textContent = `L. ${totalFinal}`;
             totalText.textContent = `L. ${totalFinal}`;
-
-            // Metemos los datos en los inputs ocultos para que Web3Forms te los mande
-            const idPedido = 'VIP-' + Math.floor(Math.random() * 1000000);
-            document.getElementById('c-order-details').value = ordenDetalladaParaCorreo;
-            document.getElementById('c-total').value = `L. ${totalFinal}`;
-            document.getElementById('c-order-id').value = idPedido;
         }
 
         function removeItem(index) {
@@ -209,60 +227,83 @@
             updateCartUI();
         }
 
-        // CONTROL DEL ENVÍO DEL FORMULARIO Y REDIRECCIÓN
+        // CONTROL DEL PEDIDO
         const form = document.getElementById('checkout-form');
         
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
             if(cart.length === 0) return;
 
-            // Mostramos la pantalla de carga negra elegante
-            document.getElementById('loader').classList.add('show');
+            // 1. Mostrar pantalla de carga
+            const modal = document.getElementById('receipt-modal');
+            const loader = document.getElementById('loader');
+            const receipt = document.getElementById('receipt-card');
+            
+            modal.classList.add('show');
+            loader.style.display = 'flex';
+            receipt.style.display = 'none';
 
-            // Recogemos los datos del formulario
-            const formData = new FormData(form);
+            // 2. Crear los datos del pedido
+            const idPedido = 'VIP-' + Math.floor(Math.random() * 1000000);
+            const hoy = new Date();
+            const fechaEntrega = new Date(hoy);
+            fechaEntrega.setDate(fechaEntrega.getDate() + 28);
+            const opcionesFecha = { day: 'numeric', month: 'long', year: 'numeric' };
+            const fechaEstimadaStr = fechaEntrega.toLocaleDateString('es-ES', opcionesFecha);
+            
+            const totalStr = `L. ${totalFinal}`;
+            const clienteNombre = document.getElementById('c-name').value;
+            const clienteEmail = document.getElementById('c-email').value;
+            const clienteTel = document.getElementById('c-phone').value;
+            const destino = document.getElementById('c-city').value;
 
-            // 1. Enviamos el pedido silenciosamente a tu correo (vía Web3Forms)
+            // 3. Guardar el pedido en "Mis Pedidos" localmente
+            const nuevoPedido = {
+                idPedido: idPedido,
+                fechaCompra: hoy.toLocaleDateString('es-ES', opcionesFecha),
+                fechaEntregaEstimada: `Aprox. el ${fechaEstimadaStr}`,
+                cliente: clienteNombre,
+                destino: destino,
+                items: [...cart],
+                total: totalStr,
+                estado: 'Pendiente de Pago' 
+            };
+
+            let orders = JSON.parse(localStorage.getItem('abrilOrders')) || [];
+            orders.unshift(nuevoPedido);
+            localStorage.setItem('abrilOrders', JSON.stringify(orders));
+
+            // 4. Enviar notificación silenciosa a tu correo usando Web3Forms
+            const formData = new FormData();
+            formData.append("access_key", "b74be360-5d4a-4506-b071-f1ec4ff4d64b");
+            formData.append("subject", `💎 NUEVO PEDIDO: ${idPedido}`);
+            formData.append("Nombre_Cliente", clienteNombre);
+            formData.append("Correo", clienteEmail);
+            formData.append("Whatsapp", clienteTel);
+            formData.append("Destino", destino);
+            formData.append("Total_a_Cobrar", totalStr);
+            formData.append("Detalle", ordenDetalladaParaCorreo);
+
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 body: formData
             })
-            .then(async (response) => {
-                
-                // 2. Guardamos el pedido en la sección "Mis Pedidos" (con los 28 días)
-                const hoy = new Date();
-                const fechaEntrega = new Date(hoy);
-                fechaEntrega.setDate(fechaEntrega.getDate() + 28);
-                const opcionesFecha = { day: 'numeric', month: 'long', year: 'numeric' };
-                
-                const nuevoPedido = {
-                    idPedido: document.getElementById('c-order-id').value,
-                    fechaCompra: hoy.toLocaleDateString('es-ES', opcionesFecha),
-                    fechaEntregaEstimada: `Estimado el ${fechaEntrega.toLocaleDateString('es-ES', opcionesFecha)}`,
-                    cliente: document.getElementById('c-name').value,
-                    destino: document.getElementById('c-city').value,
-                    items: [...cart],
-                    total: document.getElementById('summary-total').textContent,
-                    estado: 'Pendiente de Pago en Stripe' 
-                };
-
-                let orders = JSON.parse(localStorage.getItem('abrilOrders')) || [];
-                orders.unshift(nuevoPedido);
-                localStorage.setItem('abrilOrders', JSON.stringify(orders));
-
-                // Vaciamos carrito
+            .then(() => {
+                // Vaciamos el carrito porque ya se guardó en Mis Pedidos
                 localStorage.removeItem('abrilCart');
-
-                // 3. REDIRECCIÓN OFICIAL A TU STRIPE
-                const stripeLink = "https://buy.stripe.com/9B6fZjdC45JEeviaUH4Vy02"; 
                 
-                // Enviamos al cliente a pagar
-                window.location.href = stripeLink;
+                // Llenamos los datos del recibo visual
+                document.getElementById('r-order-id').textContent = idPedido;
+                document.getElementById('r-date').textContent = fechaEstimadaStr;
+                document.getElementById('r-total').textContent = totalStr;
+
+                // Ocultamos loader, mostramos el recibo con el botón de Stripe
+                loader.style.display = 'none';
+                receipt.style.display = 'block';
             })
-            .catch((error) => {
-                alert("Hubo un error de conexión. Por favor intente nuevamente.");
-                document.getElementById('loader').classList.remove('show');
+            .catch(() => {
+                alert("Hubo un problema de conexión, por favor intente de nuevo.");
+                modal.classList.remove('show');
             });
         });
 
