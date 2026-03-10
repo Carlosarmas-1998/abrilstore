@@ -3,456 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABRIL STORE | SHEIN EXCLUSIVO VIP</title>
+    <title>PRÓXIMAMENTE | ABRIL STORE EXCLUSIVITÉ</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,600&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* ==========================================================================
-           VARIABLES GLOBALES - MINIMALISMO DE LUJO
+           VARIABLES Y DISEÑO BASE DE ALTA COSTURA
            ========================================================================== */
         :root {
             --bg-dark: #070707;
-            --bg-card: #0a0a0a;
             --accent-gold: #c5a059; 
             --text-main: #f0f0f0;
-            --text-muted: #666666;
-            --border-light: rgba(255, 255, 255, 0.08);
-            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --text-muted: #888888;
+            --transition-luxe: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        
         body { 
             font-family: 'Montserrat', sans-serif; 
+            font-weight: 300; 
             background-color: var(--bg-dark); 
             color: var(--text-main); 
-            overflow-x: hidden; 
-            -webkit-font-smoothing: antialiased;
+            -webkit-font-smoothing: antialiased; 
+            overflow-x: hidden;
+            /* Permite scroll suave si el contenido es más alto que la pantalla en móviles pequeños */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        h1, h2, h3, h4, .serif {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 400;
-        }
+
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; }
 
         /* ==========================================================================
-           BARRA SUPERIOR (TOP BAR)
+           FONDOS ANIMADOS
            ========================================================================== */
-        .top-bar {
-            background-color: var(--bg-card); 
-            color: var(--text-muted); 
-            font-size: 8px; 
-            text-align: center;
-            padding: 12px 0; 
-            letter-spacing: 4px; 
-            text-transform: uppercase; 
-            border-bottom: 1px solid var(--border-light);
-            position: relative; z-index: 1001;
+        .bg-wrapper {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
         }
+        .bg-image {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('s0.jpg'); 
+            background-size: cover; background-position: center top;
+            filter: brightness(0.35) grayscale(25%);
+            animation: slowZoom 25s infinite alternate ease-in-out;
+        }
+        .bg-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(7,7,7,0.85) 0%, rgba(7,7,7,0.6) 40%, rgba(7,7,7,0.95) 100%);
+        }
+
+        @keyframes slowZoom { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
 
         /* ==========================================================================
-           NUEVO HEADER LIMPIO (SELLO + LOGO + ICONOS)
+           CONTENIDO CENTRAL (RESPONSIVE Y CENTRADO)
            ========================================================================== */
-        header {
-            position: fixed; top: 38px; width: 100%; padding: 15px 40px;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; transition: var(--transition);
-        }
-        .header-active { 
-            background: rgba(7, 7, 7, 0.95); backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-light); padding: 10px 40px; top: 0;
-        }
-        
-        /* Contenedor Izquierdo: Sello (MÁS GRANDE Y PROPORCIONADO) */
-        .header-left { width: 120px; display: flex; align-items: center; }
-        .vip-seal-header {
-            width: 85px; /* Sello considerablemente más grande */
-            height: auto;
-            cursor: pointer;
-            transition: var(--transition);
-            filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.4));
-        }
-        .vip-seal-header:hover { transform: scale(1.08); filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.8)); }
-
-        /* Contenedor Central: Logo */
-        .logo { 
-            font-family: 'Cormorant Garamond', serif; font-size: 32px; 
-            letter-spacing: 12px; text-align: center; color: var(--text-main); 
+        .main-content {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* LOGO */
+        .logo { 
+            font-size: clamp(28px, 5vw, 40px); letter-spacing: 12px; color: var(--text-main); 
+            text-transform: uppercase; margin-bottom: 30px; line-height: 1.2;
         }
         .logo span { 
-            color: var(--accent-gold); font-size: 8px; letter-spacing: 6px; 
-            display: block; margin-top: 5px; font-family: 'Montserrat', sans-serif;
+            color: var(--accent-gold); font-size: clamp(8px, 1.5vw, 10px); letter-spacing: 6px; 
+            display: block; margin-top: 5px; font-weight: 200;
         }
 
-        /* Contenedor Derecho: Iconos */
-        .header-right { width: 120px; display: flex; justify-content: flex-end; gap: 20px; align-items: center; }
-        .nav-icon { position: relative; cursor: pointer; color: var(--text-main); font-size: 20px; transition: var(--transition); }
-        .nav-icon:hover { color: var(--accent-gold); }
-        .badge {
-            position: absolute; top: -6px; right: -8px; background: var(--text-main); color: var(--bg-dark);
-            font-size: 8px; font-weight: 500; width: 14px; height: 14px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        /* ==========================================================================
-           HERO (PORTADA CON FOTO DE REVISTA FIJA)
-           ========================================================================== */
-        .hero { 
-            position: relative; min-height: 100vh; width: 100%; display: flex; 
-            align-items: center; justify-content: center; 
-            background-color: var(--bg-dark);
-            overflow: hidden; 
-        }
-        
-        .hero-image { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background-image: url('s0.jpg');
-            background-repeat: no-repeat;
-            background-position: center top; 
-            background-size: cover; /* Por defecto para celular llena toda la pantalla */
-            z-index: 1; 
-            filter: brightness(0.7);
-            /* Sin animación para que no maree */
-        }
-
-        .hero-overlay { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to bottom, rgba(7,7,7,0.8) 0%, rgba(7,7,7,0.2) 50%, var(--bg-dark) 100%); 
-            z-index: 2; 
-        }
-        
-        .hero-content { 
-            position: relative; z-index: 3; text-align: center; 
-            margin-top: 60px; padding: 0 20px; width: 100%; max-width: 1200px; 
-        }
-        
-        .special-label {
-            display: inline-block; color: var(--accent-gold); font-size: 10px; 
-            letter-spacing: 6px; text-transform: uppercase; margin-bottom: 20px; 
-            border: 1px solid rgba(197, 160, 89, 0.4); padding: 8px 20px;
-            background: rgba(197, 160, 89, 0.05); font-weight: 500;
-        }
-
-        .hero h1 { 
-            font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 6vw, 5rem); 
-            font-weight: 400; margin-bottom: 20px; letter-spacing: 4px; font-style: italic;
-            line-height: 1.1; color: var(--text-main);
-        }
-        .shein-vip-label {
-            color: rgba(255, 255, 255, 0.6); font-size: 8px; letter-spacing: 4px; 
-            text-transform: uppercase; margin-bottom: 40px;
-        }
-
-        /* TÉCNICA DE EDITORIAL PARA COMPUTADORA (Evita el recorte de cabeza) */
-        @media (min-width: 1024px) {
-            .hero-image {
-                background-size: contain; /* En PC se ve la foto completa sin recortar */
-                background-position: center top; 
-            }
-            .hero-overlay {
-                /* Difumina los bordes negros laterales en PC para que parezca una portada de Vogue */
-                background: linear-gradient(to bottom, rgba(7,7,7,0.9) 0%, transparent 30%, var(--bg-dark) 100%),
-                            linear-gradient(to right, var(--bg-dark) 0%, transparent 25%, transparent 75%, var(--bg-dark) 100%);
-            }
-        }
-
-        /* ==========================================================================
-           BOTONES DE COLECCIÓN (FILA HORIZONTAL MINIMALISTA)
-           ========================================================================== */
-        .collection-links { 
-            display: flex; justify-content: center; gap: 15px; flex-wrap: nowrap; margin-top: 20px; 
-        }
-        .btn-collection {
-            padding: 12px 25px; 
-            border: 1px solid var(--border-light); 
-            color: var(--text-main); 
-            font-size: 8px; text-transform: uppercase; letter-spacing: 3px; 
-            text-decoration: none; transition: var(--transition);
-            background: rgba(7,7,7,0.3); backdrop-filter: blur(5px);
-            white-space: nowrap; 
-        }
-        .btn-collection:hover { background: var(--text-main); color: var(--bg-dark); border-color: var(--text-main); }
-        .btn-vip { border-color: rgba(197, 160, 89, 0.5); color: var(--accent-gold); }
-        .btn-vip:hover { background: var(--accent-gold); color: var(--bg-dark); border-color: var(--accent-gold); }
-
-        /* ==========================================================================
-           FLECHA ANIMADA (DESCUBRIR) EN LA PORTADA
-           ========================================================================== */
-        .scroll-arrow-box {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 10;
+        /* TÍTULO PRINCIPAL */
+        h1 {
+            font-size: clamp(2.5rem, 7vw, 5rem);
             color: var(--accent-gold);
-            text-decoration: none;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            font-style: italic;
+            line-height: 1;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
         }
-        .scroll-arrow-box span {
-            display: block; font-size: 9px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 5px;
+
+        /* DESCRIPCIÓN */
+        .desc {
+            font-size: clamp(12px, 2vw, 15px);
+            line-height: 1.8;
+            color: #d0d0d0;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+            font-weight: 300;
+            max-width: 600px;
         }
-        .scroll-arrow-box i {
-            font-size: 20px;
-            animation: bounce 2s infinite;
+        .desc em { color: var(--accent-gold); font-style: normal; font-weight: 400; }
+
+        /* ETIQUETAS DE BENEFICIOS */
+        .benefits-tags {
+            display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 50px;
+        }
+        .tag {
+            border: 1px solid rgba(197, 160, 89, 0.4); padding: 10px 20px;
+            font-size: 9px; text-transform: uppercase; letter-spacing: 3px;
+            color: var(--accent-gold); background: rgba(197, 160, 89, 0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        /* ==========================================================================
+           FORMULARIO DE LISTA VIP (CLIENTAS)
+           ========================================================================== */
+        .waitlist-form {
+            width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 60px;
+        }
+        .input-group { display: flex; gap: 10px; width: 100%; }
+        
+        .waitlist-form input {
+            flex: 1; padding: 18px 20px; background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-main);
+            font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 1px;
+            outline: none; transition: var(--transition-luxe);
+        }
+        .waitlist-form input:focus { border-color: var(--accent-gold); background: rgba(255, 255, 255, 0.08); }
+        .waitlist-form input::placeholder { color: rgba(255, 255, 255, 0.3); }
+
+        .btn-submit {
+            width: 100%; padding: 18px; background: var(--accent-gold); border: none; color: var(--bg-dark);
+            font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 4px; cursor: pointer; transition: var(--transition-luxe);
+        }
+        .btn-submit:hover { background: #d4af66; box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+
+        /* ==========================================================================
+           SECCIÓN DE EMPRENDIMIENTO (SOCIAS)
+           ========================================================================== */
+        .emprender-section {
+            border-top: 1px solid var(--border-light);
+            padding-top: 50px;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .emprender-title {
+            font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 4vw, 28px);
+            color: var(--text-main); font-style: italic; margin-bottom: 15px;
+        }
+        .emprender-desc {
+            font-size: 11px; color: var(--text-muted); line-height: 1.8;
+            letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 25px;
         }
         
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(10px); }
-            60% { transform: translateY(5px); }
+        /* Botón animado de correo */
+        .btn-emprender {
+            display: inline-block; padding: 16px 35px; border: 1px solid var(--accent-gold);
+            color: var(--accent-gold); font-size: 10px; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 4px; text-decoration: none;
+            background: rgba(197, 160, 89, 0.05);
+            animation: pulse-glow 2s infinite alternate;
+            transition: var(--transition-luxe);
+        }
+        .btn-emprender:hover {
+            background: var(--accent-gold); color: var(--bg-dark);
+            animation: none; box-shadow: 0 0 25px rgba(197, 160, 89, 0.6);
         }
 
-        /* Clase para ocultar la flecha al bajar */
-        .fade-out { opacity: 0; visibility: hidden; }
+        @keyframes pulse-glow {
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(197, 160, 89, 0.2); }
+            100% { transform: scale(1.05); box-shadow: 0 0 20px rgba(197, 160, 89, 0.5); }
+        }
 
         /* ==========================================================================
-           BLOQUES DE SERVICIOS (DEBAJO DE LA PORTADA)
+           FOOTER Y SELLO VIP
            ========================================================================== */
-        .services-section {
-            padding: 60px 20px; max-width: 1200px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+        footer {
+            width: 100%; padding: 40px 20px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 2;
         }
-        .service-card {
-            background: var(--bg-card); border: 1px solid var(--border-light);
-            padding: 30px; display: flex; flex-direction: column; align-items: center; text-align: center;
-            text-decoration: none; transition: var(--transition);
+        
+        .vip-seal-footer {
+            width: 65px; height: auto; margin-bottom: 20px; opacity: 0.8;
+            filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.3));
+            transition: var(--transition-luxe);
         }
-        .service-card:hover { border-color: var(--accent-gold); transform: translateY(-5px); }
-        .service-icon { font-size: 30px; color: var(--accent-gold); margin-bottom: 15px; }
-        .service-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: var(--text-main); margin-bottom: 10px; }
-        .service-desc { font-size: 10px; color: var(--text-muted); line-height: 1.6; letter-spacing: 1px; text-transform: uppercase;}
+        .vip-seal-footer:hover { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.7)); }
+
+        .copyright {
+            font-size: 8px; color: rgba(255, 255, 255, 0.4); letter-spacing: 3px;
+            text-transform: uppercase; text-align: center; line-height: 2;
+        }
+        .copyright strong { color: rgba(255, 255, 255, 0.6); font-weight: 400; }
 
         /* ==========================================================================
-           SECCIONES DE INFORMACIÓN
+           MÓVILES (Smartphones)
            ========================================================================== */
-        .info-section { padding: 80px 20px; background: transparent; border-top: 1px solid var(--border-light); }
-        .info-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
-        .info-box i { font-size: 24px; color: var(--accent-gold); margin-bottom: 20px; opacity: 0.8; }
-        .info-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; margin-bottom: 15px; color: var(--text-main); letter-spacing: 2px; font-style: italic; }
-        .info-box p { font-size: 11px; color: var(--text-muted); line-height: 2; font-weight: 300; }
-        .info-box a { color: var(--text-main); text-decoration: none; border-bottom: 1px solid var(--accent-gold); padding-bottom: 2px; }
-
-        /* ==========================================================================
-           MODAL DEL MANIFIESTO (SUPER DIOR / ALTA COSTURA)
-           ========================================================================== */
-        .modal-manifesto {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 5000;
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; visibility: hidden; transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-            backdrop-filter: blur(15px);
-        }
-        .modal-manifesto.show { opacity: 1; visibility: visible; }
-        .modal-manifesto-content {
-            background: var(--bg-card); border: 1px solid rgba(197, 160, 89, 0.4);
-            padding: 80px 60px; width: 90%; max-width: 700px; text-align: center; position: relative;
-            transform: translateY(30px); transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .modal-manifesto.show .modal-manifesto-content { transform: translateY(0); }
-        .close-modal-manifesto {
-            position: absolute; top: 25px; right: 25px; background: transparent; border: none;
-            color: var(--text-muted); font-size: 20px; cursor: pointer; transition: var(--transition);
-        }
-        .close-modal-manifesto:hover { color: var(--accent-gold); transform: rotate(90deg); }
-        .manifesto-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(2rem, 5vw, 3rem); color: var(--accent-gold); margin-bottom: 50px; line-height: 1.2; }
-        .manifesto-title span { display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 6px; color: var(--text-main); margin-top: 10px; }
-        .manifesto-body { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--text-main); line-height: 1.9; font-weight: 300; text-align: justify; padding: 0 20px; }
-        .manifesto-body p { margin-bottom: 25px; }
-        .manifesto-body p:first-child { text-indent: 20px; } 
-        .manifesto-body em { color: var(--accent-gold); font-weight: 500; font-style: italic; }
-        .manifesto-signature { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: var(--accent-gold); margin-top: 60px; text-align: right; padding-right: 30px; }
-        .manifesto-signature span { display: block; font-family: 'Montserrat', sans-serif; font-size: 8px; text-transform: uppercase; letter-spacing: 4px; color: var(--text-muted); margin-top: 5px; }
-
-        /* ==========================================================================
-           FOOTER
-           ========================================================================== */
-        footer { padding: 60px 20px 80px; text-align: center; border-top: 1px solid var(--border-light); }
-        .contact-info { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; line-height: 2.5; }
-
-        /* ==========================================================================
-           RESPONSIVE (MÓVILES)
-           ========================================================================== */
-        @media (max-width: 768px) {
-            header { padding: 15px 20px; }
-            .header-left, .header-right { width: 60px; }
-            .vip-seal-header { width: 55px; } /* Sello un poco más medido en móvil para que no estorbe */
-            .logo { font-size: 24px; letter-spacing: 8px; }
-            
-            .hero h1 { font-size: 2.2rem; }
-            
-            .collection-links { flex-direction: column; width: 100%; gap: 10px; }
-            .btn-collection { width: 100%; padding: 15px; font-size: 9px; }
-            
-            .services-section { grid-template-columns: 1fr; gap: 20px; padding: 40px 20px; }
-            .service-card { padding: 25px 20px; }
-            
-            .info-grid { grid-template-columns: 1fr; gap: 40px; }
-            
-            .modal-manifesto-content { padding: 50px 20px; }
-            .manifesto-title { font-size: 1.8rem; margin-bottom: 30px; }
-            .manifesto-body { font-size: 14px; padding: 0; }
+        @media (max-width: 600px) {
+            .main-content { padding: 40px 20px; }
+            .input-group { flex-direction: column; gap: 15px; } /* Inputs uno debajo del otro */
+            .waitlist-form input, .btn-submit { padding: 18px; }
+            .benefits-tags { flex-direction: column; align-items: center; gap: 10px; }
+            .tag { width: 100%; text-align: center; padding: 12px; font-size: 8px; }
+            .emprender-section { padding-top: 40px; }
+            .btn-emprender { padding: 15px 25px; font-size: 9px; width: 100%; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">SERVICIOS DE IMPORTACIÓN VIP | ESPAÑA - HONDURAS</div>
+    <div class="bg-wrapper">
+        <div class="bg-image"></div>
+        <div class="bg-overlay"></div>
+    </div>
 
-    <header id="main-header">
-        <div class="header-left">
-            <img src="sello.png" alt="Sello VIP" class="vip-seal-header" id="seal-trigger">
-        </div>
+    <div class="main-content">
         
         <div class="logo">ABRIL<span>STOREABRIL.COM</span></div>
         
-        <div class="header-right">
-            <div class="nav-icon" onclick="window.location.href='favoritos.html'">
-                <i class="fa-regular fa-heart"></i>
-                <span class="badge" id="w-count">0</span>
-            </div>
-            <div class="nav-icon" onclick="window.location.href='carrito.html'">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <span class="badge" id="c-count">0</span>
-            </div>
-        </div>
-    </header>
+        <h1>Algo Exclusivo está Llegando</h1>
+        
+        <p class="desc">
+            Estamos perfeccionando la colección de <em>ropa de importación, accesorios y joyería</em> más exquisita. Diseñada en Europa, entregada directamente en tus manos. 
+        </p>
 
-    <section class="hero">
-        <div class="hero-image"></div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="special-label">Curaduría de Alta Costura</div>
-            <h1>Colecciones<br>Exclusivas</h1>
-            <p class="shein-vip-label">SHEIN VIP IMPORTACIÓN | ENTREGA EN CHOLUTECA</p>
+        <div class="benefits-tags">
+            <span class="tag"><i class="fa-solid fa-truck-fast"></i> Envío Incluido a Choluteca y Valle</span>
+            <span class="tag"><i class="fa-solid fa-gem"></i> Curaduría VIP</span>
+        </div>
+
+        <form action="https://formspree.io/f/b74be360-5d4a-4506-b071-f1ec4ff4d64b" method="POST" class="waitlist-form">
+            <div class="input-group">
+                <input type="text" name="Nombre" placeholder="Tu Nombre Completo" required>
+                <input type="tel" name="WhatsApp" placeholder="Tu WhatsApp" required>
+            </div>
+            <input type="hidden" name="Asunto" value="¡Quiero estar en la Lista VIP del Pre-Lanzamiento!">
+            <button type="submit" class="btn-submit">Unirme a la Lista VIP</button>
+        </form>
+
+        <div class="emprender-section">
+            <h2 class="emprender-title">¿Deseas Emprender?</h2>
+            <p class="emprender-desc">Crea tu propia boutique online a tu nombre con nuestro respaldo y logística europea.</p>
             
-            <div class="collection-links">
-                <a href="dama.html" class="btn-collection">Colección Dama</a>
-                <a href="niña.html" class="btn-collection">Colección Niña</a>
-                <a href="niño.html" class="btn-collection">Colección Niño</a>
-                <a href="joyeria.html" class="btn-collection">Joyería Clásica</a>
-                <a href="acero.html" class="btn-collection btn-vip">Acero VIP Edition</a>
-            </div>
+            <a href="mailto:pedidos@storeabril.com?subject=Solicitud%20de%20Emprendimiento%20-%20Tienda%20Online&body=Hola,%20me%20gustaria%20emprender%20en%20mi%20tienda%20online%20a%20mi%20nombre%20con%20ustedes." class="btn-emprender">
+                Aplica como Socia VIP
+            </a>
         </div>
 
-        <a href="#servicios" class="scroll-arrow-box" id="hero-arrow">
-            <span>Descubrir</span>
-            <i class="fa-solid fa-chevron-down"></i>
-        </a>
-    </section>
-
-    <section class="services-section" id="servicios">
-        <a href="mailto:pedidos@storeabril.com?subject=Encargo%20Especial%20-%20Personal%20Shopper%20VIP" class="service-card">
-            <i class="fa-solid fa-camera-retro service-icon"></i>
-            <h3 class="service-title">Personal Shopper</h3>
-            <p class="service-desc">¿Viste algo en SHEIN? Envíanos la captura de tu pieza deseada y nosotros nos encargamos de importarla exclusivamente para ti.</p>
-        </a>
-        <a href="https://es.shein.com/" target="_blank" class="service-card">
-            <i class="fa-solid fa-plane-departure service-icon"></i>
-            <h3 class="service-title">Viaja a SHEIN</h3>
-            <p class="service-desc">Explora el catálogo oficial de SHEIN Europa, elige las piezas que conecten contigo y nosotros nos encargamos del resto.</p>
-        </a>
-    </section>
-
-    <section class="info-section">
-        <div class="info-grid">
-            <div class="info-box">
-                <i class="fa-solid fa-box-open"></i>
-                <h3>Entrega Coordinada</h3>
-                <p>Sus artículos serán entregados en punto de encuentro coordinado, en empaques exclusivos de la firma.</p>
-            </div>
-            <div class="info-box">
-                <i class="fa-solid fa-plane-departure"></i>
-                <h3>Logística Europea</h3>
-                <p>Gestión directa desde España. Tiempo estimado de importación: un (1) mes tras la validación.</p>
-            </div>
-            <div class="info-box">
-                <i class="fa-solid fa-envelope"></i>
-                <h3>Atención Directa</h3>
-                <p>Consultas y soporte 24/7:<br><br><a href="mailto:pedidos@storeabril.com">pedidos@storeabril.com</a></p>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <footer>
-        <div class="contact-info">
-            <p>Boutique Importaciones VIP</p>
-            <p style="margin-top: 30px; opacity: 0.3;">© 2026 ABRIL STORE | SHEIN VIP EXCLUSIVITÉ</p>
+        <img src="sello.png" alt="Sello Oficial Abril Store" class="vip-seal-footer">
+        <div class="copyright">
+            © 2026 ABRIL STORE | EXCLUSIVITÉ<br>
+            Directora de Operaciones: <strong>Abril Armas</strong>
         </div>
     </footer>
 
-    <div class="modal-manifesto" id="manifesto-modal">
-        <div class="modal-manifesto-content">
-            <button class="close-modal-manifesto" id="close-manifesto"><i class="fa-solid fa-xmark"></i></button>
-            <div class="manifesto-title">
-                Manifiesto d'Élégance<span>ABRIL STORE EXCLUSIVITÉ</span>
-            </div>
-            <div class="manifesto-body">
-                <p>Para mí, la moda no es una tendencia pasajera; es la <em>arquitectura de la elegancia</em> hecha visible. Es el lenguaje con el que el alma de una mujer habla al mundo sin pronunciar una sola palabra.</p>
-                <p>Mi pasión inquebrantable por la <em>sofisticación</em> es el corazón palpitante de Abril Store. Creo, con cada fibra de mi ser, que la belleza inherente de las mujeres es la obra de arte más exquisita del universo, y la moda es el marco dorado que la eleva a su máxima expresión.</p>
-                <p>No importamos ropa; importamos <em>confianza, misterio y la promesa de un lujo atemporal</em> que trasciende el tiempo y el espacio. Una mujer que viste con propósito no solo camina; detiene el mundo a su paso.</p>
-                <p>Esta es mi devoción. Esta es la esencia de Abril.</p>
-            </div>
-            <div class="manifesto-signature">
-                Abril Armas<span>Directora de Operaciones & Alma Creativa</span>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // 1. Actualiza los globitos de cantidad al cargar la página
-        function updateCounters() {
-            let cart = JSON.parse(localStorage.getItem('abrilCart')) || [];
-            let wish = JSON.parse(localStorage.getItem('abrilWishlist')) || [];
-            document.getElementById('c-count').textContent = cart.length;
-            document.getElementById('w-count').textContent = wish.length;
-        }
-        
-        // 2. Control del Header (Fondo oscuro al bajar) Y Ocultar Flecha
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('main-header');
-            const arrow = document.getElementById('hero-arrow');
-            
-            // Fondo oscuro para el header
-            if (window.scrollY > 50) {
-                header.classList.add('header-active');
-            } else {
-                header.classList.remove('header-active');
-            }
-
-            // Desaparecer la flecha elegantemente al bajar
-            if (window.scrollY > 100) {
-                arrow.classList.add('fade-out');
-            } else {
-                arrow.classList.remove('fade-out');
-            }
-        });
-
-        // 3. Lógica del Manifiesto
-        const modal = document.getElementById('manifesto-modal');
-        const trigger = document.getElementById('seal-trigger');
-        const closeBtn = document.getElementById('close-manifesto');
-
-        trigger.addEventListener('click', () => {
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden'; 
-        });
-
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
-
-        function closeModal() {
-            modal.classList.remove('show');
-            document.body.style.overflow = ''; 
-        }
-
-        updateCounters();
-    </script>
 </body>
 </html>
-
-
-
