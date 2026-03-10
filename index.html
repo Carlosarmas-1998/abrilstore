@@ -28,33 +28,36 @@
             color: var(--text-main); 
             -webkit-font-smoothing: antialiased; 
             overflow-x: hidden;
-            /* Permite scroll suave si el contenido es más alto que la pantalla en móviles pequeños */
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; }
 
         /* ==========================================================================
-           FONDOS ANIMADOS
+           HERO IMAGE (IMAGEN R1 ENTERA Y SIN RECORTAR)
            ========================================================================== */
-        .bg-wrapper {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+        .hero-banner {
+            width: 100%;
+            background: linear-gradient(to bottom, #111 0%, var(--bg-dark) 100%);
+            padding: 40px 20px 0;
+            display: flex;
+            justify-content: center;
         }
-        .bg-image {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('s0.jpg'); 
-            background-size: cover; background-position: center top;
-            filter: brightness(0.35) grayscale(25%);
-            animation: slowZoom 25s infinite alternate ease-in-out;
-        }
-        .bg-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(7,7,7,0.85) 0%, rgba(7,7,7,0.6) 40%, rgba(7,7,7,0.95) 100%);
+        .hero-image {
+            width: 100%;
+            max-width: 500px;
+            max-height: 50vh; /* Ocupa hasta la mitad de la pantalla */
+            object-fit: contain; /* Asegura que la imagen NUNCA se recorte */
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
+            animation: floatImage 6s ease-in-out infinite alternate;
         }
 
-        @keyframes slowZoom { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+        @keyframes floatImage {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
 
         /* ==========================================================================
            CONTENIDO CENTRAL (RESPONSIVE Y CENTRADO)
@@ -63,9 +66,8 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            padding: 60px 20px;
+            padding: 40px 20px 60px;
             width: 100%;
             max-width: 900px;
             margin: 0 auto;
@@ -73,15 +75,14 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            animation-delay: 0.3s;
         }
 
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
         /* LOGO */
         .logo { 
-            font-size: clamp(28px, 5vw, 40px); letter-spacing: 12px; color: var(--text-main); 
-            text-transform: uppercase; margin-bottom: 30px; line-height: 1.2;
+            font-size: clamp(26px, 5vw, 36px); letter-spacing: 12px; color: var(--text-main); 
+            text-transform: uppercase; margin-bottom: 25px; line-height: 1.2;
         }
         .logo span { 
             color: var(--accent-gold); font-size: clamp(8px, 1.5vw, 10px); letter-spacing: 6px; 
@@ -90,42 +91,47 @@
 
         /* TÍTULO PRINCIPAL */
         h1 {
-            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-size: clamp(2rem, 6vw, 4rem);
             color: var(--accent-gold);
             font-style: italic;
-            line-height: 1;
-            margin-bottom: 25px;
+            line-height: 1.1;
+            margin-bottom: 20px;
             letter-spacing: 2px;
         }
 
-        /* DESCRIPCIÓN */
+        /* DESCRIPCIÓN Y EXPLICACIÓN DE SHEIN */
+        .desc-box {
+            background: rgba(197, 160, 89, 0.03);
+            border: 1px solid rgba(197, 160, 89, 0.1);
+            padding: 25px;
+            max-width: 650px;
+            margin-bottom: 35px;
+        }
         .desc {
-            font-size: clamp(12px, 2vw, 15px);
-            line-height: 1.8;
+            font-size: clamp(11px, 2vw, 13px);
+            line-height: 1.9;
             color: #d0d0d0;
-            margin-bottom: 40px;
             letter-spacing: 1px;
             font-weight: 300;
-            max-width: 600px;
         }
-        .desc em { color: var(--accent-gold); font-style: normal; font-weight: 400; }
+        .desc strong { color: var(--accent-gold); font-weight: 500; }
+        .desc em { color: #fff; font-style: normal; font-weight: 400; }
 
         /* ETIQUETAS DE BENEFICIOS */
         .benefits-tags {
-            display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 50px;
+            display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 40px;
         }
         .tag {
             border: 1px solid rgba(197, 160, 89, 0.4); padding: 10px 20px;
             font-size: 9px; text-transform: uppercase; letter-spacing: 3px;
             color: var(--accent-gold); background: rgba(197, 160, 89, 0.05);
-            backdrop-filter: blur(5px);
         }
 
         /* ==========================================================================
            FORMULARIO DE LISTA VIP (CLIENTAS)
            ========================================================================== */
         .waitlist-form {
-            width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 60px;
+            width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 70px;
         }
         .input-group { display: flex; gap: 10px; width: 100%; }
         
@@ -146,30 +152,36 @@
         .btn-submit:hover { background: #d4af66; box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
 
         /* ==========================================================================
-           SECCIÓN DE EMPRENDIMIENTO (SOCIAS)
+           SECCIÓN DE EMPRENDIMIENTO (SOCIAS & PÁGINA WEB)
            ========================================================================== */
         .emprender-section {
             border-top: 1px solid var(--border-light);
-            padding-top: 50px;
+            padding-top: 60px;
             width: 100%;
-            max-width: 600px;
+            max-width: 700px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .emprender-title {
-            font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 4vw, 28px);
-            color: var(--text-main); font-style: italic; margin-bottom: 15px;
+            font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 5vw, 32px);
+            color: var(--text-main); font-style: italic; margin-bottom: 20px;
         }
         .emprender-desc {
-            font-size: 11px; color: var(--text-muted); line-height: 1.8;
-            letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 25px;
+            font-size: 11px; color: #b0b0b0; line-height: 2;
+            letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 30px;
+        }
+        .highlight-web {
+            color: var(--accent-gold);
+            font-weight: 500;
+            border-bottom: 1px solid var(--accent-gold);
+            padding-bottom: 2px;
         }
         
         /* Botón animado de correo */
         .btn-emprender {
-            display: inline-block; padding: 16px 35px; border: 1px solid var(--accent-gold);
-            color: var(--accent-gold); font-size: 10px; font-weight: 500;
+            display: inline-block; padding: 18px 40px; border: 1px solid var(--accent-gold);
+            color: var(--accent-gold); font-size: 10px; font-weight: 600;
             text-transform: uppercase; letter-spacing: 4px; text-decoration: none;
             background: rgba(197, 160, 89, 0.05);
             animation: pulse-glow 2s infinite alternate;
@@ -182,64 +194,68 @@
 
         @keyframes pulse-glow {
             0% { transform: scale(1); box-shadow: 0 0 10px rgba(197, 160, 89, 0.2); }
-            100% { transform: scale(1.05); box-shadow: 0 0 20px rgba(197, 160, 89, 0.5); }
+            100% { transform: scale(1.05); box-shadow: 0 0 25px rgba(197, 160, 89, 0.6); border-color: #e5c382; }
         }
 
         /* ==========================================================================
-           FOOTER Y SELLO VIP
+           FOOTER Y SELLO VIP (Abajo del todo)
            ========================================================================== */
         footer {
-            width: 100%; padding: 40px 20px; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; z-index: 2;
+            width: 100%; padding: 60px 20px 40px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; background-color: #040404;
+            border-top: 1px solid var(--border-light);
         }
         
         .vip-seal-footer {
-            width: 65px; height: auto; margin-bottom: 20px; opacity: 0.8;
+            width: 75px; height: auto; margin-bottom: 25px; opacity: 0.9;
             filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.3));
             transition: var(--transition-luxe);
         }
-        .vip-seal-footer:hover { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.7)); }
+        .vip-seal-footer:hover { opacity: 1; transform: scale(1.08) rotate(5deg); filter: drop-shadow(0 0 20px rgba(197, 160, 89, 0.7)); }
 
         .copyright {
             font-size: 8px; color: rgba(255, 255, 255, 0.4); letter-spacing: 3px;
-            text-transform: uppercase; text-align: center; line-height: 2;
+            text-transform: uppercase; text-align: center; line-height: 2.2;
         }
-        .copyright strong { color: rgba(255, 255, 255, 0.6); font-weight: 400; }
+        .copyright strong { color: rgba(255, 255, 255, 0.7); font-weight: 500; }
 
         /* ==========================================================================
            MÓVILES (Smartphones)
            ========================================================================== */
         @media (max-width: 600px) {
-            .main-content { padding: 40px 20px; }
-            .input-group { flex-direction: column; gap: 15px; } /* Inputs uno debajo del otro */
+            .hero-image { max-height: 40vh; }
+            .main-content { padding: 30px 20px; }
+            .input-group { flex-direction: column; gap: 15px; }
             .waitlist-form input, .btn-submit { padding: 18px; }
             .benefits-tags { flex-direction: column; align-items: center; gap: 10px; }
             .tag { width: 100%; text-align: center; padding: 12px; font-size: 8px; }
             .emprender-section { padding-top: 40px; }
-            .btn-emprender { padding: 15px 25px; font-size: 9px; width: 100%; text-align: center; }
+            .btn-emprender { padding: 15px 20px; font-size: 9px; width: 100%; text-align: center; line-height: 1.5; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-wrapper">
-        <div class="bg-image"></div>
-        <div class="bg-overlay"></div>
+    <div class="hero-banner">
+        <img src="R1.jpg" alt="Exclusiva Colección" class="hero-image">
     </div>
 
     <div class="main-content">
         
         <div class="logo">ABRIL<span>STOREABRIL.COM</span></div>
         
-        <h1>Algo Exclusivo está Llegando</h1>
+        <h1>La Evolución de la Moda</h1>
         
-        <p class="desc">
-            Estamos perfeccionando la colección de <em>ropa de importación, accesorios y joyería</em> más exquisita. Diseñada en Europa, entregada directamente en tus manos. 
-        </p>
+        <div class="desc-box">
+            <p class="desc">
+                Somos tu acceso VIP a <strong>SHEIN</strong>, la marca global que está revolucionando las tendencias de moda. <br><br>
+                <em>Nosotros nos encargamos de todo:</em> importamos directamente desde Europa hasta tu puerta, gestionando la logística completa para entregarte colecciones globales sin complicaciones ni papeleos.
+            </p>
+        </div>
 
         <div class="benefits-tags">
             <span class="tag"><i class="fa-solid fa-truck-fast"></i> Envío Incluido a Choluteca y Valle</span>
-            <span class="tag"><i class="fa-solid fa-gem"></i> Curaduría VIP</span>
+            <span class="tag"><i class="fa-solid fa-gem"></i> Accesorios y Joyería VIP</span>
         </div>
 
         <form action="https://formspree.io/f/b74be360-5d4a-4506-b071-f1ec4ff4d64b" method="POST" class="waitlist-form">
@@ -248,15 +264,18 @@
                 <input type="tel" name="WhatsApp" placeholder="Tu WhatsApp" required>
             </div>
             <input type="hidden" name="Asunto" value="¡Quiero estar en la Lista VIP del Pre-Lanzamiento!">
-            <button type="submit" class="btn-submit">Unirme a la Lista VIP</button>
+            <button type="submit" class="btn-submit">Avisarme del Lanzamiento</button>
         </form>
 
         <div class="emprender-section">
-            <h2 class="emprender-title">¿Deseas Emprender?</h2>
-            <p class="emprender-desc">Crea tu propia boutique online a tu nombre con nuestro respaldo y logística europea.</p>
+            <h2 class="emprender-title">¿Quieres Emprender con Nosotros?</h2>
+            <p class="emprender-desc">
+                Inicia tu propia tienda online a tu nombre con nuestro catálogo y logística de élite.<br><br>
+                <span class="highlight-web">Te creamos tu propia página web profesional</span> para que llegues donde los demás no llegan.
+            </p>
             
             <a href="mailto:pedidos@storeabril.com?subject=Solicitud%20de%20Emprendimiento%20-%20Tienda%20Online&body=Hola,%20me%20gustaria%20emprender%20en%20mi%20tienda%20online%20a%20mi%20nombre%20con%20ustedes." class="btn-emprender">
-                Aplica como Socia VIP
+                Pincha aquí para aplicar como Socia VIP
             </a>
         </div>
 
@@ -266,7 +285,7 @@
         <img src="sello.png" alt="Sello Oficial Abril Store" class="vip-seal-footer">
         <div class="copyright">
             © 2026 ABRIL STORE | EXCLUSIVITÉ<br>
-            Directora de Operaciones: <strong>Abril Armas</strong>
+            Dirección Ejecutiva: <strong>Carlos Armas</strong>
         </div>
     </footer>
 
