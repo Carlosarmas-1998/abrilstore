@@ -56,6 +56,22 @@
         .btn-reventa { padding: 16px 35px; font-size: 10px; font-weight: 600; border-color: rgba(197, 160, 89, 0.8); color: var(--accent-gold); background: rgba(197, 160, 89, 0.1); animation: pulse-glow 2s infinite alternate; box-shadow: 0 0 10px rgba(197, 160, 89, 0.3); }
         .btn-reventa:hover { background: var(--accent-gold); color: var(--bg-dark); border-color: var(--accent-gold); animation: none; box-shadow: 0 0 20px rgba(197, 160, 89, 0.8); }
 
+        .btn-crea-tienda {
+            padding: 16px 35px;
+            font-size: 10px;
+            font-weight: 600;
+            border-color: rgba(197, 160, 89, 0.8);
+            color: var(--bg-dark);
+            background: var(--accent-gold);
+            box-shadow: 0 0 14px rgba(197, 160, 89, 0.35);
+        }
+        .btn-crea-tienda:hover {
+            background: #d4af66;
+            color: var(--bg-dark);
+            border-color: #d4af66;
+            box-shadow: 0 0 22px rgba(197, 160, 89, 0.75);
+        }
+
         @keyframes pulse-glow { 0% { transform: scale(1); box-shadow: 0 0 10px rgba(197, 160, 89, 0.3); } 100% { transform: scale(1.05); box-shadow: 0 0 25px rgba(197, 160, 89, 0.7); border-color: var(--accent-gold); } }
         .scroll-arrow-box { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 10; color: var(--accent-gold); text-decoration: none; transition: opacity 0.5s ease, visibility 0.5s ease; }
         .scroll-arrow-box span { display: block; font-size: 9px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 5px; }
@@ -74,7 +90,7 @@
         /* MODAL DE FORMULARIO DE PEDIDO */
         .modal-form-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 6000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; backdrop-filter: blur(10px); }
         .modal-form-overlay.show { opacity: 1; visibility: visible; }
-        .modal-form-box { background: var(--bg-card); border: 1px solid rgba(197, 160, 89, 0.3); padding: 50px 40px; width: 90%; max-width: 500px; position: relative; transform: translateY(20px); transition: transform 0.4s ease; }
+        .modal-form-box { background: var(--bg-card); border: 1px solid rgba(197, 160, 89, 0.3); padding: 50px 40px; width: 90%; max-width: 500px; position: relative; transform: translateY(20px); transition: transform 0.4s ease; max-height: 90vh; overflow-y: auto; }
         .modal-form-overlay.show .modal-form-box { transform: translateY(0); }
         .close-form { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; transition: var(--transition); }
         .close-form:hover { color: var(--accent-gold); transform: rotate(90deg); }
@@ -83,8 +99,22 @@
         .form-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--accent-gold); font-style: italic; margin-bottom: 10px;}
         .form-header p { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; }
 
-        .custom-form input, .custom-form textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border-light); color: var(--text-main); font-family: 'Montserrat', sans-serif; font-size: 12px; padding: 15px 0; margin-bottom: 25px; outline: none; transition: var(--transition); }
-        .custom-form input:focus, .custom-form textarea:focus { border-bottom-color: var(--accent-gold); }
+        .custom-form input, .custom-form textarea, .custom-form select {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            padding: 15px 0;
+            margin-bottom: 25px;
+            outline: none;
+            transition: var(--transition);
+        }
+        .custom-form input:focus, .custom-form textarea:focus, .custom-form select:focus { border-bottom-color: var(--accent-gold); }
+        .custom-form select option { background: #111; color: #fff; }
+
         .file-upload-wrapper { margin-bottom: 30px; text-align: center; }
         .file-upload-label { display: inline-block; padding: 12px 20px; border: 1px dashed var(--accent-gold); color: var(--accent-gold); font-size: 10px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: var(--transition); width: 100%; }
         .file-upload-label:hover { background: rgba(197, 160, 89, 0.1); }
@@ -92,6 +122,103 @@
         input[type="file"] { display: none; }
         .btn-submit { width: 100%; padding: 18px; background: var(--accent-gold); border: none; color: var(--bg-dark); font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 4px; cursor: pointer; transition: var(--transition); }
         .btn-submit:hover { background: #d4af66; box-shadow: 0 0 15px rgba(197, 160, 89, 0.5); }
+
+        .field-label {
+            display: block;
+            font-size: 10px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+
+        .checkbox-group {
+            border: 1px solid var(--border-light);
+            padding: 18px 16px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.01);
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 11px;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin: 2px 0 0 0;
+            accent-color: var(--accent-gold);
+            flex-shrink: 0;
+        }
+
+        .helper-text {
+            font-size: 10px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-top: -8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .error-text {
+            font-size: 10px;
+            color: #f1b3b3;
+            line-height: 1.6;
+            margin-top: -10px;
+            margin-bottom: 18px;
+            display: none;
+            letter-spacing: 0.5px;
+        }
+
+        .terms-box {
+            border: 1px solid var(--border-light);
+            padding: 18px;
+            margin-bottom: 18px;
+            max-height: 180px;
+            overflow-y: auto;
+            background: rgba(255,255,255,0.01);
+        }
+
+        .terms-box p {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .terms-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .terms-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 11px;
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        .terms-check input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin-top: 2px;
+            accent-color: var(--accent-gold);
+            flex-shrink: 0;
+        }
 
         /* SECCIONES FINALES */
         .info-section { padding: 80px 20px; background: transparent; border-top: 1px solid var(--border-light); }
@@ -122,7 +249,7 @@
         @media (max-width: 768px) {
             header { padding: 15px 20px; } .header-left, .header-right { width: 60px; } .vip-seal-header { width: 55px; } 
             .logo { font-size: 24px; letter-spacing: 8px; } .hero h1 { font-size: 2.2rem; }
-            .collection-links { flex-direction: column; width: 100%; gap: 15px; } .btn-collection { width: 100%; padding: 15px; font-size: 9px; } .btn-reventa { padding: 18px; font-size: 11px; } 
+            .collection-links { flex-direction: column; width: 100%; gap: 15px; } .btn-collection { width: 100%; padding: 15px; font-size: 9px; } .btn-reventa, .btn-crea-tienda { padding: 18px; font-size: 11px; } 
             .services-section { padding: 40px 20px; } .service-card { padding: 30px 20px; } .info-grid { grid-template-columns: 1fr; gap: 40px; }
             .modal-manifesto-content { padding: 50px 20px; } .manifesto-title { font-size: 1.8rem; margin-bottom: 30px; } .manifesto-body { font-size: 14px; padding: 0; }
             .modal-form-box { padding: 40px 20px; }
@@ -160,6 +287,7 @@
                 <a href="niña.html" class="btn-collection">Colección Niña</a>
                 <a href="niño.html" class="btn-collection">Colección Niño</a>
                 <a href="reventa.html" class="btn-collection btn-reventa">REVENTA</a>
+                <a href="javascript:void(0)" class="btn-collection btn-crea-tienda" id="open-store-form-btn">CREA TU TIENDA SIN INVERSIÓN</a>
             </div>
         </div>
         <a href="#solicitud" class="scroll-arrow-box" id="hero-arrow">
@@ -202,6 +330,7 @@
         </div>
     </footer>
 
+    <!-- MODAL FORMULARIO VIP ORIGINAL -->
     <div class="modal-form-overlay" id="request-modal">
         <div class="modal-form-box">
             <button class="close-form" id="close-form-btn"><i class="fa-solid fa-xmark"></i></button>
@@ -230,6 +359,69 @@
         </div>
     </div>
 
+    <!-- NUEVO MODAL CREAR TIENDA -->
+    <div class="modal-form-overlay" id="store-modal">
+        <div class="modal-form-box">
+            <button class="close-form" id="close-store-form-btn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="form-header">
+                <h2>Crea Tu Tienda Sin Inversión</h2>
+                <p>Solicitud de incorporación comercial</p>
+            </div>
+
+            <form action="https://formspree.io/f/b74be360-5d4a-4506-b071-f1ec4ff4d64b" method="POST" class="custom-form" id="store-form">
+                <input type="hidden" name="Tipo_Solicitud" value="CREA TU TIENDA SIN INVERSION">
+                <input type="text" id="store-nombre" name="Nombre_Completo" placeholder="Nombre completo" required>
+                <input type="text" id="store-dni" name="DNI" placeholder="DNI / Identidad" required>
+                <input type="tel" id="store-telefono" name="Telefono" placeholder="Teléfono" required>
+                <input type="email" id="store-email" name="Correo_Electronico" placeholder="Correo electrónico" required>
+
+                <select id="store-departamento" name="Departamento" required>
+                    <option value="">Departamento</option>
+                    <option value="CHOLUTECA">CHOLUTECA</option>
+                    <option value="VALLE">VALLE</option>
+                </select>
+
+                <label class="field-label">Categorías a seleccionar</label>
+                <div class="helper-text">Debes seleccionar exactamente 2 categorías.</div>
+
+                <div class="checkbox-group">
+                    <div class="checkbox-grid">
+                        <label class="checkbox-item"><input type="checkbox" name="Categorias[]" value="ROPA DE MUJER" class="category-check"> <span>Ropa de mujer</span></label>
+                        <label class="checkbox-item"><input type="checkbox" name="Categorias[]" value="ROPA DE NIÑA" class="category-check"> <span>Ropa de niña</span></label>
+                        <label class="checkbox-item"><input type="checkbox" name="Categorias[]" value="ROPA DE NIÑO" class="category-check"> <span>Ropa de niño</span></label>
+                        <label class="checkbox-item"><input type="checkbox" name="Categorias[]" value="BISUTERIA" class="category-check"> <span>Bisutería</span></label>
+                        <label class="checkbox-item"><input type="checkbox" name="Categorias[]" value="JEWELRY Y ACERO" class="category-check"> <span>Jewelry y acero</span></label>
+                        <label class="checkbox-item"><input type="checkbox" name="Categorias[]" value="JOYERIA DE PLATA DE LEY 925 Y ACERO BAÑADO EN ORO" class="category-check"> <span>Joyería de plata de ley 925 y acero bañado en oro</span></label>
+                        <label class="checkbox-item"><input type="checkbox" name="Categorias[]" value="DECORACION" class="category-check"> <span>Decoración</span></label>
+                        <label class="checkbox-item"><input type="checkbox" name="Categorias[]" value="ZAPATOS DE HOMBRE Y MUJER" class="category-check"> <span>Zapatos de hombre y mujer</span></label>
+                        <label class="checkbox-item"><input type="checkbox" name="Categorias[]" value="BOLSOS Y MOCHILAS" class="category-check"> <span>Bolsos y mochilas</span></label>
+                        <label class="checkbox-item"><input type="checkbox" name="Categorias[]" value="MAQUILLAJE" class="category-check"> <span>Maquillaje</span></label>
+                    </div>
+                </div>
+
+                <div class="error-text" id="category-error">Debes seleccionar exactamente 2 categorías para continuar.</div>
+
+                <label class="field-label">Términos y condiciones</label>
+                <div class="terms-box">
+                    <p>Al enviar esta solicitud, la persona interesada declara que la información proporcionada es veraz, completa y actualizada. Abril Store podrá utilizar estos datos únicamente para evaluar la solicitud comercial, contactar al interesado y dar seguimiento al proceso de incorporación.</p>
+                    <p>La solicitud no constituye, por sí sola, una relación laboral, mercantil definitiva ni una aprobación automática. Abril Store se reserva el derecho de evaluar cada perfil, verificar datos y aceptar o rechazar solicitudes conforme a sus criterios internos de operación y cobertura territorial en Honduras.</p>
+                    <p>La persona solicitante autoriza el tratamiento de sus datos personales para fines de evaluación comercial, contacto, validación de identidad y seguimiento del expediente. Dichos datos serán tratados con confidencialidad y no serán utilizados para fines distintos a los relacionados con esta solicitud, salvo obligación legal aplicable en Honduras.</p>
+                    <p>El uso indebido de identidad, la falsedad documental o el suministro de información falsa podrá causar el rechazo inmediato de la solicitud, sin perjuicio de las acciones legales que correspondan conforme a la normativa vigente en Honduras.</p>
+                    <p>Al marcar la casilla de aceptación, la persona solicitante manifiesta haber leído, entendido y aceptado íntegramente estos términos y condiciones.</p>
+                </div>
+
+                <label class="terms-check">
+                    <input type="checkbox" id="accept-terms" name="Acepta_Terminos" value="SI" required>
+                    <span>Acepto los términos y condiciones legales aplicables en Honduras.</span>
+                </label>
+
+                <input type="hidden" name="Resumen_Solicitud" id="store-summary">
+
+                <button type="submit" class="btn-submit">ENVIAR SOLICITUD</button>
+            </form>
+        </div>
+    </div>
+
     <div class="modal-manifesto" id="manifesto-modal">
         <div class="modal-manifesto-content">
             <button class="close-modal-manifesto" id="close-manifesto"><i class="fa-solid fa-xmark"></i></button>
@@ -243,6 +435,7 @@
                 <p>Esta es mi devoción. Esta es la esencia de Abril.</p>
             </div>
             <div class="manifesto-signature">
+                Abril Armas<span>Directora de Operaciones & Alma Creativa</span>
             </div>
         </div>
     </div>
@@ -268,10 +461,18 @@
         const btnSello = document.getElementById('seal-trigger');
         const btnCerrarManifiesto = document.getElementById('close-manifesto');
 
-        btnSello.addEventListener('click', () => { modalManifiesto.classList.add('show'); document.body.style.overflow = 'hidden'; });
+        btnSello.addEventListener('click', () => { 
+            modalManifiesto.classList.add('show'); 
+            document.body.style.overflow = 'hidden'; 
+        });
         btnCerrarManifiesto.addEventListener('click', cerrarManifiesto);
-        modalManifiesto.addEventListener('click', (e) => { if (e.target === modalManifiesto) cerrarManifiesto(); });
-        function cerrarManifiesto() { modalManifiesto.classList.remove('show'); document.body.style.overflow = ''; }
+        modalManifiesto.addEventListener('click', (e) => { 
+            if (e.target === modalManifiesto) cerrarManifiesto(); 
+        });
+        function cerrarManifiesto() { 
+            modalManifiesto.classList.remove('show'); 
+            document.body.style.overflow = ''; 
+        }
 
         const modalForm = document.getElementById('request-modal');
         const btnAbrirForm = document.getElementById('open-form-btn');
@@ -279,10 +480,18 @@
         const fileInput = document.getElementById('imagen-pedido');
         const fileLabelText = document.getElementById('file-label-text');
 
-        btnAbrirForm.addEventListener('click', () => { modalForm.classList.add('show'); document.body.style.overflow = 'hidden'; });
+        btnAbrirForm.addEventListener('click', () => { 
+            modalForm.classList.add('show'); 
+            document.body.style.overflow = 'hidden'; 
+        });
         btnCerrarForm.addEventListener('click', cerrarFormulario);
-        modalForm.addEventListener('click', (e) => { if (e.target === modalForm) cerrarFormulario(); });
-        function cerrarFormulario() { modalForm.classList.remove('show'); document.body.style.overflow = ''; }
+        modalForm.addEventListener('click', (e) => { 
+            if (e.target === modalForm) cerrarFormulario(); 
+        });
+        function cerrarFormulario() { 
+            modalForm.classList.remove('show'); 
+            document.body.style.overflow = ''; 
+        }
 
         fileInput.addEventListener('change', function() {
             if(this.files && this.files.length > 0) {
@@ -295,7 +504,7 @@
             }
         });
 
-        // FORMATEO DEL MENSAJE PARA EL CORREO
+        // FORMATEO DEL MENSAJE PARA EL CORREO VIP
         document.getElementById('vip-form').addEventListener('submit', function(e) {
             const nombre = document.getElementById('input-nombre').value;
             const contacto = document.getElementById('input-contacto').value;
@@ -305,14 +514,95 @@
             document.getElementById('mensaje-final').value = mensajeFinal.toUpperCase();
         });
 
+        // MODAL NUEVO: CREA TU TIENDA
+        const storeModal = document.getElementById('store-modal');
+        const openStoreFormBtn = document.getElementById('open-store-form-btn');
+        const closeStoreFormBtn = document.getElementById('close-store-form-btn');
+        const storeForm = document.getElementById('store-form');
+        const categoryChecks = document.querySelectorAll('.category-check');
+        const categoryError = document.getElementById('category-error');
+
+        openStoreFormBtn.addEventListener('click', () => {
+            storeModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeStoreFormBtn.addEventListener('click', cerrarStoreFormulario);
+
+        storeModal.addEventListener('click', (e) => {
+            if (e.target === storeModal) cerrarStoreFormulario();
+        });
+
+        function cerrarStoreFormulario() {
+            storeModal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function getSelectedCategories() {
+            return Array.from(categoryChecks).filter(check => check.checked);
+        }
+
+        function updateCategoryLimit() {
+            const selected = getSelectedCategories();
+
+            categoryChecks.forEach(check => {
+                if (!check.checked) {
+                    check.disabled = selected.length >= 2;
+                } else {
+                    check.disabled = false;
+                }
+            });
+
+            if (selected.length === 2) {
+                categoryError.style.display = 'none';
+            }
+        }
+
+        categoryChecks.forEach(check => {
+            check.addEventListener('change', updateCategoryLimit);
+        });
+
+        storeForm.addEventListener('submit', function(e) {
+            const selected = getSelectedCategories();
+
+            if (selected.length !== 2) {
+                e.preventDefault();
+                categoryError.style.display = 'block';
+                return;
+            }
+
+            const nombre = document.getElementById('store-nombre').value.trim();
+            const dni = document.getElementById('store-dni').value.trim();
+            const telefono = document.getElementById('store-telefono').value.trim();
+            const email = document.getElementById('store-email').value.trim();
+            const departamento = document.getElementById('store-departamento').value;
+            const categorias = selected.map(item => item.value).join(' | ');
+            const aceptaTerminos = document.getElementById('accept-terms').checked ? 'SI' : 'NO';
+
+            const resumen = `
+SOLICITUD: CREA TU TIENDA SIN INVERSION
+NOMBRE: ${nombre}
+DNI: ${dni}
+TELEFONO: ${telefono}
+CORREO ELECTRONICO: ${email}
+DEPARTAMENTO: ${departamento}
+CATEGORIAS SELECCIONADAS: ${categorias}
+ACEPTO TERMINOS: ${aceptaTerminos}
+            `.trim();
+
+            document.getElementById('store-summary').value = resumen;
+        });
+
         document.addEventListener('keydown', (e) => { 
             if (e.key === 'Escape') {
                 if(modalManifiesto.classList.contains('show')) cerrarManifiesto();
                 if(modalForm.classList.contains('show')) cerrarFormulario();
+                if(storeModal.classList.contains('show')) cerrarStoreFormulario();
             }
         });
 
         updateCounters();
+        updateCategoryLimit();
     </script>
 </body>
 </html>
