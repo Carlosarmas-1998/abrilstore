@@ -1,4 +1,4 @@
-DA<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -143,7 +143,31 @@ DA<!DOCTYPE html>
         .model-name { font-size: 22px; color: var(--text-main); margin-bottom: 5px; font-style: italic; }
         .model-ref { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 15px; }
         .model-desc { font-size: 10px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; font-weight: 300; padding: 0 10px; }
-        .model-price { font-size: 16px; color: var(--text-main); margin-bottom: 25px; letter-spacing: 1px; }
+
+        /* ==========================================================================
+           BLOQUE DE PRECIOS Y BOTÓN SALTANDO
+           ========================================================================== */
+        .price-block { margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .price-row { display: flex; align-items: center; gap: 12px; }
+        .old-price { text-decoration: line-through; color: var(--text-muted); font-size: 13px; font-weight: 300; }
+        .new-price { font-size: 1.6rem; color: var(--accent-gold); font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+        
+        .jumping-label { 
+            background: rgba(30, 70, 40, 0.85); 
+            color: #b0ffc0; 
+            padding: 8px 12px; 
+            font-size: 7.5px; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            animation: jump 0.8s infinite alternate; 
+            border: 1px solid rgba(40, 100, 50, 0.5);
+            border-radius: 3px;
+            width: 90%;
+            line-height: 1.4;
+        }
+
+        @keyframes jump { 0% { transform: translateY(0); } 100% { transform: translateY(-5px); } }
 
         /* ==========================================================================
            SELECTORES DE TALLA Y CANTIDAD
@@ -184,8 +208,6 @@ DA<!DOCTYPE html>
             100% { transform: translateY(-8px) scale(1.02); }
         }
 
-        /* En modo selección, solo ocultamos el botón individual de compra y el corazón para evitar clicks accidentales.
-           LAS TALLAS Y CANTIDADES SE MANTIENEN VISIBLES */
         body.selection-mode .btn-buy { display: none; }
         body.selection-mode .btn-heart { display: none; }
 
@@ -275,13 +297,13 @@ DA<!DOCTYPE html>
         </div>
     </div>
 
-    <header id="smart-header">
+     <header id="smart-header">
         <nav class="nav-links">
             <a href="index.html">Inicio</a>
             <a href="dama.html" class="active">Dama</a>
             <a href="niña.html">Niña</a>
-            <a href="joyeria.html">Joyería</a>
-            <a href="acero.html">Acero VIP</a>
+            <a href="niño.html">Niño</a>
+            <a href="reventa.html">Reventa</a>
         </nav>
     </header>
 
@@ -294,10 +316,10 @@ DA<!DOCTYPE html>
 
     <section class="gallery-wrapper">
 
-        <article class="model-card" id="card-v1" data-id="v1" data-name="Vestido Aura" data-ref="REF-10452" data-price="599" data-img="s1.jpg">
+        <article class="model-card" id="card-v1" data-id="v1" data-name="Vestido Aura" data-ref="REF-10452" data-price="449" data-img="s1.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-v1')">
-                <button class="btn-heart" id="fav-v1" onclick="toggleHeart(event, 'v1', 'Vestido Aura', 'REF-10452', 599, 's1.jpg', this)">
+                <button class="btn-heart" id="fav-v1" onclick="toggleHeart(event, 'v1', 'Vestido Aura', 'REF-10452', 449, 's1.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s1.jpg" alt="Vestido Aura">
@@ -306,7 +328,14 @@ DA<!DOCTYPE html>
                 <h3 class="model-name">Vestido Aura</h3>
                 <p class="model-ref">REF-10452</p>
                 <p class="model-desc">Un diseño fluido que abraza la silueta con delicadeza. Su caída etérea y cortes precisos lo convierten en la elección perfecta para eventos de etiqueta.</p>
-                <p class="model-price">L. 599</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 648</span>
+                        <span class="new-price">L. 449</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
                 
                 <div class="luxury-selectors">
                     <div>
@@ -327,14 +356,14 @@ DA<!DOCTYPE html>
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('v1', 'Vestido Aura', 'REF-10452', 599, 's1.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('v1', 'Vestido Aura', 'REF-10452', 449, 's1.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-v2" data-id="v2" data-name="Vestido Enigma" data-ref="REF-10893" data-price="599" data-img="s2.jpg">
+        <article class="model-card" id="card-v2" data-id="v2" data-name="Vestido Enigma" data-ref="REF-10893" data-price="399" data-img="s2.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-v2')">
-                <button class="btn-heart" id="fav-v2" onclick="toggleHeart(event, 'v2', 'Vestido Enigma', 'REF-10893', 599, 's2.jpg', this)">
+                <button class="btn-heart" id="fav-v2" onclick="toggleHeart(event, 'v2', 'Vestido Enigma', 'REF-10893', 399, 's2.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s2.jpg" alt="Vestido Enigma">
@@ -343,7 +372,14 @@ DA<!DOCTYPE html>
                 <h3 class="model-name">Vestido Enigma</h3>
                 <p class="model-ref">REF-10893</p>
                 <p class="model-desc">Sofisticación en estado puro. Una pieza estructurada con sutiles asimetrías que proyecta misterio y elegancia atemporal en cada movimiento.</p>
-                <p class="model-price">L. 449</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 598</span>
+                        <span class="new-price">L. 399</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
                 
                 <div class="luxury-selectors">
                     <div>
@@ -364,14 +400,14 @@ DA<!DOCTYPE html>
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('v2', 'Vestido Enigma', 'REF-10893', 449, 's2.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('v2', 'Vestido Enigma', 'REF-10893', 399, 's2.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-v3" data-id="v3" data-name="Vestido Éter" data-ref="REF-20119" data-price="699" data-img="s3.jpg">
+        <article class="model-card" id="card-v3" data-id="v3" data-name="Vestido Éter" data-ref="REF-20119" data-price="459" data-img="s3.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-v3')">
-                <button class="btn-heart" id="fav-v3" onclick="toggleHeart(event, 'v3', 'Vestido Éter', 'REF-20119', 699, 's3.jpg', this)">
+                <button class="btn-heart" id="fav-v3" onclick="toggleHeart(event, 'v3', 'Vestido Éter', 'REF-20119', 459, 's3.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s3.jpg" alt="Vestido Éter">
@@ -380,7 +416,14 @@ DA<!DOCTYPE html>
                 <h3 class="model-name">Vestido Éter</h3>
                 <p class="model-ref">REF-20119</p>
                 <p class="model-desc">La perfecta fusión entre comodidad y alta costura. Tejidos de primera calidad que esculpen la figura con un aire de ligereza celestial.</p>
-                <p class="model-price">L. 699</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 658</span>
+                        <span class="new-price">L. 459</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
                 
                 <div class="luxury-selectors">
                     <div>
@@ -401,14 +444,14 @@ DA<!DOCTYPE html>
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('v3', 'Vestido Éter', 'REF-20119', 699, 's3.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('v3', 'Vestido Éter', 'REF-20119', 459, 's3.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-v4" data-id="v4" data-name="Vestido Oasis" data-ref="REF-20554" data-price="699" data-img="s4.jpg">
+        <article class="model-card" id="card-v4" data-id="v4" data-name="Vestido Oasis" data-ref="REF-20554" data-price="569" data-img="s4.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-v4')">
-                <button class="btn-heart" id="fav-v4" onclick="toggleHeart(event, 'v4', 'Vestido Oasis', 'REF-20554', 699, 's4.jpg', this)">
+                <button class="btn-heart" id="fav-v4" onclick="toggleHeart(event, 'v4', 'Vestido Oasis', 'REF-20554', 569, 's4.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s4.jpg" alt="Vestido Oasis">
@@ -417,7 +460,14 @@ DA<!DOCTYPE html>
                 <h3 class="model-name">Vestido Oasis</h3>
                 <p class="model-ref">REF-20554</p>
                 <p class="model-desc">Inspirado en la elegancia de un verano eterno. Sus líneas limpias y diseño minimalista capturan la esencia del lujo moderno y relajado.</p>
-                <p class="model-price">L. 699</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 768</span>
+                        <span class="new-price">L. 569</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
                 
                 <div class="luxury-selectors">
                     <div>
@@ -438,14 +488,14 @@ DA<!DOCTYPE html>
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('v4', 'Vestido Oasis', 'REF-20554', 699, 's4.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('v4', 'Vestido Oasis', 'REF-20554', 569, 's4.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-v5" data-id="v5" data-name="Vestido Esencia" data-ref="REF-30771" data-price="799" data-img="s5.jpg">
+        <article class="model-card" id="card-v5" data-id="v5" data-name="Vestido Esencia" data-ref="REF-30771" data-price="569" data-img="s5.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-v5')">
-                <button class="btn-heart" id="fav-v5" onclick="toggleHeart(event, 'v5', 'Vestido Esencia', 'REF-30771', 799, 's5.jpg', this)">
+                <button class="btn-heart" id="fav-v5" onclick="toggleHeart(event, 'v5', 'Vestido Esencia', 'REF-30771', 569, 's5.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s5.jpg" alt="Vestido Esencia">
@@ -454,7 +504,14 @@ DA<!DOCTYPE html>
                 <h3 class="model-name">Vestido Esencia</h3>
                 <p class="model-ref">REF-30771</p>
                 <p class="model-desc">Minimalismo elevado a su máxima expresión. Un corte clásico reinventado con detalles sutiles que celebran la feminidad contemporánea.</p>
-                <p class="model-price">L. 799</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 768</span>
+                        <span class="new-price">L. 569</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
                 
                 <div class="luxury-selectors">
                     <div>
@@ -475,7 +532,7 @@ DA<!DOCTYPE html>
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('v5', 'Vestido Esencia', 'REF-30771', 799, 's5.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('v5', 'Vestido Esencia', 'REF-30771', 569, 's5.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
@@ -491,7 +548,14 @@ DA<!DOCTYPE html>
                 <h3 class="model-name">Vestido Sublime</h3>
                 <p class="model-ref">REF-30998</p>
                 <p class="model-desc">Imponente y majestuoso. Una obra de arte textil diseñada para deslumbrar y dejar una huella imborrable en las noches más exclusivas.</p>
-                <p class="model-price">L. 799</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 998</span>
+                        <span class="new-price">L. 799</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
                 
                 <div class="luxury-selectors">
                     <div>
@@ -516,10 +580,10 @@ DA<!DOCTYPE html>
             </div>
         </article>
 
-        <article class="model-card" id="card-v7" data-id="v7" data-name="Vestido Eclipse" data-ref="REF-40333" data-price="899" data-img="s7.jpg">
+        <article class="model-card" id="card-v7" data-id="v7" data-name="Vestido Eclipse" data-ref="REF-40333" data-price="569" data-img="s7.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-v7')">
-                <button class="btn-heart" id="fav-v7" onclick="toggleHeart(event, 'v7', 'Vestido Eclipse', 'REF-40333', 899, 's7.jpg', this)">
+                <button class="btn-heart" id="fav-v7" onclick="toggleHeart(event, 'v7', 'Vestido Eclipse', 'REF-40333', 569, 's7.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s7.jpg" alt="Vestido Eclipse">
@@ -528,15 +592,19 @@ DA<!DOCTYPE html>
                 <h3 class="model-name">Vestido Eclipse</h3>
                 <p class="model-ref">REF-40333</p>
                 <p class="model-desc">Contraste perfecto entre luz y sombra. Su silueta envolvente y acabados de lujo ofrecen un magnetismo irresistible para cenas de gala.</p>
-                <p class="model-price">L. 899</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 768</span>
+                        <span class="new-price">L. 569</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
                 
                 <div class="luxury-selectors">
                     <div>
                         <span class="selector-label">Talla</span>
                         <div class="sizes-container" id="sizes-v7">
-                            <span class="size-box" onclick="selectSize('v7', 'S', this)">S</span>
-                            <span class="size-box" onclick="selectSize('v7', 'M', this)">M</span>
-                            <span class="size-box" onclick="selectSize('v7', 'L', this)">L</span>
                             <span class="size-box" onclick="selectSize('v7', 'XL', this)">XL</span>
                         </div>
                     </div>
@@ -549,14 +617,14 @@ DA<!DOCTYPE html>
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('v7', 'Vestido Eclipse', 'REF-40333', 899, 's7.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('v7', 'Vestido Eclipse', 'REF-40333', 569, 's7.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-v8" data-id="v8" data-name="Vestido Ícono" data-ref="REF-40876" data-price="899" data-img="s8.jpg">
+        <article class="model-card" id="card-v8" data-id="v8" data-name="Vestido Ícono" data-ref="REF-40876" data-price="569" data-img="s8.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-v8')">
-                <button class="btn-heart" id="fav-v8" onclick="toggleHeart(event, 'v8', 'Vestido Ícono', 'REF-40876', 899, 's8.jpg', this)">
+                <button class="btn-heart" id="fav-v8" onclick="toggleHeart(event, 'v8', 'Vestido Ícono', 'REF-40876', 569, 's8.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s8.jpg" alt="Vestido Ícono">
@@ -565,7 +633,14 @@ DA<!DOCTYPE html>
                 <h3 class="model-name">Vestido Ícono</h3>
                 <p class="model-ref">REF-40876</p>
                 <p class="model-desc">La pieza definitiva para la mujer segura de sí misma. Un diseño vanguardista que redefine las reglas de la sofisticación absoluta.</p>
-                <p class="model-price">L. 899</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 768</span>
+                        <span class="new-price">L. 569</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
                 
                 <div class="luxury-selectors">
                     <div>
@@ -586,14 +661,14 @@ DA<!DOCTYPE html>
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('v8', 'Vestido Ícono', 'REF-40876', 899, 's8.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('v8', 'Vestido Ícono', 'REF-40876', 569, 's8.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-v9" data-id="v9" data-name="Vestido Gala" data-ref="REF-50212" data-price="599" data-img="s9.jpg">
+        <article class="model-card" id="card-v9" data-id="v9" data-name="Vestido Gala" data-ref="REF-50212" data-price="509" data-img="s9.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-v9')">
-                <button class="btn-heart" id="fav-v9" onclick="toggleHeart(event, 'v9', 'Vestido Gala', 'REF-50212', 599, 's9.jpg', this)">
+                <button class="btn-heart" id="fav-v9" onclick="toggleHeart(event, 'v9', 'Vestido Gala', 'REF-50212', 509, 's9.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s9.jpg" alt="Vestido Gala">
@@ -602,7 +677,14 @@ DA<!DOCTYPE html>
                 <h3 class="model-name">Vestido Gala</h3>
                 <p class="model-ref">REF-50212</p>
                 <p class="model-desc">Un homenaje al glamour clásico. Volumen controlado y tejidos suntuosos que garantizan una presencia majestuosa en cada paso.</p>
-                <p class="model-price">L. 599</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 708</span>
+                        <span class="new-price">L. 509</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
                 
                 <div class="luxury-selectors">
                     <div>
@@ -623,14 +705,14 @@ DA<!DOCTYPE html>
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('v9', 'Vestido Gala', 'REF-50212', 599, 's9.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('v9', 'Vestido Gala', 'REF-50212', 509, 's9.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-v10" data-id="v10" data-name="Vestido Mito" data-ref="REF-50988" data-price="699" data-img="s0.jpg">
+        <article class="model-card" id="card-v10" data-id="v10" data-name="Vestido Mito" data-ref="REF-50988" data-price="459" data-img="s0.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-v10')">
-                <button class="btn-heart" id="fav-v10" onclick="toggleHeart(event, 'v10', 'Vestido Mito', 'REF-50988', 699, 's0.jpg', this)">
+                <button class="btn-heart" id="fav-v10" onclick="toggleHeart(event, 'v10', 'Vestido Mito', 'REF-50988', 459, 's0.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="s0.jpg" alt="Vestido Mito">
@@ -639,7 +721,14 @@ DA<!DOCTYPE html>
                 <h3 class="model-name">Vestido Mito</h3>
                 <p class="model-ref">REF-50988</p>
                 <p class="model-desc">Una creación legendaria. Sus drapeados estratégicos y caída espectacular lo convierten en un sueño hecho realidad para ocasiones memorables.</p>
-                <p class="model-price">L. 469</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 658</span>
+                        <span class="new-price">L. 459</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
                 
                 <div class="luxury-selectors">
                     <div>
@@ -660,7 +749,7 @@ DA<!DOCTYPE html>
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('v10', 'Vestido Mito', 'REF-50988', 469, 's0.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('v10', 'Vestido Mito', 'REF-50988', 459, 's0.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
@@ -884,6 +973,3 @@ DA<!DOCTYPE html>
     </script>
 </body>
 </html>
-
-
-

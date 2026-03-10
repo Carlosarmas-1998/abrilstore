@@ -80,32 +80,20 @@
         /* ==========================================================================
            INTRODUCCIÓN DIRECTA
            ========================================================================== */
-        .intro-section { 
-            padding: 160px 40px 60px; 
-            text-align: center; 
-        }
-        
+        .intro-section { padding: 160px 40px 60px; text-align: center; }
         .special-label {
             display: inline-block; color: var(--accent-gold); font-size: 11px; 
             letter-spacing: 6px; text-transform: uppercase; margin-bottom: 25px; 
             border: 1px solid var(--accent-gold); padding: 8px 20px;
             background: rgba(197, 160, 89, 0.05); font-weight: 500;
         }
-
         .title-main { 
             font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 15px; 
             letter-spacing: 2px; font-style: italic; color: var(--text-main);
         }
         .intro-content { max-width: 600px; margin: 0 auto; }
-        .intro-content p {
-            font-size: 13px; color: var(--text-muted); line-height: 1.8; 
-            font-weight: 300; margin-bottom: 25px;
-        }
-        .promo-text {
-            color: var(--text-main); font-size: 9px; letter-spacing: 3px; 
-            text-transform: uppercase; border-bottom: 1px solid var(--accent-gold); 
-            display: inline-block; padding-bottom: 5px;
-        }
+        .intro-content p { font-size: 13px; color: var(--text-muted); line-height: 1.8; font-weight: 300; margin-bottom: 25px;}
+        .promo-text { color: var(--text-main); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; border-bottom: 1px solid var(--accent-gold); display: inline-block; padding-bottom: 5px; }
 
         /* ==========================================================================
            GALERÍA DE PRODUCTOS
@@ -118,16 +106,12 @@
             background: var(--bg-card); transition: var(--transition); position: relative; 
             border: 1px solid transparent;
         }
-        
         .img-container { 
             width: 100%; height: 500px; overflow: hidden; position: relative; 
             display: flex; align-items: center; justify-content: center; background: transparent; 
             cursor: default;
         }
-        .img-container img { 
-            width: 100%; height: 100%; object-fit: contain; 
-            transition: transform 1.2s ease; opacity: 0.95;
-        }
+        .img-container img { width: 100%; height: 100%; object-fit: contain; transition: transform 1.2s ease; opacity: 0.95; }
         .model-card:hover .img-container img { transform: scale(1.05); opacity: 1; }
 
         .btn-heart { 
@@ -141,27 +125,40 @@
         .card-details { padding: 30px 20px 40px; text-align: center; }
         .model-name { font-size: 22px; color: var(--text-main); margin-bottom: 5px; font-style: italic; }
         .model-ref { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase; }
+        .model-desc { font-size: 10px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; font-weight: 300; padding: 0 10px; }
+
+        /* ==========================================================================
+           BLOQUE DE PRECIOS Y BOTÓN SALTANDO
+           ========================================================================== */
+        .price-block { margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .price-row { display: flex; align-items: center; gap: 12px; }
+        .old-price { text-decoration: line-through; color: var(--text-muted); font-size: 13px; font-weight: 300; }
+        .new-price { font-size: 1.6rem; color: var(--accent-gold); font-family: 'Cormorant Garamond', serif; font-weight: 600; }
         
-        .model-desc {
-            font-size: 10px; color: var(--text-muted); line-height: 1.6;
-            margin-bottom: 20px; font-weight: 300; padding: 0 10px;
+        .jumping-label { 
+            background: rgba(30, 70, 40, 0.85); 
+            color: #b0ffc0; 
+            padding: 8px 12px; 
+            font-size: 7.5px; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            animation: jump 0.8s infinite alternate; 
+            border: 1px solid rgba(40, 100, 50, 0.5);
+            border-radius: 3px;
+            width: 90%;
+            line-height: 1.4;
         }
 
-        .model-price { font-size: 16px; color: var(--text-main); margin-bottom: 25px; letter-spacing: 1px; }
+        @keyframes jump { 0% { transform: translateY(0); } 100% { transform: translateY(-5px); } }
 
         /* ==========================================================================
            SELECTORES DE TALLA Y CANTIDAD
            ========================================================================== */
         .luxury-selectors { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; transition: var(--transition); }
-        .selector-label { 
-            font-size: 8px; text-transform: uppercase; letter-spacing: 2px; 
-            color: var(--text-muted); margin-bottom: 8px; display: block; 
-        }
+        .selector-label { font-size: 8px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 8px; display: block; }
         .sizes-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .size-box {
-            padding: 8px 0; width: 45px; border-bottom: 1px solid var(--border-light); 
-            color: var(--text-muted); font-size: 10px; cursor: pointer; transition: var(--transition);
-        }
+        .size-box { padding: 8px 0; width: 45px; border-bottom: 1px solid var(--border-light); color: var(--text-muted); font-size: 10px; cursor: pointer; transition: var(--transition); }
         .size-box:hover { color: var(--text-main); border-bottom-color: var(--text-main); }
         .size-box.active { color: var(--accent-gold); border-bottom-color: var(--accent-gold); }
 
@@ -170,94 +167,38 @@
         .qty-btn:hover { color: var(--text-main); }
         .qty-val { font-size: 13px; min-width: 15px; font-family: 'Cormorant Garamond', serif;}
 
-        .btn-buy { 
-            display: block; width: 100%; padding: 16px; background: transparent; 
-            border: 1px solid var(--border-light); color: var(--text-main); font-size: 9px; 
-            letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: var(--transition); 
-        }
+        .btn-buy { display: block; width: 100%; padding: 16px; background: transparent; border: 1px solid var(--border-light); color: var(--text-main); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: var(--transition); }
         .btn-buy:hover { background: var(--text-main); color: var(--bg-dark); }
 
         /* ==========================================================================
-           MODO SELECCIÓN RÁPIDA (ELEGIR MÚLTIPLES)
+           MODO SELECCIÓN RÁPIDA
            ========================================================================== */
         body.selection-mode .img-container { cursor: pointer; }
-        
-        body.selection-mode .img-container img {
-            animation: slowFloat 4s ease-in-out infinite alternate;
-        }
+        body.selection-mode .img-container img { animation: slowFloat 4s ease-in-out infinite alternate; }
+        @keyframes slowFloat { 0% { transform: translateY(0px) scale(1); } 100% { transform: translateY(-8px) scale(1.02); } }
 
-        @keyframes slowFloat {
-            0% { transform: translateY(0px) scale(1); }
-            100% { transform: translateY(-8px) scale(1.02); }
-        }
-
-        /* En modo selección, solo ocultamos el botón individual de compra y el corazón.
-           LAS TALLAS Y CANTIDADES SE MANTIENEN VISIBLES */
         body.selection-mode .btn-buy { display: none; }
         body.selection-mode .btn-heart { display: none; }
 
-        /* Indicador de seleccionado */
-        .select-indicator {
-            position: absolute; top: 20px; left: 20px; width: 25px; height: 25px;
-            border-radius: 50%; border: 1px solid var(--text-muted); background: rgba(0,0,0,0.5);
-            display: none; align-items: center; justify-content: center; z-index: 10;
-            color: transparent; transition: var(--transition); font-size: 12px;
-        }
+        .select-indicator { position: absolute; top: 20px; left: 20px; width: 25px; height: 25px; border-radius: 50%; border: 1px solid var(--text-muted); background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 10; color: transparent; transition: var(--transition); font-size: 12px; }
         body.selection-mode .select-indicator { display: flex; }
-
-        /* Tarjeta seleccionada */
         .model-card.selected { border-color: var(--accent-gold); box-shadow: 0 0 20px rgba(197, 160, 89, 0.1); }
         .model-card.selected .select-indicator { background: var(--accent-gold); border-color: var(--accent-gold); color: var(--bg-dark); }
         .model-card.selected .img-container img { animation-play-state: paused; transform: scale(1.05); opacity: 1;}
 
-        /* BOTÓN INFERIOR GIGANTE (MÁGICO) */
-        .magic-action-container {
-            position: fixed; bottom: 0; left: 0; width: 100%; 
-            background: rgba(7,7,7,0.95); backdrop-filter: blur(10px);
-            padding: 20px; text-align: center; z-index: 3000;
-            border-top: 1px solid var(--border-light);
-            transition: transform 0.5s ease;
-        }
+        /* BOTÓN INFERIOR GIGANTE */
+        .magic-action-container { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(7,7,7,0.95); backdrop-filter: blur(10px); padding: 20px; text-align: center; z-index: 3000; border-top: 1px solid var(--border-light); transition: transform 0.5s ease; }
+        .btn-magic { background: var(--text-main); color: var(--bg-dark); border: none; padding: 20px 60px; font-size: 11px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; cursor: pointer; transition: var(--transition); width: 100%; max-width: 600px; }
+        .btn-magic.pay-mode { background: var(--accent-gold); color: var(--bg-dark); animation: pulseGold 2s infinite; }
+        @keyframes pulseGold { 0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); } 100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); } }
 
-        .btn-magic {
-            background: var(--text-main); color: var(--bg-dark); border: none;
-            padding: 20px 60px; font-size: 11px; font-weight: 600; letter-spacing: 5px;
-            text-transform: uppercase; cursor: pointer; transition: var(--transition);
-            width: 100%; max-width: 600px;
-        }
-
-        .btn-magic.pay-mode {
-            background: var(--accent-gold); color: var(--bg-dark);
-            animation: pulseGold 2s infinite;
-        }
-
-        @keyframes pulseGold {
-            0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
-        }
-
-        /* ==========================================================================
-           NOTIFICACIÓN TOAST
-           ========================================================================== */
-        .toast { 
-            position: fixed; top: 100px; left: 50%; transform: translateX(-50%); 
-            background: var(--text-main); color: var(--bg-dark); padding: 15px 40px; 
-            font-size: 9px; font-weight: 500; z-index: 4000; 
-            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
-            letter-spacing: 2px; text-transform: uppercase;
-            opacity: 0; visibility: hidden;
-        }
+        /* NOTIFICACIÓN TOAST */
+        .toast { position: fixed; top: 100px; left: 50%; transform: translateX(-50%); background: var(--text-main); color: var(--bg-dark); padding: 15px 40px; font-size: 9px; font-weight: 500; z-index: 4000; transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); letter-spacing: 2px; text-transform: uppercase; opacity: 0; visibility: hidden; }
         .toast.show { opacity: 1; visibility: visible; }
 
-        /* ==========================================================================
-           FOOTER
-           ========================================================================== */
+        /* FOOTER */
         footer { padding: 60px 40px 150px; text-align: center; border-top: 1px solid var(--border-light); }
-        .contact-info { 
-            font-size: 9px; color: var(--text-muted); letter-spacing: 2px; 
-            text-transform: uppercase; line-height: 2.5; 
-        }
+        .contact-info { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; line-height: 2.5; }
         .contact-info strong { color: var(--text-main); font-weight: 400; }
 
         @media (max-width: 768px) {
@@ -284,13 +225,13 @@
         </div>
     </div>
 
-    <header id="smart-header">
+      <header id="smart-header">
         <nav class="nav-links">
             <a href="index.html">Inicio</a>
             <a href="dama.html">Dama</a>
             <a href="niña.html" class="active">Niña</a>
-            <a href="joyeria.html">Joyería</a>
-            <a href="acero.html">Acero VIP</a>
+            <a href="niño.html">Niño</a>
+            <a href="reventa.html">Reventa</a>
         </nav>
     </header>
 
@@ -305,10 +246,10 @@
 
     <section class="gallery-wrapper">
 
-        <article class="model-card" id="card-n1" data-id="n1" data-name="Dulce Ternura" data-ref="REF-70101" data-price="499" data-img="n1.jpg">
+        <article class="model-card" id="card-n1" data-id="n1" data-name="Dulce Ternura" data-ref="REF-70101" data-price="850" data-img="n1.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-n1')">
-                <button class="btn-heart" id="fav-n1" onclick="toggleHeart(event, 'n1', 'Dulce Ternura', 'REF-70101', 499, 'n1.jpg', this)">
+                <button class="btn-heart" id="fav-n1" onclick="toggleHeart(event, 'n1', 'Dulce Ternura', 'REF-70101', 850, 'n1.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="n1.jpg" alt="Vestido Dulce Ternura">
@@ -317,7 +258,15 @@
                 <h3 class="model-name">Dulce Ternura</h3>
                 <p class="model-ref">REF-70101</p>
                 <p class="model-desc">Confeccionado con tejidos suaves y transpirables, este vestido abraza la inocencia infantil con detalles de ensueño y un vuelo angelical.</p>
-                <p class="model-price">L. 499</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 1049</span>
+                        <span class="new-price">L. 850</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
+
                 <div class="luxury-selectors">
                     <div>
                         <span class="selector-label">Talla / Edad</span>
@@ -339,14 +288,14 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('n1', 'Dulce Ternura', 'REF-70101', 499, 'n1.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('n1', 'Dulce Ternura', 'REF-70101', 850, 'n1.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-n2" data-id="n2" data-name="Pequeña Estrella" data-ref="REF-70102" data-price="499" data-img="n2.jpg">
+        <article class="model-card" id="card-n2" data-id="n2" data-name="Pequeña Estrella" data-ref="REF-70102" data-price="1020" data-img="n2.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-n2')">
-                <button class="btn-heart" id="fav-n2" onclick="toggleHeart(event, 'n2', 'Pequeña Estrella', 'REF-70102', 499, 'n2.jpg', this)">
+                <button class="btn-heart" id="fav-n2" onclick="toggleHeart(event, 'n2', 'Pequeña Estrella', 'REF-70102', 1020, 'n2.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="n2.jpg" alt="Vestido Pequeña Estrella">
@@ -355,7 +304,15 @@
                 <h3 class="model-name">Pequeña Estrella</h3>
                 <p class="model-ref">REF-70102</p>
                 <p class="model-desc">Diseño radiante que hará brillar a las más pequeñas. Sus acabados premium garantizan libertad de movimiento y una elegancia absoluta.</p>
-                <p class="model-price">L. 499</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 1219</span>
+                        <span class="new-price">L. 1020</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
+
                 <div class="luxury-selectors">
                     <div>
                         <span class="selector-label">Talla / Edad</span>
@@ -377,14 +334,14 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('n2', 'Pequeña Estrella', 'REF-70102', 499, 'n2.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('n2', 'Pequeña Estrella', 'REF-70102', 1020, 'n2.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-n3" data-id="n3" data-name="Sueño Infantil" data-ref="REF-70103" data-price="499" data-img="n3.jpg">
+        <article class="model-card" id="card-n3" data-id="n3" data-name="Sueño Infantil" data-ref="REF-70103" data-price="395" data-img="n3.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-n3')">
-                <button class="btn-heart" id="fav-n3" onclick="toggleHeart(event, 'n3', 'Sueño Infantil', 'REF-70103', 499, 'n3.jpg', this)">
+                <button class="btn-heart" id="fav-n3" onclick="toggleHeart(event, 'n3', 'Sueño Infantil', 'REF-70103', 395, 'n3.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="n3.jpg" alt="Vestido Sueño Infantil">
@@ -393,7 +350,15 @@
                 <h3 class="model-name">Sueño Infantil</h3>
                 <p class="model-ref">REF-70103</p>
                 <p class="model-desc">Como sacado de un cuento de hadas. Una silueta clásica con sutiles toques de alta costura, ideal para celebraciones inolvidables.</p>
-                <p class="model-price">L. 499</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 594</span>
+                        <span class="new-price">L. 395</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
+
                 <div class="luxury-selectors">
                     <div>
                         <span class="selector-label">Talla / Edad</span>
@@ -412,14 +377,14 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('n3', 'Sueño Infantil', 'REF-70103', 499, 'n3.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('n3', 'Sueño Infantil', 'REF-70103', 395, 'n3.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-n4" data-id="n4" data-name="Encanto Mágico" data-ref="REF-70104" data-price="499" data-img="n4.jpg">
+        <article class="model-card" id="card-n4" data-id="n4" data-name="Encanto Mágico" data-ref="REF-70104" data-price="565" data-img="n4.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-n4')">
-                <button class="btn-heart" id="fav-n4" onclick="toggleHeart(event, 'n4', 'Encanto Mágico', 'REF-70104', 499, 'n4.jpg', this)">
+                <button class="btn-heart" id="fav-n4" onclick="toggleHeart(event, 'n4', 'Encanto Mágico', 'REF-70104', 565, 'n4.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="n4.jpg" alt="Vestido Encanto Mágico">
@@ -428,7 +393,15 @@
                 <h3 class="model-name">Encanto Mágico</h3>
                 <p class="model-ref">REF-70104</p>
                 <p class="model-desc">Magia en cada costura. Este vestido fusiona la comodidad necesaria para jugar con el glamour de las mejores boutiques europeas.</p>
-                <p class="model-price">L. 499</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 764</span>
+                        <span class="new-price">L. 565</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
+
                 <div class="luxury-selectors">
                     <div>
                         <span class="selector-label">Talla / Edad</span>
@@ -448,14 +421,14 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('n4', 'Encanto Mágico', 'REF-70104', 499, 'n4.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('n4', 'Encanto Mágico', 'REF-70104', 565, 'n4.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-n5" data-id="n5" data-name="Boutique Real" data-ref="REF-70105" data-price="599" data-img="n5.jpg">
+        <article class="model-card" id="card-n5" data-id="n5" data-name="Boutique Real" data-ref="REF-70105" data-price="455" data-img="n5.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-n5')">
-                <button class="btn-heart" id="fav-n5" onclick="toggleHeart(event, 'n5', 'Boutique Real', 'REF-70105', 599, 'n5.jpg', this)">
+                <button class="btn-heart" id="fav-n5" onclick="toggleHeart(event, 'n5', 'Boutique Real', 'REF-70105', 455, 'n5.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="n5.jpg" alt="Vestido Boutique Real">
@@ -464,7 +437,15 @@
                 <h3 class="model-name">Boutique Real</h3>
                 <p class="model-ref">REF-70105</p>
                 <p class="model-desc">Digno de la realeza infantil. Su estructura refinada y detalles artesanales lo convierten en la pieza protagonista de cualquier evento.</p>
-                <p class="model-price">L. 599</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 654</span>
+                        <span class="new-price">L. 455</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
+
                 <div class="luxury-selectors">
                     <div>
                         <span class="selector-label">Talla / Edad</span>
@@ -484,14 +465,14 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('n5', 'Boutique Real', 'REF-70105', 599, 'n5.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('n5', 'Boutique Real', 'REF-70105', 455, 'n5.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-n6" data-id="n6" data-name="Gala Infantil" data-ref="REF-70106" data-price="599" data-img="n6.jpg">
+        <article class="model-card" id="card-n6" data-id="n6" data-name="Gala Infantil" data-ref="REF-70106" data-price="455" data-img="n6.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-n6')">
-                <button class="btn-heart" id="fav-n6" onclick="toggleHeart(event, 'n6', 'Gala Infantil', 'REF-70106', 599, 'n6.jpg', this)">
+                <button class="btn-heart" id="fav-n6" onclick="toggleHeart(event, 'n6', 'Gala Infantil', 'REF-70106', 455, 'n6.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="n6.jpg" alt="Vestido Gala Infantil">
@@ -500,7 +481,15 @@
                 <h3 class="model-name">Gala Infantil</h3>
                 <p class="model-ref">REF-70106</p>
                 <p class="model-desc">Sofisticación en miniatura. Un diseño imponente con un corte magistral, pensado para que las niñas luzcan majestuosas en ceremonias.</p>
-                <p class="model-price">L. 599</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 654</span>
+                        <span class="new-price">L. 455</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
+
                 <div class="luxury-selectors">
                     <div>
                         <span class="selector-label">Talla / Edad</span>
@@ -517,14 +506,14 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('n6', 'Gala Infantil', 'REF-70106', 599, 'n6.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('n6', 'Gala Infantil', 'REF-70106', 455, 'n6.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
-        <article class="model-card" id="card-n7" data-id="n7" data-name="Esencia Pura" data-ref="REF-70107" data-price="599" data-img="n7.jpg">
+        <article class="model-card" id="card-n7" data-id="n7" data-name="Esencia Pura" data-ref="REF-70107" data-price="565" data-img="n7.jpg">
             <div class="select-indicator"><i class="fa-solid fa-check"></i></div>
             <div class="img-container" onclick="toggleSelection('card-n7')">
-                <button class="btn-heart" id="fav-n7" onclick="toggleHeart(event, 'n7', 'Esencia Pura', 'REF-70107', 599, 'n7.jpg', this)">
+                <button class="btn-heart" id="fav-n7" onclick="toggleHeart(event, 'n7', 'Esencia Pura', 'REF-70107', 565, 'n7.jpg', this)">
                     <i class="fas fa-heart"></i>
                 </button>
                 <img src="n7.jpg" alt="Vestido Esencia Pura">
@@ -533,7 +522,15 @@
                 <h3 class="model-name">Esencia Pura</h3>
                 <p class="model-ref">REF-70107</p>
                 <p class="model-desc">Minimalismo y pureza en su máxima expresión. Un vestido de líneas impecables que resalta la belleza natural y frescura de la niñez.</p>
-                <p class="model-price">L. 599</p>
+                
+                <div class="price-block">
+                    <div class="price-row">
+                        <span class="old-price">L. 764</span>
+                        <span class="new-price">L. 565</span>
+                    </div>
+                    <span class="jumping-label"><i class="fa-solid fa-truck-fast"></i> Envío Incluido hasta Choluteca desde España</span>
+                </div>
+
                 <div class="luxury-selectors">
                     <div>
                         <span class="selector-label">Talla / Edad</span>
@@ -553,7 +550,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-buy" onclick="addToCart('n7', 'Esencia Pura', 'REF-70107', 599, 'n7.jpg')">Añadir a la bolsa</button>
+                <button class="btn-buy" onclick="addToCart('n7', 'Esencia Pura', 'REF-70107', 565, 'n7.jpg')">Añadir a la bolsa</button>
             </div>
         </article>
 
@@ -568,8 +565,7 @@
     <footer>
         <div class="contact-info">
             <p>Boutique Infantil VIP</p>
-            <p>Directora Creativa: <strong>Abril Armas</strong></p>
-            <p>Disponibilidad en los departamentos de Choluteca y Valle, junto con sus respectivos municipios.</p>
+            <p>Disponibilidad en Choluteca.</p>
             <p style="margin-top: 30px; opacity: 0.3;">© 2026 ABRIL STORE | SHEIN VIP EXCLUSIVITÉ</p>
         </div>
     </footer>

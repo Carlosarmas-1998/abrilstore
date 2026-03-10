@@ -70,6 +70,7 @@
         
         .empty-cart-msg { text-align: center; padding: 50px 0; color: var(--text-muted); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
 
+        /* NUEVO MODAL DE JUSTIFICANTE (ANTES DE IR A STRIPE) */
         .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index: 5000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
         .modal-overlay.show { display: flex; }
         
@@ -84,16 +85,12 @@
         .btn-stripe { display: flex; align-items: center; justify-content: center; gap: 10px; background: #635bff; color: white; padding: 18px; width: 100%; text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
         .btn-stripe:hover { background: #5048e5; }
         
+        /* Loader */
         .loader-box { display: none; flex-direction: column; align-items: center; justify-content: center; }
         .spinner { width: 40px; height: 40px; border: 2px solid var(--border-light); border-top-color: var(--accent-gold); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;}
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        @media (max-width: 900px) {
-            .cart-wrapper { grid-template-columns: 1fr; }
-            header { padding: 0 20px; }
-            .item-img { width: 80px; height: 100px; }
-            .cart-item { padding: 15px; gap: 15px; }
-        }
+        @media (max-width: 900px) { .cart-wrapper { grid-template-columns: 1fr; } header { padding: 0 20px; } .item-img { width: 80px; height: 100px; } .cart-item { padding: 15px; gap: 15px; } }
     </style>
 </head>
 <body>
@@ -122,6 +119,7 @@
             <div class="summary-total"><span class="serif" style="font-style: italic;">Total</span><span id="summary-total" class="serif" style="color: var(--accent-gold);">L. 0</span></div>
 
             <form class="form-group" id="checkout-form">
+                
                 <input type="text" id="c-name" placeholder="Nombre Completo" required>
                 <input type="email" id="c-email" placeholder="Correo Electrónico (Para su recibo)" required>
                 <input type="tel" id="c-phone" placeholder="Teléfono / WhatsApp" required>
@@ -141,6 +139,7 @@
     </div>
 
     <div class="modal-overlay" id="receipt-modal">
+        
         <div class="loader-box" id="loader">
             <div class="spinner"></div>
             <h2 class="serif" style="color: var(--accent-gold); font-size: 24px;">Generando Orden VIP...</h2>
@@ -149,12 +148,10 @@
         <div class="receipt-card" id="receipt-card" style="display: none;">
             <i class="fa-solid fa-gem receipt-icon"></i>
             <h2 class="receipt-title">Orden Registrada</h2>
-            <p class="receipt-subtitle">Se ha guardado solamente en el historial de este cliente</p>
+            <p class="receipt-subtitle">Se ha guardado en "Mis Pedidos"</p>
             
             <div class="receipt-details">
-                <p><strong>Nº de Expediente:</strong> <span id="r-order-id"></span></p>
-                <p><strong>Cliente:</strong> <span id="r-client-name"></span></p>
-                <p><strong>Correo:</strong> <span id="r-client-email"></span></p>
+                <p><strong>Nº de Orden:</strong> <span id="r-order-id"></span></p>
                 <p><strong>Fecha Estimada de Entrega:</strong> <br><span id="r-date" style="color: var(--accent-gold);"></span></p>
                 <p><strong>Estado:</strong> Pendiente de Pago Internacional</p>
             </div>
@@ -167,35 +164,13 @@
             
             <button onclick="window.location.href='mis-pedidos.html'" style="background: transparent; border: none; color: var(--text-muted); font-size: 9px; text-transform: uppercase; letter-spacing: 2px; margin-top: 20px; cursor: pointer;">Pagar más tarde (Ver mis pedidos)</button>
         </div>
+
     </div>
 
     <script>
         let cart = JSON.parse(localStorage.getItem('abrilCart')) || [];
         let totalFinal = 0;
         let ordenDetalladaParaCorreo = "";
-
-        function normalizarEmail(email) {
-            return String(email || '').trim().toLowerCase();
-        }
-
-        function generarExpediente() {
-            const prefijo = 'ACC301222';
-            const aleatorio = Math.floor(100000 + Math.random() * 900000);
-            const sufijo = '30081998';
-            return `${prefijo}${aleatorio}${sufijo}`;
-        }
-
-        function obtenerPedidosPorEmail() {
-            return JSON.parse(localStorage.getItem('abrilOrdersByEmail')) || {};
-        }
-
-        function guardarPedidosPorEmail(data) {
-            localStorage.setItem('abrilOrdersByEmail', JSON.stringify(data));
-        }
-
-        function guardarEmailActual(email) {
-            localStorage.setItem('abrilCurrentClientEmail', normalizarEmail(email));
-        }
 
         function updateCartUI() {
             const container = document.getElementById('cart-container');
@@ -207,7 +182,7 @@
             totalFinal = 0;
             ordenDetalladaParaCorreo = "";
 
-            if (cart.length === 0) {
+            if(cart.length === 0) {
                 container.innerHTML = '<p class="empty-cart-msg">Su bolsa VIP se encuentra vacía.</p>';
                 countText.textContent = '0 artículos';
                 subtotalText.textContent = 'L. 0';
@@ -222,25 +197,20 @@
             countText.textContent = `${cart.length} artículo(s)`;
 
             cart.forEach((item, index) => {
-                const qty = Number(item.qty) || 1;
-                const price = Number(item.price) || 0;
-                const subtotalItem = price * qty;
+                totalFinal += item.price;
+                let metaInfo = `Ref: ${item.ref} | Cant: ${item.qty}`;
+                if(item.size) metaInfo += `<br>Talla/Edad: ${item.size}`;
+                if(item.customText) metaInfo += `<br>${item.customText}`;
 
-                totalFinal += subtotalItem;
-
-                let metaInfo = `Ref: ${item.ref || '-'} | Cant: ${qty}`;
-                if (item.size) metaInfo += `<br>Talla/Edad: ${item.size}`;
-                if (item.customText) metaInfo += `<br>${item.customText}`;
-
-                ordenDetalladaParaCorreo += `- ${qty}x ${item.name} | Ref: ${item.ref || '-'} | L.${subtotalItem}\n`;
+                ordenDetalladaParaCorreo += `- ${item.qty}x ${item.name} | L.${item.price}\n`;
 
                 container.innerHTML += `
                     <div class="cart-item">
-                        <img src="${item.img}" class="item-img" alt="${item.name}">
+                        <img src="${item.img}" class="item-img">
                         <div class="item-details">
                             <h3 class="item-name serif">${item.name}</h3>
                             <p class="item-meta">${metaInfo}</p>
-                            <p class="item-price serif">L. ${subtotalItem}</p>
+                            <p class="item-price serif">L. ${item.price}</p>
                         </div>
                         <button class="btn-remove" onclick="removeItem(${index})"><i class="fa-solid fa-xmark"></i></button>
                     </div>
@@ -257,22 +227,14 @@
             updateCartUI();
         }
 
+        // CONTROL DEL PEDIDO
         const form = document.getElementById('checkout-form');
         
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            if (cart.length === 0) return;
+            if(cart.length === 0) return;
 
-            const clienteNombre = document.getElementById('c-name').value.trim();
-            const clienteEmail = normalizarEmail(document.getElementById('c-email').value);
-            const clienteTel = document.getElementById('c-phone').value.trim();
-            const destino = document.getElementById('c-city').value;
-
-            if (!clienteNombre || !clienteEmail || !clienteTel || !destino) {
-                alert("Complete todos los datos del cliente.");
-                return;
-            }
-
+            // 1. Mostrar pantalla de carga
             const modal = document.getElementById('receipt-modal');
             const loader = document.getElementById('loader');
             const receipt = document.getElementById('receipt-card');
@@ -281,36 +243,37 @@
             loader.style.display = 'flex';
             receipt.style.display = 'none';
 
-            const idPedido = generarExpediente();
+            // 2. Crear los datos del pedido
+            const idPedido = 'VIP-' + Math.floor(Math.random() * 1000000);
             const hoy = new Date();
             const fechaEntrega = new Date(hoy);
             fechaEntrega.setDate(fechaEntrega.getDate() + 28);
             const opcionesFecha = { day: 'numeric', month: 'long', year: 'numeric' };
             const fechaEstimadaStr = fechaEntrega.toLocaleDateString('es-ES', opcionesFecha);
+            
             const totalStr = `L. ${totalFinal}`;
+            const clienteNombre = document.getElementById('c-name').value;
+            const clienteEmail = document.getElementById('c-email').value;
+            const clienteTel = document.getElementById('c-phone').value;
+            const destino = document.getElementById('c-city').value;
 
+            // 3. Guardar el pedido en "Mis Pedidos" localmente
             const nuevoPedido = {
                 idPedido: idPedido,
                 fechaCompra: hoy.toLocaleDateString('es-ES', opcionesFecha),
                 fechaEntregaEstimada: `Aprox. el ${fechaEstimadaStr}`,
                 cliente: clienteNombre,
-                email: clienteEmail,
-                telefono: clienteTel,
                 destino: destino,
                 items: [...cart],
                 total: totalStr,
-                estado: 'Pendiente de Pago'
+                estado: 'Pendiente de Pago' 
             };
 
-            const pedidosPorEmail = obtenerPedidosPorEmail();
-            if (!pedidosPorEmail[clienteEmail]) {
-                pedidosPorEmail[clienteEmail] = [];
-            }
+            let orders = JSON.parse(localStorage.getItem('abrilOrders')) || [];
+            orders.unshift(nuevoPedido);
+            localStorage.setItem('abrilOrders', JSON.stringify(orders));
 
-            pedidosPorEmail[clienteEmail].unshift(nuevoPedido);
-            guardarPedidosPorEmail(pedidosPorEmail);
-            guardarEmailActual(clienteEmail);
-
+            // 4. Enviar notificación silenciosa a tu correo usando Web3Forms
             const formData = new FormData();
             formData.append("access_key", "b74be360-5d4a-4506-b071-f1ec4ff4d64b");
             formData.append("subject", `💎 NUEVO PEDIDO: ${idPedido}`);
@@ -318,7 +281,6 @@
             formData.append("Correo", clienteEmail);
             formData.append("Whatsapp", clienteTel);
             formData.append("Destino", destino);
-            formData.append("Numero_Expediente", idPedido);
             formData.append("Total_a_Cobrar", totalStr);
             formData.append("Detalle", ordenDetalladaParaCorreo);
 
@@ -327,19 +289,17 @@
                 body: formData
             })
             .then(() => {
+                // Vaciamos el carrito porque ya se guardó en Mis Pedidos
                 localStorage.removeItem('abrilCart');
-                cart = [];
-
+                
+                // Llenamos los datos del recibo visual
                 document.getElementById('r-order-id').textContent = idPedido;
-                document.getElementById('r-client-name').textContent = clienteNombre;
-                document.getElementById('r-client-email').textContent = clienteEmail;
                 document.getElementById('r-date').textContent = fechaEstimadaStr;
                 document.getElementById('r-total').textContent = totalStr;
 
+                // Ocultamos loader, mostramos el recibo con el botón de Stripe
                 loader.style.display = 'none';
                 receipt.style.display = 'block';
-
-                updateCartUI();
             })
             .catch(() => {
                 alert("Hubo un problema de conexión, por favor intente de nuevo.");
