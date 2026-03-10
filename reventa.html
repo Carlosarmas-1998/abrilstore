@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>REVENTA VIP | ABRIL STORE</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,600&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
@@ -21,9 +21,9 @@
             --border-light: rgba(255, 255, 255, 0.05);
             --transition-luxe: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Montserrat', sans-serif; font-weight: 300; background-color: var(--bg-dark); color: var(--text-main); -webkit-font-smoothing: antialiased; letter-spacing: 0.5px;}
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'Montserrat', sans-serif; font-weight: 300; background-color: var(--bg-dark); color: var(--text-main); -webkit-font-smoothing: antialiased; letter-spacing: 0.5px; overflow-x: hidden; width: 100%; }
         h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: 1px; }
 
         /* HEADER */
@@ -41,11 +41,11 @@
             color: var(--text-muted); transition: var(--transition-luxe); text-decoration: none;
         }
         .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
-        main { padding-top: 80px; }
+        main { padding-top: 80px; width: 100%; }
 
         /* PÁGINA HEADER */
         .page-header { padding: 80px 20px 30px; text-align: center; border-bottom: 1px solid var(--border-light); }
-        .page-header h1 { font-size: 2.8rem; color: var(--accent-gold); font-style: italic; margin-bottom: 10px; font-weight: 300; }
+        .page-header h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--accent-gold); font-style: italic; margin-bottom: 10px; font-weight: 300; }
         .page-header p { font-size: 10px; text-transform: uppercase; letter-spacing: 5px; color: var(--text-muted); font-weight: 200; }
 
         /* ==========================================================================
@@ -56,7 +56,7 @@
         
         /* GALERÍA DE FOTOS */
         .gallery-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center;}
-        .main-image-container { position: relative; width: 100%; height: 400px; max-height: 400px; background: var(--bg-dark); margin-bottom: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: none; }
+        .main-image-container { position: relative; width: 100%; height: 400px; background: var(--bg-dark); margin-bottom: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: none; }
         .main-image { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1); opacity: 1; }
         
         .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.4); border: none; background: transparent; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition-luxe); z-index: 10; font-size: 16px;}
@@ -64,19 +64,19 @@
         .prev-arrow { left: -10px; }
         .next-arrow { right: -10px; }
 
-        .thumbnails-container { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; max-width: 100%; scrollbar-width: none; }
+        .thumbnails-container { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; max-width: 100%; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .thumbnails-container::-webkit-scrollbar { display: none; }
         .thumb { width: 45px; height: 60px; object-fit: contain; cursor: pointer; border: 1px solid transparent; opacity: 0.4; transition: var(--transition-luxe); flex-shrink: 0; background: var(--bg-card); }
         .thumb:hover { opacity: 1; }
         .thumb.active { border-color: rgba(197, 160, 89, 0.6); opacity: 1; }
 
         /* INFORMACIÓN DEL COMBO */
-        .combo-info { padding-top: 0; }
+        .combo-info { padding-top: 0; width: 100%; }
         .combo-badge { display: inline-block; color: var(--accent-gold); padding: 0; font-size: 9px; text-transform: uppercase; letter-spacing: 4px; font-weight: 300; margin-bottom: 12px; }
-        .combo-title { font-size: 2.2rem; color: var(--text-main); margin-bottom: 18px; line-height: 1.1; font-weight: 300; font-style: italic; }
+        .combo-title { font-size: clamp(1.5rem, 4vw, 2.2rem); color: var(--text-main); margin-bottom: 18px; line-height: 1.1; font-weight: 300; font-style: italic; }
         
-        .price-block { margin-bottom: 22px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-        .price-row { display: flex; align-items: center; gap: 12px; }
+        .price-block { margin-bottom: 22px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+        .price-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
         .old-price { text-decoration: line-through; color: var(--text-muted); font-size: 14px; font-family: 'Montserrat', sans-serif; font-weight: 200; }
         .new-price { font-size: 2rem; color: var(--accent-gold); font-family: 'Cormorant Garamond', serif; font-weight: 400; }
         
@@ -109,9 +109,8 @@
         .size-group { display: flex; flex-direction: column; }
         .size-group:last-child { grid-column: 1 / -1; } 
         .size-group label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-        .size-group select { background: transparent; border: 1px solid var(--border-light); color: var(--text-main); padding: 8px; font-family: 'Montserrat', sans-serif; font-size: 10px; outline: none; cursor: pointer; transition: var(--transition-luxe); }
+        .size-group select { background: transparent; border: 1px solid var(--border-light); color: var(--text-main); padding: 10px; font-family: 'Montserrat', sans-serif; font-size: 11px; outline: none; cursor: pointer; transition: var(--transition-luxe); -webkit-appearance: none; border-radius: 0; }
         .size-group select:focus, .size-group select:hover { border-color: var(--accent-gold); }
-        .size-group select option { background: var(--bg-card); color: var(--text-main); }
 
         /* Botón de compra Minimalista */
         .btn-reserve { display: block; width: 100%; padding: 18px; background: transparent; color: var(--accent-gold); text-align: center; text-decoration: none; font-size: 10px; font-weight: 400; text-transform: uppercase; letter-spacing: 5px; transition: var(--transition-luxe); border: 1px solid var(--accent-gold); cursor: pointer; }
@@ -156,16 +155,16 @@
 
         /* RESPONSIVE */
         @media (max-width: 800px) {
+            header { padding: 10px 20px; }
             .header-left, .header-right { width: 40px; }
             .nav-links { display: none; }
-            .combo-container { grid-template-columns: 1fr; gap: 40px; margin: 0 auto; padding: 60px 20px; }
-            .main-image-container { height: 300px; max-height: 300px; margin-bottom: 10px;}
+            .logo { font-size: 18px; letter-spacing: 6px; }
+            .combo-container { grid-template-columns: 1fr; gap: 40px; margin: 0 auto; padding: 40px 20px; }
+            .main-image-container { height: 320px; margin-bottom: 10px;}
             .combo-badge { text-align: center; width: 100%; }
-            .combo-title { font-size: 1.8rem; text-align: center; width: 100%;}
+            .combo-title { text-align: center; width: 100%;}
             .price-block { align-items: center; width: 100%; }
-            .thumb { width: 40px; height: 55px; }
-            header { padding: 10px 20px; }
-            .page-header h1 { font-size: 2.2rem; }
+            .price-row { justify-content: center; }
             .size-selectors { grid-template-columns: 1fr; } 
             .coming-soon-title { font-size: 1.8rem; }
         }
