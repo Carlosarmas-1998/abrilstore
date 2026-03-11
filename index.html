@@ -279,7 +279,7 @@
         <div class="hero-image"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <div class="special-label">Curaduría de Alta Costura</div>
+            <div class="special-label">Prendas de calidad garantizada</div>
             <h1>Colecciones<br>Exclusivas</h1>
             <p class="shein-vip-label">IMPORTACIÓN PRIVADA | ENTREGA EN CHOLUTECA</p>
             <div class="collection-links">
@@ -333,7 +333,7 @@
     <!-- MODAL FORMULARIO VIP ORIGINAL -->
     <div class="modal-form-overlay" id="request-modal">
         <div class="modal-form-box">
-            <button class="close-form" id="close-form-btn"><i class="fa-solid fa-xmark"></i></button>
+            <button class="close-form" id="close-form-btn" type="button"><i class="fa-solid fa-xmark"></i></button>
             <div class="form-header">
                 <h2>Tu Deseo</h2>
                 <p>Déjanos tus datos y la foto de lo que buscas</p>
@@ -341,9 +341,12 @@
             
             <form action="https://formspree.io/f/b74be360-5d4a-4506-b071-f1ec4ff4d64b" method="POST" enctype="multipart/form-data" class="custom-form" id="vip-form">
                 
-                <input type="text" id="input-nombre" placeholder="Tu Nombre Completo" required>
-                <input type="text" id="input-contacto" placeholder="Tu número de WhatsApp o Correo" required>
-                <textarea id="input-desc" rows="3" placeholder="Describe brevemente lo que quieres..." required></textarea>
+                <input type="hidden" name="Tipo_Solicitud" value="ENCARGO EXCLUSIVO VIP">
+                <input type="hidden" name="Asunto_Formulario" value="SOLICITUD VIP ABRIL STORE">
+                
+                <input type="text" id="input-nombre" name="Nombre_Completo" placeholder="Tu Nombre Completo" required>
+                <input type="text" id="input-contacto" name="Contacto" placeholder="Tu número de WhatsApp o Correo" required>
+                <textarea id="input-desc" name="Descripcion_Solicitud" rows="3" placeholder="Describe brevemente lo que quieres..." required></textarea>
                 
                 <input type="hidden" name="Mensaje_Del_Cliente" id="mensaje-final">
                 
@@ -362,7 +365,7 @@
     <!-- NUEVO MODAL CREAR TIENDA -->
     <div class="modal-form-overlay" id="store-modal">
         <div class="modal-form-box">
-            <button class="close-form" id="close-store-form-btn"><i class="fa-solid fa-xmark"></i></button>
+            <button class="close-form" id="close-store-form-btn" type="button"><i class="fa-solid fa-xmark"></i></button>
             <div class="form-header">
                 <h2>Crea Tu Tienda Sin Inversión</h2>
                 <p>Solicitud de incorporación comercial</p>
@@ -370,6 +373,8 @@
 
             <form action="https://formspree.io/f/b74be360-5d4a-4506-b071-f1ec4ff4d64b" method="POST" class="custom-form" id="store-form">
                 <input type="hidden" name="Tipo_Solicitud" value="CREA TU TIENDA SIN INVERSION">
+                <input type="hidden" name="Asunto_Formulario" value="SOLICITUD CREAR TIENDA ABRIL STORE">
+
                 <input type="text" id="store-nombre" name="Nombre_Completo" placeholder="Nombre completo" required>
                 <input type="text" id="store-dni" name="DNI" placeholder="DNI / Identidad" required>
                 <input type="tel" id="store-telefono" name="Telefono" placeholder="Teléfono" required>
@@ -424,7 +429,7 @@
 
     <div class="modal-manifesto" id="manifesto-modal">
         <div class="modal-manifesto-content">
-            <button class="close-modal-manifesto" id="close-manifesto"><i class="fa-solid fa-xmark"></i></button>
+            <button class="close-modal-manifesto" id="close-manifesto" type="button"><i class="fa-solid fa-xmark"></i></button>
             <div class="manifesto-title">
                 Manifiesto d'Élégance<span>ABRIL STORE EXCLUSIVITÉ</span>
             </div>
@@ -465,10 +470,13 @@
             modalManifiesto.classList.add('show'); 
             document.body.style.overflow = 'hidden'; 
         });
+
         btnCerrarManifiesto.addEventListener('click', cerrarManifiesto);
+
         modalManifiesto.addEventListener('click', (e) => { 
             if (e.target === modalManifiesto) cerrarManifiesto(); 
         });
+
         function cerrarManifiesto() { 
             modalManifiesto.classList.remove('show'); 
             document.body.style.overflow = ''; 
@@ -484,33 +492,43 @@
             modalForm.classList.add('show'); 
             document.body.style.overflow = 'hidden'; 
         });
+
         btnCerrarForm.addEventListener('click', cerrarFormulario);
+
         modalForm.addEventListener('click', (e) => { 
             if (e.target === modalForm) cerrarFormulario(); 
         });
+
         function cerrarFormulario() { 
             modalForm.classList.remove('show'); 
             document.body.style.overflow = ''; 
         }
 
         fileInput.addEventListener('change', function() {
-            if(this.files && this.files.length > 0) {
+            if (this.files && this.files.length > 0) {
                 fileLabelText.innerHTML = '<i class="fa-solid fa-check"></i> Foto lista: ' + this.files[0].name;
                 fileLabelText.style.borderColor = "var(--accent-gold)";
                 fileLabelText.style.background = "rgba(197, 160, 89, 0.2)";
             } else {
                 fileLabelText.innerHTML = '<i class="fa-solid fa-camera"></i> Toca aquí para subir la foto';
                 fileLabelText.style.background = "transparent";
+                fileLabelText.style.borderColor = "var(--accent-gold)";
             }
         });
 
         // FORMATEO DEL MENSAJE PARA EL CORREO VIP
-        document.getElementById('vip-form').addEventListener('submit', function(e) {
-            const nombre = document.getElementById('input-nombre').value;
-            const contacto = document.getElementById('input-contacto').value;
-            const desc = document.getElementById('input-desc').value;
+        document.getElementById('vip-form').addEventListener('submit', function() {
+            const nombre = document.getElementById('input-nombre').value.trim();
+            const contacto = document.getElementById('input-contacto').value.trim();
+            const desc = document.getElementById('input-desc').value.trim();
             
-            const mensajeFinal = `HOLA SOY ${nombre} ${contacto} Y ${desc} GRACIAS`;
+            const mensajeFinal = `
+SOLICITUD: ENCARGO EXCLUSIVO VIP
+NOMBRE: ${nombre}
+CONTACTO: ${contacto}
+DESCRIPCION: ${desc}
+            `.trim();
+
             document.getElementById('mensaje-final').value = mensajeFinal.toUpperCase();
         });
 
@@ -595,9 +613,9 @@ ACEPTO TERMINOS: ${aceptaTerminos}
 
         document.addEventListener('keydown', (e) => { 
             if (e.key === 'Escape') {
-                if(modalManifiesto.classList.contains('show')) cerrarManifiesto();
-                if(modalForm.classList.contains('show')) cerrarFormulario();
-                if(storeModal.classList.contains('show')) cerrarStoreFormulario();
+                if (modalManifiesto.classList.contains('show')) cerrarManifiesto();
+                if (modalForm.classList.contains('show')) cerrarFormulario();
+                if (storeModal.classList.contains('show')) cerrarStoreFormulario();
             }
         });
 
